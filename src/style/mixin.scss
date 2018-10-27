@@ -1,0 +1,26 @@
+@import './variables';
+
+@mixin ellipsis{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin flex($flex-direction:row,$justify-content:center,$align-items:center,$align-content:'',$flex-wrap:wrap){
+  display: flex;
+  flex-direction:$flex-direction;
+  flex-wrap: $flex-wrap;
+  justify-content: $justify-content;
+  @if $align-content != ''{
+    align-content:$align-content
+  }@else{
+    align-items: $align-items;
+  }
+}
+
+@mixin btn($background:$bg-color,$width:$md){
+  background: $background;
+  width:$width;
+  color:white;
+  font-weight: bold;
+}
