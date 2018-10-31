@@ -1,9 +1,10 @@
 import axios from 'src/util/axios'
 import {BASE_URL} from '../config'
 import Vue from 'vue'
-import store from '../store/store'
+import store from '../store'
 import {showFullScreenLoading} from "./loading";
 import {tryHideFullScreenLoading} from "./loading";
+import {Message} from "../components/Message";
 
 let $axios = axios.create({
     baseURL: BASE_URL,            //api请求的baseURL
@@ -15,10 +16,9 @@ let $axios = axios.create({
     },
     transformResponse: [function (data) {
         try {
-            // console.log(`axios响应的数据:`,data)
             data = JSON.parse(data);
         } catch (e) {
-            console.warn(`axios响应解析错误:${e}`)
+            console.warn(`JSON字符串解析错误:${e}`)
             data = {};
         }
         return data;
@@ -38,7 +38,7 @@ $axios.interceptors.request.use( (config)=> {
 }, function (error) {
     tryHideFullScreenLoading()
     console.log('axios请求失败',error)
-    Vue.prototype.$message({
+    Message({
         showClose: true,
         message: `服务器请求失败${error.message}`,
         type: 'error'
@@ -53,7 +53,7 @@ $axios.interceptors.response.use( (response) =>{
     switch (response.data.status) {
         //响应成功，但是服务器返回找不到数据
         case '0':{
-            Vue.prototype.$message({
+            Message({
                 showClose: true,
                 message: response.data.msg,
                 type: 'error'
@@ -63,7 +63,7 @@ $axios.interceptors.response.use( (response) =>{
         }
         //没有登录权限
         case '-1':{
-            Vue.prototype.$message({
+            Message({
                 showClose: true,
                 message: `登录失效请重新登录`,
                 duration:1200,
@@ -75,7 +75,7 @@ $axios.interceptors.response.use( (response) =>{
             return response;
         }
         default:
-            Vue.prototype.$message({
+            Message({
                 showClose: true,
                 message: `未知错误`,
                 type: 'error'
@@ -85,7 +85,7 @@ $axios.interceptors.response.use( (response) =>{
 }, function (error) {
     console.log('axios响应失败',error)
     tryHideFullScreenLoading()
-    Vue.prototype.$message({
+    Message({
         showClose: true,
         message: `服务器响应失败,错误信息: ${error.message}`,
         type: 'error'
