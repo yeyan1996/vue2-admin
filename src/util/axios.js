@@ -1,4 +1,4 @@
-import axios from 'src/util/axios'
+import axios from 'axios'
 import {BASE_URL} from '../config'
 import Vue from 'vue'
 import store from '../store'
