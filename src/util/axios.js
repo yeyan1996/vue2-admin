@@ -54,7 +54,6 @@ $axios.interceptors.response.use( (response) =>{
         //响应成功，但是服务器返回找不到数据
         case '0':{
             Message({
-                showClose: true,
                 message: response.data.msg,
                 type: 'error'
             });
@@ -64,9 +63,7 @@ $axios.interceptors.response.use( (response) =>{
         //没有登录权限
         case '-1':{
             Message({
-                showClose: true,
                 message: `登录失效请重新登录`,
-                duration:1200,
                 type: 'error',
             });
             return Promise.reject(response)
@@ -76,7 +73,6 @@ $axios.interceptors.response.use( (response) =>{
         }
         default:
             Message({
-                showClose: true,
                 message: `未知错误`,
                 type: 'error'
             });
@@ -86,7 +82,6 @@ $axios.interceptors.response.use( (response) =>{
     console.log('axios响应失败',error)
     tryHideFullScreenLoading()
     Message({
-        showClose: true,
         message: `服务器响应失败,错误信息: ${error.message}`,
         type: 'error'
     });
