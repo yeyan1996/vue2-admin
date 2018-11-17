@@ -39,7 +39,6 @@ $axios.interceptors.request.use( (config)=> {
     tryHideFullScreenLoading()
     console.log('axios请求失败',error)
     Message({
-        showClose: true,
         message: `服务器请求失败${error.message}`,
         type: 'error'
     });
