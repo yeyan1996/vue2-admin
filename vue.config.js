@@ -1,4 +1,5 @@
 const path = require('path')
+const env = process.env.NODE_ENV === 'production' ? 'production' : 'development'
 
 function resolve (dir) {
     return path.join(__dirname, dir)
@@ -7,7 +8,7 @@ function resolve (dir) {
 module.exports = {
     baseUrl:'',
     chainWebpack: config => {
-        if( process.env.NODE_ENV === 'production'){
+        if( env === 'production'){
             config
                 .plugin('webpack-bundle-analyzer')
                 .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)

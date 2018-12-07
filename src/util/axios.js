@@ -1,6 +1,5 @@
 import axios from 'axios'
 import {BASE_URL} from '../config'
-import Vue from 'vue'
 import store from '../store'
 import {showFullScreenLoading} from "./loading";
 import {tryHideFullScreenLoading} from "./loading";
@@ -8,33 +7,21 @@ import {Message} from "../components/Message";
 
 let $axios = axios.create({
     baseURL: BASE_URL,            //api请求的baseURL
-    timeout: 1000 * 60 * 60 ,
-    // withCredentials: true, // 允许跨域 cookie
-
+    timeout: 1000 * 60 * 3,
     headers: {
-        'content-type': 'application/json'
+        'X-Requested-With': 'XMLHttpRequest',
     },
-    transformResponse: [function (data) {
-        try {
-            data = JSON.parse(data);
-        } catch (e) {
-            console.warn(`JSON字符串解析错误:${e}`)
-            data = {};
-        }
-        return data;
-    }]
 })
 
 
 $axios.interceptors.request.use( (config)=> {
-    if(config.method ==='post' &&  Object.getPrototypeOf(config.data) === Object.prototype ){
+    if(config.data &&  config.data.constructor === Object ){
         config.data = JSON.stringify(config.data)
     }
     // 在发送请求之前做些什么
     showFullScreenLoading()
-
     return config;
-   //请求失败的操作
+    //请求失败的操作
 }, function (error) {
     tryHideFullScreenLoading()
     console.log('axios请求失败',error)
@@ -53,10 +40,9 @@ $axios.interceptors.response.use( (response) =>{
         //响应成功，但是服务器返回找不到数据
         case '0':{
             Message({
-                message: response.data.msg,
+                message: response.data.message,
                 type: 'error'
             });
-            // return
             return Promise.reject(response)
         }
         //没有登录权限
@@ -75,6 +61,7 @@ $axios.interceptors.response.use( (response) =>{
                 message: `未知错误`,
                 type: 'error'
             });
+            console.log('后台返回status错误')
             return Promise.reject(response)
     }
 }, function (error) {
