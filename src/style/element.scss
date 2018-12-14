@@ -1,0 +1,19 @@
+//修改elementui样式
+
+//表头样式
+.el-table {
+  th.gutter {
+    display: table-cell !important;
+  }
+  td {
+    text-align: center !important;
+  }
+  //修复表格边缘会有突出一点的线
+  th.is-leaf, .el-table td {
+    border: none;
+  }
+}
+
+
+
+

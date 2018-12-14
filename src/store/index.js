@@ -1,26 +1,27 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import global from './modules/global'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
     modules: {
-
+        global
     },
 })
 
 if (module.hot) {
 
     module.hot.accept([
-        // './modules/login',
+        './modules/global',
     ], () => {
 
-        // const login = require('./modules/login').default
+        const global = require('./modules/global').default
 
         // 加载新模块
         store.hotUpdate({
             modules: {
-                // login,
+                global,
             }
         })
     })

@@ -2,11 +2,23 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router/router'
 import store from './store'
-import '@/element/element'
+import * as filters from './filters' // global filters
 import './icons'
-import 'normalize.css/normalize.css' // A modern alternative to CSS resets
+import '@/element/element'
+import '@/components/VTable'
+import '@/components/Pagination'
+
 
 Vue.config.productionTip = false
+
+const hacks = require('viewport-units-buggyfill/viewport-units-buggyfill.hacks');
+require('viewport-units-buggyfill').init({
+    hacks: hacks
+});
+
+Object.keys(filters).forEach(key => {
+    Vue.filter(key, filters[key])
+})
 
 new Vue({
   router,

@@ -4,4 +4,4 @@
      ' https://easy-mock.com/mock/5bcd28e5843f0a4819f792ae/example' //mock接口
     // 'https://localhost:3000'    //联调接口
 
-
+ export const PAGE_SIZE = 50  //默认页数(用户可修改)
