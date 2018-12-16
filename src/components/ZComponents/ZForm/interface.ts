@@ -1,5 +1,6 @@
 export interface FormItem {
     tag:string,
+    slot?:string
     label:string,
     key:string,
     value?:string | any[],

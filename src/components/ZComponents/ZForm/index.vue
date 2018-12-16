@@ -63,8 +63,8 @@
             }
         },
         methods: {
-            isFunction(expectedFunction) {
-                return typeof expectedFunction === 'function'
+            isFunction(expectFunction) {
+                return typeof expectFunction === 'function'
             },
             computeFormItem(formItem, Model) {
                 const item = {...formItem};

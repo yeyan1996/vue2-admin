@@ -37,6 +37,13 @@ exports.basic = {
     },
     "checkbox-group": {
         component: 'z-checkbox-group',
+    },
+    "cascader": {
+        component: 'el-cascader',
+        attrs: {
+            placeholder: "请选择",
+            clearable: true,
+        }
     }
 };
 //# sourceMappingURL=BASIC.js.map

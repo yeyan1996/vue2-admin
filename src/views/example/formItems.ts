@@ -1,6 +1,6 @@
 import {FormItem} from "../../components/ZComponents/ZForm/interface";
 
-export const formItems:Array<FormItem> = [
+export const formItems: Array<FormItem> = [
     {
         "tag": "input",
         "label": "姓名",
@@ -9,7 +9,7 @@ export const formItems:Array<FormItem> = [
         "attrs": {
             placeholder: "请输入姓名",
         },
-        getAttrs(form) {    //返回一个被合并到当前props属性里的对象
+        getAttrs(form) {    //返回一个被合并到当前attrs属性里的对象
             return form.age === "22" ? {disabled: true} : null
         },
     },
@@ -61,6 +61,15 @@ export const formItems:Array<FormItem> = [
         }
     },
     {
+        "tag": "radio",
+        "label": "调用后端接口-单选框",
+        "value": "1",
+        "key": "asyncRadio",
+        "attrs": {
+            "options": []
+        }
+    },
+    {
         "tag": "checkbox-group",
         "label": "复选框",
         "value": ["1"],
@@ -71,6 +80,27 @@ export const formItems:Array<FormItem> = [
                 {value: "2", label: "复选框2"},
                 {value: "3", label: "复选框3"},
             ]
+        }
+    },
+    {
+        "tag": "checkbox-group",
+        "label": "复选框",
+        "value": ["1"],
+        "key": "checkbox",
+        "attrs": {
+            "options": [
+                {value: "1", label: "复选框1"},
+                {value: "2", label: "复选框2"},
+                {value: "3", label: "复选框3"},
+            ]
+        }
+    },
+    {
+        "tag": "cascader",
+        "label": "级联选择器",
+        "key": "cascader",
+        "attrs": {
+            "options": []
         }
     },
 ]

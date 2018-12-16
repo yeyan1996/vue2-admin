@@ -15,7 +15,6 @@
 <script>
     export default {
         name: 'Z-radio-group',
-        // inheritAttrs: false,
         data() {
             return {
             };
@@ -24,11 +23,6 @@
             value:{
                 default:''
             }
-            // 单选列表
-            // options: {
-            //     type: Array,
-            //     default: () => []
-            // },
         },
         methods: {
             change(val) {
