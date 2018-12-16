@@ -74,7 +74,7 @@
                 let basicItem = basic[tag]
                 item.tag = basicItem.component;
                 item.attrs = Object.assign({}, basicItem.attrs, item.attrs)
-                item.listeners = Object.assign({}, basicItem.listeners, item.listeners)
+                // item.listeners = Object.assign({}, basicItem.listeners, item.listeners)
                 // 获取动态 Attributes
                 if (item.getAttrs) item.attrs = Object.assign(item.attrs, item.getAttrs(Model))
                 // 条件渲染

@@ -83,19 +83,6 @@ export const formItems: Array<FormItem> = [
         }
     },
     {
-        "tag": "checkbox-group",
-        "label": "复选框",
-        "value": ["1"],
-        "key": "checkbox",
-        "attrs": {
-            "options": [
-                {value: "1", label: "复选框1"},
-                {value: "2", label: "复选框2"},
-                {value: "3", label: "复选框3"},
-            ]
-        }
-    },
-    {
         "tag": "cascader",
         "label": "级联选择器",
         "key": "cascader",
