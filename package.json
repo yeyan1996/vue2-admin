@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "element-ui": "^2.4.9",
+    "viewport-units-buggyfill": "^0.6.2",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"

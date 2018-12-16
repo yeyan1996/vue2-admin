@@ -1,0 +1,39 @@
+<template>
+    <el-checkbox-group
+            v-bind="$attrs"
+            :value="value"
+            v-on="$listeners"
+            @change="change">
+        <el-checkbox
+                v-for="item in $attrs.options"
+                :key="item.value || item.label"
+                :label="item.value || item.label">
+            {{item.label}}
+        </el-checkbox>
+    </el-checkbox-group>
+</template>
+<script>
+    export default {
+        name: 'Z-checkbox-group',
+        // inheritAttrs: false,
+        data() {
+            return {
+            };
+        },
+        props: {
+            value:{
+                default:''
+            }
+            // 单选列表
+            // options: {
+            //     type: Array,
+            //     default: () => []
+            // },
+        },
+        methods: {
+            change(val) {
+                this.$emit('input', val);
+            }
+        },
+    };
+</script>

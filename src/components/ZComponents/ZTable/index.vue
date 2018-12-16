@@ -105,8 +105,5 @@
 </script>
 
 <style lang="scss" scoped>
-    .icon {
-        color: $yy-color;
-        margin-left: 5px;
-    }
+
 </style>

@@ -5,8 +5,8 @@ import store from './store'
 import * as filters from './filters' // global filters
 import './icons'
 import '@/element/element'
-import '@/components/VTable'
 import '@/components/Pagination'
+import '@/components/ZComponents'
 
 
 Vue.config.productionTip = false
