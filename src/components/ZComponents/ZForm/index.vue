@@ -56,11 +56,15 @@
             action: {
                 type: Array,
                 required: true
+            },
+            mergeModel:{
+                type:Object
             }
         },
         data() {
             return {
                 Model: {},
+                originFormItems:[]  //原始的formItems(用来对比改动后formItems的区别)
             }
         },
         methods: {
@@ -86,11 +90,6 @@
                 }
                 // form-item 配置
                 return item;
-            },
-            computeModel() {
-                this.formItems.forEach(formItem => {
-                    this.$set(this.Model, formItem.key, (formItem.value ? formItem.value : ""))
-                })
             },
             handleSubmit(formName) {
                 this.$refs[formName].validate(async (valid) => {
@@ -118,11 +117,11 @@
             },
         },
         computed: {
+            //根据formItem计算出实际需要让页面渲染的真正的FormItem数据
             FormItems() {
-                console.log('computed')
+                console.log('computed')   //this.Model中的值改变触发computed
                 let FormItems = []
                 FormItems = this.formItems.map(item => this.computeFormItem(item, this.Model))
-                this.computeModel()
                 return FormItems
             },
         },
@@ -131,10 +130,14 @@
                 this.formItems.forEach(formItem => {
                     this.$set(this.Model, formItem.key, (formItem.value ? formItem.value : ""))
                 })
-            }
+            },
+            mergeModel() {
+                console.log('merge')
+                Object.assign(this.Model, this.mergeModel)
+            },
         },
-        mounted() {
-            console.log(this.$attrs)
+        mounted() { //mounted钩子中formItems是空数组
+
         },
     }
 </script>

@@ -23,9 +23,9 @@
         },
         methods: {
             change(val) {
+                console.log(val)
                 this.$emit('input', val);
             }
         },
-
     };
 </script>

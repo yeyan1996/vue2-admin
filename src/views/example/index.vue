@@ -7,6 +7,7 @@
         <z-form
                 :action="['home','login']"
                 :form-items="formItems"
+                :mergeModel="mergeModel"
                 _ref="homeForm"
                 :inline="false"
                 @afterSubmit="linkBack">
@@ -25,7 +26,8 @@
         name: "index",
         data() {
             return {
-                formItems:[]
+                formItems:[],
+                mergeModel:{}
             }
         },
         methods: {
@@ -33,8 +35,8 @@
                 console.log('linkBack')
             },
             handleClick() {
-                console.log('handleClick')
-                this.findItem('name').value = 'yeyan1996'
+                this.mergeModel.name = 'yeyan1996'
+                this.mergeModel = {...this.mergeModel}
             },
             findItem(key) {
                 return this.formItems.find(formItem => formItem.key === key)
@@ -44,7 +46,6 @@
                 let res2 = await axios.get('/mock2.json')
                 this.findItem('asyncRadio').attrs.options = res1.data.result.options
                 this.findItem('cascader').attrs.options = res2.data.result.options
-                // this.formItems = [...this.formItems]
             },
         },
         mounted() {
