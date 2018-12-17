@@ -1,41 +1,32 @@
 <template>
     <el-table
             empty-text="没有符合条件的数据"
-            :stripe="$attrs.stripe !== false "
-            :data="data"
-            :height="$attrs.height"
-            @row-click="handleRowClick"
-            @selection-change="handleSelectionChange"
-            :border="$attrs.border"
-            :max-height="$attrs['max-height']"
-            :row-class-name="$attrs['row-class-name']"
+            v-bind="$attrs"
+            v-on="$listeners"
+            :stripe="$attrs.stripe!==false"
     >
+        <slot name="first"></slot>
 
         <template v-for="(column,index) in columns" v-if="!column.hidden">
-
             <!-- 复选框 -->
             <el-table-column
-                    :key="index"
                     v-if="column.type === 'selection'"
+                    :key="index"
                     type="selection"
-                    :label="column.label"
-                    :width="column.width ">
+                    v-bind="column.attrs || {}">
             </el-table-column>
             <!-- 序号 -->
             <el-table-column
                     v-else-if="column.type === 'index'"
-                    type="index"
                     :key="index"
-                    :width="column.width"
-                    :label="column.label">
+                    type="index"
+                    v-bind="column.attrs || {}">
             </el-table-column>
 
             <el-table-column
                     v-else
                     :key="index"
-                    :label="column.label"
-                    :width="column.width"
-                    :min-width="column.minWidth">
+                    v-bind="column.attrs || {}">
                 <template slot-scope="scope">
 
                     <div v-if="column.options">
@@ -64,31 +55,21 @@
             </el-table-column>
         </template>
 
-        <slot></slot>
+        <slot name="last"></slot>
 
     </el-table>
 </template>
 
 <script>
-
     export default {
         name: "index",
         props: {
-            data: {
-                required: true
-            },
             columns: {
                 type: Array,
                 required: true
             }
         },
         methods: {
-            handleRowClick(row, event, column) {
-                this.$emit("rowClick", row, event, column)
-            },
-            handleSelectionChange(selection) {
-                this.$emit("selectionChange", selection)
-            },
             key2name(key, options) {
                 let option = options.find(option => key === option.key)
                 let defaultOption = options.find(option => option.key === 'default')
@@ -97,10 +78,7 @@
             handleOperation(event, row) {
                 this.$emit(event, row)
             },
-        },
-        mounted() {
-            console.log(this.$attrs)
-        },
+        }
     }
 </script>
 

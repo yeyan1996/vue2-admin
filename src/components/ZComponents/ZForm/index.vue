@@ -41,7 +41,7 @@
                 type: Array,
                 required: true,
             },
-            //表单验证和重置需要ref属性
+            //表单验证和重置需要ref
             _ref: {
                 type: String,
                 required: true
