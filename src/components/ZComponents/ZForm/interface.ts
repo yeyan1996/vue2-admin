@@ -3,17 +3,17 @@ export interface FormItem {
     slot?: string
     label?: string,
     key?: string,
-    value?: string | boolean | any[],
+    value?: string | boolean | object[] | string[] | number[],
     attrs?: object,
     rules?: object[],
-    getAttrs?(form): object
-    ifRender?(form): boolean
+    getAttrs?(form:any): object
+    ifRender?(form:any): boolean
 }
 
 export interface BASIC_ITEM {
     component: string,
     attrs?: object,
-    value?: string | boolean | any[],
+    value?: string | boolean | object[] | string[] | number[],
     rules?: object[],
 }
 

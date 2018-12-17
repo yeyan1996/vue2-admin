@@ -36,7 +36,7 @@
             },
             handleClick() {
                 this.mergeModel.name = 'yeyan1996'
-                this.mergeModel = {...this.mergeModel}
+                this.mergeModel = {...this.mergeModel} //使vue组件刷新视图
             },
             findItem(key) {
                 return this.formItems.find(formItem => formItem.key === key)

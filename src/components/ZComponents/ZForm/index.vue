@@ -57,14 +57,15 @@
                 type: Array,
                 required: true
             },
-            mergeModel:{
-                type:Object
+            mergeModel: {
+                type: Object,
+                default: () => {
+                }
             }
         },
         data() {
             return {
                 Model: {},
-                originFormItems:[]  //原始的formItems(用来对比改动后formItems的区别)
             }
         },
         methods: {
@@ -96,7 +97,7 @@
                     if (valid) {
                         try {
                             console.log(this.Model)
-                            //动态引入api接口,可以将后续操作抛给父组件完成
+                            //动态引入api接口,也可以将后续操作抛给父组件完成
 
                             // let module = await import(`@/api/${this.action[0]}`)
                             // let apiFunc = module[this.action[1]]
@@ -126,6 +127,7 @@
             },
         },
         watch:{
+            //使用watch观察父组件传入的formItems,初始化Model对象
             formItems() {
                 this.formItems.forEach(formItem => {
                     this.$set(this.Model, formItem.key, (formItem.value ? formItem.value : ""))
@@ -136,8 +138,8 @@
                 Object.assign(this.Model, this.mergeModel)
             },
         },
-        mounted() { //mounted钩子中formItems是空数组
-
+        mounted() {
+             //mounted钩子中formItems是空数组,所以不在mounted里面操作
         },
     }
 </script>

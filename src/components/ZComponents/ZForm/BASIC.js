@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+//所以组件继承自BASIC
 exports.basic = {
     input: {
         component: 'el-input',
