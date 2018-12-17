@@ -15,6 +15,11 @@
                 <svg-icon name="chart" @click.native="handleClick"></svg-icon>
             </template>
         </z-form>
+
+        <z-table
+                :data="tableData"
+                :columns="columns">
+        </z-table>
     </article>
 </template>
 
@@ -26,8 +31,10 @@
         name: "index",
         data() {
             return {
-                formItems:[],
-                mergeModel:{}
+                formItems: [],
+                mergeModel: {},
+                columns: [],
+                tableData: []
             }
         },
         methods: {
@@ -42,15 +49,21 @@
                 return this.formItems.find(formItem => formItem.key === key)
             },
             async getInfo() {
-                let res1 = await axios.get('/mock.json')
-                let res2 = await axios.get('/mock2.json')
+                let [res1, res2, res3, res4] = await Promise.all([
+                    axios.get('/mock.json'),
+                    axios.get('/mock2.json'),
+                    axios.get('/columns.json'),
+                    axios.get('/table.json'),
+                ])
                 this.findItem('asyncRadio').attrs.options = res1.data.result.options
                 this.findItem('cascader').attrs.options = res2.data.result.options
+                this.columns = res3.data.result.columns
+                this.tableData = res4.data.result.tableData
             },
         },
         mounted() {
-           this.formItems = formItems
-           this.getInfo()
+            this.formItems = formItems
+            this.getInfo()
         }
     }
 </script>
@@ -59,7 +72,6 @@
     article {
         padding: 40px;
     }
-
     .msg {
         font-size: 50px;
     }

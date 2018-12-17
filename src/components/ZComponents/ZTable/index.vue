@@ -2,6 +2,7 @@
     <el-table
             empty-text="没有符合条件的数据"
             v-bind="$attrs"
+            :data="data"
             v-on="$listeners"
             :stripe="$attrs.stripe!==false"
     >
@@ -67,6 +68,10 @@
             columns: {
                 type: Array,
                 required: true
+            },
+            data:{
+                type:Array,
+                required:true
             }
         },
         methods: {

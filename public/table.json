@@ -1,0 +1,41 @@
+{
+  "result": {
+    "tableData": [
+      {
+        "callStatus": "1",
+        "dataType": "1",
+        "infoType": "2",
+        "listCat": "3",
+        "requestTime": "2018/11/12"
+      },
+      {
+        "callStatus": "1",
+        "dataType": "1",
+        "infoType": "2",
+        "listCat": "3",
+        "requestTime": "2018/11/12"
+      },
+      {
+        "callStatus": "1",
+        "dataType": "1",
+        "infoType": "2",
+        "listCat": "3",
+        "requestTime": "2018/11/12"
+      },
+      {
+        "callStatus": "1",
+        "dataType": "1",
+        "infoType": "2",
+        "listCat": "3",
+        "requestTime": "2018/11/12"
+      },
+      {
+        "callStatus": "1",
+        "dataType": "1",
+        "infoType": "2",
+        "listCat": "3",
+        "requestTime": "2018/11/12"
+      }
+    ]
+  }
+}

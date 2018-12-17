@@ -2,6 +2,9 @@
 
 //表头样式
 .el-table {
+  th{
+    text-align:center!important;
+  }
   th.gutter {
     display: table-cell !important;
   }
