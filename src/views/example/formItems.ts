@@ -14,6 +14,9 @@ export const formItems: Array<FormItem> = [
         },
     },
     {
+      "slot":"icon"
+    },
+    {
         "tag": "input",
         "label": "年龄",
         "key": "age",
@@ -71,9 +74,9 @@ export const formItems: Array<FormItem> = [
     },
     {
         "tag": "checkbox-group",
-        "label": "复选框",
+        "label": "复选框组",
         "value": ["1"],
-        "key": "checkbox",
+        "key": "checkboxGroup",
         "attrs": {
             "options": [
                 {value: "1", label: "复选框1"},
@@ -86,8 +89,23 @@ export const formItems: Array<FormItem> = [
         "tag": "cascader",
         "label": "级联选择器",
         "key": "cascader",
+        "value":[],
         "attrs": {
             "options": []
         }
     },
+    {
+        "tag": "checkbox",
+        "label": "复选框",
+        "key": "checkbox",
+        "value":true,
+        "attrs":{
+            label:"复选框"
+        }
+    },
+    {
+        "tag": "textarea",
+        "label": "文本框",
+        "key": "textarea",
+    }
 ]

@@ -3,25 +3,26 @@
             v-bind="$attrs"
             :model="Model"
             :ref="_ref"
-            :inline="$attrs.inline !== false"
-    >
-        <el-form-item
-                v-for="(item,index) in FormItems"
-                :key="index"
-                :label="item.label"
-                :rules="item.rules"
-                v-if="item._ifRender"
-                :prop="item.key">
+            :inline="$attrs.inline !== false">
+        <template v-for="(item,index) in FormItems">
 
-            <slot v-if="item.slot" :name="item.slot"/>
+            <slot
+                    v-if="item.slot"
+                    :name="item.slot"/>
 
-            <component
-                    v-else
-                    :is="item.tag"
-                    v-model="Model[item.key]"
-                    v-bind="item.attrs || {}"
-            />
-        </el-form-item>
+            <el-form-item
+                    :key="index"
+                    :label="item.label"
+                    :rules="item.rules"
+                    v-else-if="item._ifRender"
+                    :prop="item.key">
+                <component
+                        :is="item.tag"
+                        v-model="Model[item.key]"
+                        v-bind="item.attrs || {}"
+                />
+            </el-form-item>
+        </template>
 
         <el-form-item v-if="submit || reset">
             <el-button @click="handleSubmit(_ref)" v-if="submit">搜索</el-button>
@@ -86,19 +87,26 @@
                 // form-item 配置
                 return item;
             },
+            computeModel() {
+                this.formItems.forEach(formItem => {
+                    this.$set(this.Model, formItem.key, (formItem.value ? formItem.value : ""))
+                })
+            },
             handleSubmit(formName) {
                 this.$refs[formName].validate(async (valid) => {
                     if (valid) {
                         try {
                             console.log(this.Model)
-                            let module = await import(`@/api/${this.action[0]}`)
-                            let apiFunc = module[this.action[1]]
-                            if (this.isFunction(apiFunc)) {
-                                let res = await apiFunc(this.Model)
+                            //动态引入api接口,可以将后续操作抛给父组件完成
+
+                            // let module = await import(`@/api/${this.action[0]}`)
+                            // let apiFunc = module[this.action[1]]
+                            // if (this.isFunction(apiFunc)) {
+                            //     let res = await apiFunc(this.Model)
                                 this.$emit('afterSubmit', this.Model)
-                            } else {
-                                throw new TypeError('action格式不对')
-                            }
+                            // } else {
+                            //     throw new TypeError('action格式不对')
+                            // }
                         } catch (e) {
                             console.log(e)
                         }
@@ -111,14 +119,22 @@
         },
         computed: {
             FormItems() {
-                return this.formItems.map(item => this.computeFormItem(item, this.Model))
+                console.log('computed')
+                let FormItems = []
+                FormItems = this.formItems.map(item => this.computeFormItem(item, this.Model))
+                this.computeModel()
+                return FormItems
             },
+        },
+        watch:{
+            formItems() {
+                this.formItems.forEach(formItem => {
+                    this.$set(this.Model, formItem.key, (formItem.value ? formItem.value : ""))
+                })
+            }
         },
         mounted() {
             console.log(this.$attrs)
-            this.formItems.forEach(formItem => {
-                this.$set(this.Model, formItem.key, (formItem.value ? formItem.value : ""))
-            })
         },
     }
 </script>

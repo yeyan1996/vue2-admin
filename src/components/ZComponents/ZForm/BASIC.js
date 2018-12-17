@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var _a;
 exports.basic = {
     input: {
         component: 'el-input',
@@ -35,6 +34,9 @@ exports.basic = {
             clearable: true,
         }
     },
+    "checkbox": {
+        component: 'el-checkbox',
+    },
     "checkbox-group": {
         component: 'z-checkbox-group',
     },
@@ -44,6 +46,13 @@ exports.basic = {
             placeholder: "请选择",
             clearable: true,
         }
+    },
+    "textarea": {
+        component: 'el-input',
+        attrs: {
+            type: 'textarea'
+        }
     }
 };
+var _a;
 //# sourceMappingURL=BASIC.js.map

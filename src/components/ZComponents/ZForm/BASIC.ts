@@ -33,6 +33,9 @@ export const basic:Basic = {
             clearable:true,
         }
     },
+    "checkbox":{
+        component:'el-checkbox',
+    },
     "checkbox-group":{
         component:'z-checkbox-group',
     },
@@ -41,6 +44,12 @@ export const basic:Basic = {
         attrs:{
             placeholder:"请选择",
             clearable:true,
+        }
+    },
+    "textarea":{
+        component:'el-input',
+        attrs:{
+            type:'textarea'
         }
     }
 }

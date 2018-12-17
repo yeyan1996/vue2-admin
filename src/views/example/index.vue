@@ -5,19 +5,14 @@
         <svg-icon name="chart"></svg-icon>
         <img src="../../assets/img/correct.png" height="200" width="200"/>
         <z-form
-                size="medium"
                 :action="['home','login']"
                 :form-items="formItems"
                 _ref="homeForm"
                 :inline="false"
                 @afterSubmit="linkBack">
-            <!--<template slot="cascader">-->
-                <!--<el-cascader-->
-                        <!--:options="options"-->
-                        <!--v-model="selectedOptions"-->
-                        <!--@change="handleChange">-->
-                <!--</el-cascader>-->
-            <!--</template>-->
+            <template slot="icon">
+                <svg-icon name="chart" @click.native="handleClick"></svg-icon>
+            </template>
         </z-form>
     </article>
 </template>
@@ -37,17 +32,19 @@
             linkBack() {
                 console.log('linkBack')
             },
-            findItemOptions(key) {
-                return this.formItems.find(formItem => formItem.key === key).attrs.options
+            handleClick() {
+                console.log('handleClick')
+                this.findItem('name').value = 'yeyan1996'
+            },
+            findItem(key) {
+                return this.formItems.find(formItem => formItem.key === key)
             },
             async getInfo() {
                 let res1 = await axios.get('/mock.json')
                 let res2 = await axios.get('/mock2.json')
-                // let options = this.findItemOptions('asyncRadio')
-                this.formItems.find(formItem => formItem.key === 'asyncRadio').attrs.options = res1.data.result.options
-                this.formItems.find(formItem => formItem.key === 'cascader').attrs.options = res2.data.result.options
-                this.formItems = [...this.formItems]
-
+                this.findItem('asyncRadio').attrs.options = res1.data.result.options
+                this.findItem('cascader').attrs.options = res2.data.result.options
+                // this.formItems = [...this.formItems]
             },
         },
         mounted() {
