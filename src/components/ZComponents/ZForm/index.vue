@@ -41,6 +41,7 @@
                 type: Array,
                 required: true,
             },
+            //表单验证和重置需要ref属性
             _ref: {
                 type: String,
                 required: true
@@ -53,10 +54,12 @@
                 type: Boolean,
                 default: true
             },
+            //接口地址
             action: {
                 type: Array,
                 required: true
             },
+            //传入mergeModel允许父组件修改内部Model对象
             mergeModel: {
                 type: Object,
                 default: () => {
