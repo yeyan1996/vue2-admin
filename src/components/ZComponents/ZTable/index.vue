@@ -1,3 +1,4 @@
+<!--需要使用组件实例ref属性只能在父组件定义ref属性，使用this.$refs.<父组件ref属性名>.$children[0]获取-->
 <template>
     <el-table
             empty-text="没有符合条件的数据"
@@ -72,7 +73,7 @@
             data:{
                 type:Array,
                 required:true
-            }
+            },
         },
         methods: {
             key2name(key, options) {
@@ -83,7 +84,9 @@
             handleOperation(event, row) {
                 this.$emit(event, row)
             },
-        }
+        },
+        mounted() {
+        },
     }
 </script>
 

@@ -6,8 +6,7 @@
             :inline="$attrs.inline !== false">
         <template v-for="(item,index) in FormItems">
 
-            <slot
-                    v-if="item.slot"
+            <slot   v-if="item.slot"
                     :name="item.slot"/>
 
             <el-form-item
@@ -41,7 +40,7 @@
                 type: Array,
                 required: true,
             },
-            //表单验证和重置需要ref
+            //表单验证和重置需要ref属性
             _ref: {
                 type: String,
                 required: true
@@ -95,6 +94,9 @@
                 // form-item 配置
                 return item;
             },
+            handleMerge() {
+                Object.assign(this.Model, this.mergeModel)
+            },
             handleSubmit(formName) {
                 this.$refs[formName].validate(async (valid) => {
                     if (valid) {
@@ -129,16 +131,17 @@
                 return FormItems
             },
         },
-        watch:{
-            //使用watch观察父组件传入的formItems,初始化Model对象
+        watch: {
+            //使用watch观察父组件传入的formItems,初始化Model对象(只调用一次)
             formItems() {
                 this.formItems.forEach(formItem => {
+                    if (!formItem.key) return //跳过没有key的属性(插槽)
                     this.$set(this.Model, formItem.key, (formItem.value ? formItem.value : ""))
                 })
             },
             mergeModel() {
                 console.log('merge')
-                Object.assign(this.Model, this.mergeModel)
+                this.handleMerge()
             },
         },
         mounted() {
