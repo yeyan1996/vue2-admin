@@ -1,6 +1,5 @@
 <template>
     <article id="example">
-        <div class="msg">Hello world</div>
         <el-button>按钮</el-button>
         <svg-icon name="chart"></svg-icon>
         <img src="../../assets/img/correct.png" height="200" width="200"/>
@@ -24,6 +23,7 @@
 </template>
 
 <script>
+    import {columns} from "./columns";
     import {formItems} from "./formItems";
     import axios from 'axios'
 
@@ -49,20 +49,19 @@
                 return this.formItems.find(formItem => formItem.key === key)
             },
             async getInfo() {
-                let [res1, res2, res3, res4] = await Promise.all([
+                let [res1, res2, res3] = await Promise.all([
                     axios.get('/mock.json'),
                     axios.get('/mock2.json'),
-                    axios.get('/columns.json'),
                     axios.get('/table.json'),
                 ])
                 this.findItem('asyncRadio').attrs.options = res1.data.result.options
                 this.findItem('cascader').attrs.options = res2.data.result.options
-                this.columns = res3.data.result.columns
-                this.tableData = res4.data.result.tableData
+                this.tableData = res3.data.result.tableData
             },
         },
         mounted() {
             this.formItems = formItems
+            this.columns = columns
             this.getInfo()
         }
     }
@@ -71,8 +70,5 @@
 <style lang="scss" scoped>
     article {
         padding: 40px;
-    }
-    .msg {
-        font-size: 50px;
     }
 </style>

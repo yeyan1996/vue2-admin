@@ -17,8 +17,6 @@ export interface FormItem {
     ifRender?(form:any): boolean
 }
 
-
-
 export interface Basic {
     [propName: string]: BASIC_ITEM
 }

@@ -1,4 +1,4 @@
-import {Basic} from "./interface";
+import {Basic} from "../../../interface/interface";
 
 //所以组件继承自BASIC
 export const basic:Basic = {

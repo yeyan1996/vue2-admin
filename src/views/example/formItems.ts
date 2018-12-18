@@ -1,4 +1,4 @@
-import {FormItem} from "../../components/ZComponents/ZForm/interface";
+import {FormItem} from "../../interface/interface";
 
 export const formItems: Array<FormItem> = [
     {
