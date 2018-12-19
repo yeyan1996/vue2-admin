@@ -3,25 +3,18 @@
     <el-table
             empty-text="没有符合条件的数据"
             v-bind="$attrs"
-            :data="data"
             v-on="$listeners"
-            :stripe="$attrs.stripe!==false"
-    >
-        <slot name="first"></slot>
+            :ref="_ref"
+            :data="data"
+            :stripe="$attrs.stripe!==false">
+
+        <slot name="font"></slot>
 
         <template v-for="(column,index) in columns" v-if="!column.hidden">
-            <!-- 复选框 -->
+
             <el-table-column
-                    v-if="column.type === 'selection'"
+                    v-if="!(column.options || column.operations || column.slot)"
                     :key="index"
-                    type="selection"
-                    v-bind="column.attrs || {}">
-            </el-table-column>
-            <!-- 序号 -->
-            <el-table-column
-                    v-else-if="column.type === 'index'"
-                    :key="index"
-                    type="index"
                     v-bind="column.attrs || {}">
             </el-table-column>
 
@@ -32,37 +25,50 @@
                 <template slot-scope="scope">
 
                     <div v-if="column.options">
-                        <span>{{key2name(scope.row[column.prop],column.options)}}</span>
+                        <span>{{key2name(scope.row[column.attrs.prop],column.options)}}</span>
                     </div>
 
                     <span v-else-if="column.slot">
                         <slot :name="column.slot" :scope="scope"></slot>
                     </span>
 
-                    <div v-else-if="column.operations">
-                        <svg-icon
-                                v-for="operation in column.operations"
-                                :key="operation.svgName"
-                                class="icon"
-                                :name="operation.svgName"
-                                @click.native="handleOperation(operation.event,scope.row)">
-                        </svg-icon>
-                    </div>
+                    <div v-else="column.operations">
+                        <template v-for="operation in column.operations">
+                            <el-tooltip
+                                    v-if="operation.name"
+                                    effect="light"
+                                    :key="operation.svgName"
+                                    :content="operation.name"
+                                    placement="top-end">
+                                <svg-icon
+                                        :key="operation.svgName"
+                                        class="icon"
+                                        :name="operation.svgName"
+                                        @click.native="handleOperation(operation.event,scope.row)">
+                                </svg-icon>
+                            </el-tooltip>
 
-                    <div v-else>
-                        <span>{{scope.row[column.prop]}}</span>
+                            <svg-icon
+                                    v-else
+                                    :key="operation.svgName"
+                                    class="icon"
+                                    :name="operation.svgName"
+                                    @click.native="handleOperation(operation.event,scope.row)">
+                            </svg-icon>
+                        </template>
                     </div>
 
                 </template>
             </el-table-column>
         </template>
 
-        <slot name="last"></slot>
+        <slot/>
 
     </el-table>
 </template>
 
 <script>
+
     export default {
         name: "index",
         props: {
@@ -71,9 +77,12 @@
                 required: true
             },
             data:{
-                type:Array,
+                // type:Array,
                 required:true
             },
+            _ref:{
+                type:String
+            }
         },
         methods: {
             key2name(key, options) {
@@ -84,12 +93,7 @@
             handleOperation(event, row) {
                 this.$emit(event, row)
             },
-        },
-        mounted() {
-        },
+        }
     }
 </script>
 
-<style lang="scss" scoped>
-
-</style>

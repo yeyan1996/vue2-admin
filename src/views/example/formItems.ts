@@ -1,4 +1,4 @@
-import {FormItem} from "../../interface/interface";
+import {FormItem} from "../../interface/FormItem"
 
 export const formItems: Array<FormItem> = [
     {

@@ -1,9 +1,9 @@
 import {Columns} from "../../interface/Columns";
 
-export const columns:Columns[] = [
+export const columns: Columns[] = [
     {
-        "prop": "dataType",
         "attrs": {
+            "prop": "dataType",
             "label": "测试1",
             "width": "200"
         },
@@ -23,8 +23,8 @@ export const columns:Columns[] = [
         ]
     },
     {
-        "prop": "infoType",
         "attrs": {
+            "prop": "infoType",
             "label": "测试2",
             "width": "200"
         },
@@ -44,8 +44,9 @@ export const columns:Columns[] = [
         ]
     },
     {
-        "prop": "listCat",
+
         "attrs": {
+            "prop": "listCat",
             "label": "测试3",
             "width": "200"
         },
@@ -69,15 +70,17 @@ export const columns:Columns[] = [
         ]
     },
     {
-        "prop": "requestTime",
+
         "attrs": {
+            "prop": "requestTime",
             "label": "测试4",
             "width": "200"
         }
     },
     {
-        "prop": "callStatus",
+
         "attrs": {
+            "prop": "callStatus",
             "label": "测试5",
             "minWidth": "200"
         },
