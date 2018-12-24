@@ -8,7 +8,7 @@
             :data="data"
             :stripe="$attrs.stripe!==false">
 
-        <slot name="font"></slot>
+        <slot name="font" />
 
         <template v-for="(column,index) in columns" v-if="!column.hidden">
 
@@ -29,7 +29,7 @@
                     </div>
 
                     <span v-else-if="column.slot">
-                        <slot :name="column.slot" :scope="scope"></slot>
+                        <slot :name="column.slot" :scope="scope" />
                     </span>
 
                     <div v-else-if="column.operations">
@@ -64,7 +64,7 @@
             </el-table-column>
         </template>
 
-        <slot/>
+        <slot />
 
     </el-table>
 </template>

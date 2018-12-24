@@ -1,8 +1,5 @@
 <template>
     <article id="example">
-        <el-button>按钮</el-button>
-        <svg-icon name="chart"></svg-icon>
-        <img src="../../assets/img/correct.png" height="200" width="200"/>
         <z-form
                 :action="['home','login']"
                 :form-items="formItems"

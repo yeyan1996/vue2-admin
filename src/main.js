@@ -7,8 +7,7 @@ import '@/components/Pagination'
 import '@/components/ZComponents'
 import './icons'
 import '@/element/element'
-import "@/style/reset.scss";
-
+import "normalize.css"
 
 Vue.config.productionTip = false
 

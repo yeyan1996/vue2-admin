@@ -3,4 +3,3 @@
 @import "transition";
 @import "global";
 @import "element";
-//@import "reset"; //不要在这个全局scss中添加reset样式,会导致element权重不够,添加在main.js中
