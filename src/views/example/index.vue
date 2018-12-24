@@ -49,6 +49,7 @@
                 return this.formItems.find(formItem => formItem.key === key)
             },
             async getInfo() {
+                //生产环境无法使用webpack提供的静态资源服务器
                 let [res1, res2, res3] = await Promise.all([
                     axios.get('/mock.json'),
                     axios.get('/mock2.json'),
