@@ -1,6 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.formItems = [
+export var formItems = [
     {
         "tag": "input",
         "label": "姓名",

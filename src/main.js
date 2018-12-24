@@ -3,10 +3,11 @@ import App from './App.vue'
 import router from './router/router'
 import store from './store'
 import * as filters from './filters' // global filters
-import './icons'
-import '@/element/element'
 import '@/components/Pagination'
 import '@/components/ZComponents'
+import './icons'
+import '@/element/element'
+import "@/style/reset.scss";
 
 
 Vue.config.productionTip = false

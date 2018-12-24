@@ -1,6 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.columns = [
+export var columns = [
     {
         "attrs": {
             "prop": "dataType",
