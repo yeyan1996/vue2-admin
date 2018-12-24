@@ -32,21 +32,21 @@
                         <slot :name="column.slot" :scope="scope"></slot>
                     </span>
 
-                    <div v-else="column.operations">
+                    <div v-else-if="column.operations">
                         <template v-for="operation in column.operations">
-                            <el-tooltip
-                                    v-if="operation.name"
-                                    effect="light"
-                                    :key="operation.svgName"
-                                    :content="operation.name"
-                                    placement="top-end">
-                                <svg-icon
+                                <el-tooltip
+                                        v-if="operation.name"
+                                        effect="light"
                                         :key="operation.svgName"
-                                        class="icon"
-                                        :name="operation.svgName"
-                                        @click.native="handleOperation(operation.event,scope.row)">
-                                </svg-icon>
-                            </el-tooltip>
+                                        :content="operation.name"
+                                        placement="top-end">
+                                    <svg-icon
+                                            :key="operation.svgName"
+                                            class="icon"
+                                            :name="operation.svgName"
+                                            @click.native="handleOperation(operation.event,scope.row)">
+                                    </svg-icon>
+                                </el-tooltip>
 
                             <svg-icon
                                     v-else
@@ -57,6 +57,8 @@
                             </svg-icon>
                         </template>
                     </div>
+
+                    <div v-else>未知表头</div>
 
                 </template>
             </el-table-column>
