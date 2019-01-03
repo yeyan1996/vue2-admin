@@ -125,7 +125,7 @@
         computed: {
             //根据formItem计算出实际需要让页面渲染的真正的FormItem数据
             FormItems() {
-                console.log('computed')   //this.Model中的值改变触发computed
+                // console.log('computed')   //this.Model中的值改变触发computed
                 let FormItems = []
                 FormItems = this.formItems.map(item => this.computeFormItem(item, this.Model))
                 return FormItems

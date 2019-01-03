@@ -62,7 +62,7 @@
             this.columns = columns
             this.getInfo()
         }
-    }
+   }
 </script>
 
 <style lang="scss" scoped>
