@@ -28,10 +28,9 @@
         name: "index",
         data() {
             return {
-                formItems: [],
                 mergeModel: {},
-                columns: [],
-                tableData: []
+                tableData: [],
+                formItems:{}
             }
         },
         methods: {
@@ -57,10 +56,17 @@
                 this.tableData = res3.data.result.tableData
             },
         },
+        computed:{
+            columns() {
+                return columns
+            },
+            // formItems() {
+            //     return formItems
+            // }
+        },
         mounted() {
-            this.formItems = formItems
-            this.columns = columns
             this.getInfo()
+            this.formItems = formItems
         }
    }
 </script>
