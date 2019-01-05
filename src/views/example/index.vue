@@ -30,7 +30,7 @@
             return {
                 mergeModel: {},
                 tableData: [],
-                formItems:{}
+                formItems:[]
             }
         },
         methods: {

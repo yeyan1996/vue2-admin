@@ -127,6 +127,7 @@
             FormItems() {
                 // console.log('computed')   //this.Model中的值改变触发computed
                 let FormItems = []
+                console.log(this.formItems)
                 FormItems = this.formItems.map(item => this.computeFormItem(item, this.Model))
                 return FormItems
             },
