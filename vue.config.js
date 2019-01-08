@@ -70,7 +70,7 @@ module.exports = {
             config.externals = {
                 'vue': 'Vue',
                 'vue-router': 'VueRouter',
-                'echarts':'echarts',
+                'vuex':'vuex',
                 'element-ui': 'ELEMENT',
             }
             config.optimization = {
