@@ -3,17 +3,11 @@ const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const path = require('path')
 const IS_PRODUCTION = process.env.NODE_ENV === 'production'
 const IS_DEVELOPMENT = process.env.NODE_ENV === 'development'
-const cdn = {
-    css:
-        [
-            "https://cdn.bootcss.com/element-ui/2.4.11/theme-chalk/index.css"
-        ],
-    js: [
+const cdn = [
         "https://cdn.bootcss.com/vue/2.5.21/vue.min.js",
         "https://cdn.bootcss.com/vue-router/3.0.2/vue-router.min.js",
         "https://cdn.bootcss.com/element-ui/2.4.11/index.js",
     ]
-}
 
 function resolve (dir) {
     return path.join(__dirname, dir)
