@@ -6,7 +6,8 @@ const IS_DEVELOPMENT = process.env.NODE_ENV === 'development'
 const cdn = [
         "https://cdn.bootcss.com/vue/2.5.21/vue.min.js",
         "https://cdn.bootcss.com/vue-router/3.0.2/vue-router.min.js",
-        "https://cdn.bootcss.com/element-ui/2.4.11/index.js",
+        "https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js",
+        "https://cdn.bootcss.com/element-ui/2.4.11/index.js"
     ]
 
 function resolve (dir) {
