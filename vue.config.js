@@ -1,3 +1,4 @@
+const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const path = require('path')
 const IS_PRODUCTION = process.env.NODE_ENV === 'production'
 const IS_DEVELOPMENT = process.env.NODE_ENV === 'development'
@@ -7,7 +8,7 @@ const cdn = {
             "https://cdn.bootcss.com/element-ui/2.4.11/theme-chalk/index.css"
         ],
     js: [
-        "https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js",
+        "https://cdn.bootcss.com/vue/2.5.21/vue.min.js",
         "https://cdn.bootcss.com/vue-router/3.0.2/vue-router.min.js",
         "https://cdn.bootcss.com/element-ui/2.4.11/index.js",
     ]
@@ -29,6 +30,16 @@ module.exports = {
                 .tap(args => {
                     args[0].cdn = cdn;
                     return args;
+                })
+                //gzip需要nginx进行配合否则无法使用
+                .plugin('compression')
+                .use(CompressionWebpackPlugin)
+                .tap(args => {
+                    return [{
+                        test: /\.js$|\.html$|\.css/, //匹配文件名
+                        threshold: 10240, //超过10k进行压缩
+                        deleteOriginalAssets: false //是否删除源文件
+                    }]
                 })
         }
         config.resolve.alias
