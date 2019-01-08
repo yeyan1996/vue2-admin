@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "element-ui": "^2.4.9",
+    "uglifyjs-webpack-plugin": "^2.1.1",
     "viewport-units-buggyfill": "^0.6.2",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",

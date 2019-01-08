@@ -1,3 +1,4 @@
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const path = require('path')
 const IS_PRODUCTION = process.env.NODE_ENV === 'production'
@@ -76,6 +77,20 @@ module.exports = {
                 'vue-router': 'VueRouter',
                 'echarts':'echarts',
                 'element-ui': 'ELEMENT',
+            }
+            config.optimization = {
+                minimizer: [
+                    new UglifyJsPlugin({
+                        uglifyOptions: {
+                            compress: {
+                                warnings: false,
+                                drop_console: true,//console
+                                drop_debugger: false,
+                                pure_funcs: ['console.log']//移除console
+                            }
+                        }
+                    })
+                ]
             }
         }
     },
