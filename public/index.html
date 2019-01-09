@@ -13,8 +13,8 @@
 </noscript>
 <div id="app"></div>
 <!-- built files will be auto injected -->
-<% for (let i=0;i< htmlWebpackPlugin.options.cdn;i++) { %>
-<script src="<%= htmlWebpackPlugin.options.cdn[i] %>"></script>
-<% } %>
+<%  htmlWebpackPlugin.options.cdn && htmlWebpackPlugin.options.cdn.forEach(cdn=>{ %>
+<script src="<%= cdn %>"></script>
+<% }) %>
 </body>
 </html>
