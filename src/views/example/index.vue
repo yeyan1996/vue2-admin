@@ -22,7 +22,7 @@
 <script>
     import {columns} from "./columns";
     import {formItems} from "./formItems";
-    import axios from 'axios'
+    import axios from 'util/axios'
 
     export default {
         name: "index",
@@ -47,9 +47,9 @@
             async getInfo() {
                 //生产环境无法使用webpack提供的静态资源服务器
                 let [res1, res2, res3] = await Promise.all([
-                    axios.get('/mock.json'),
-                    axios.get('/mock2.json'),
-                    axios.get('/table.json'),
+                    axios.get('http://localhost:8080/mock.json'),
+                    axios.get('http://localhost:8080/mock2.json'),
+                    axios.get('http://localhost:8080/table.json'),
                 ])
                 this.findItem('asyncRadio').attrs.options = res1.data.result.options
                 this.findItem('cascader').attrs.options = res2.data.result.options

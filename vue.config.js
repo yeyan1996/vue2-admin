@@ -7,8 +7,19 @@ const IS_DEVELOPMENT = process.env.NODE_ENV === 'development'
 const cdn = [
     "https://cdn.bootcss.com/vue/2.5.21/vue.min.js",
     "https://cdn.bootcss.com/vue-router/3.0.2/vue-router.min.js",
+    'https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js',
     "https://cdn.bootcss.com/element-ui/2.4.11/index.js",
+    'https://cdn.bootcss.com/axios/0.18.0/axios.min.js',
+    'https://cdn.bootcss.com/js-cookie/2.2.0/js.cookie.min.js',
 ]
+const externals = {
+    'vue': 'Vue',
+    'vue-router': 'VueRouter',
+    'vuex': 'Vuex',
+    'element-ui': 'ELEMENT',
+    'axios': 'axios',
+    'js-cookie': 'Cookies',
+}
 
 function resolve(dir) {
     return path.join(__dirname, dir)
@@ -35,6 +46,12 @@ module.exports = {
             .options({
                 symbolId: 'icon-[name]'
             })
+        // 修改images loader 添加svg处理
+        const imagesRule = config.module.rule('images')
+        imagesRule.exclude.add(resolve('src/icons'))
+        config.module
+            .rule('images')
+            .test(/\.(png|jpe?g|gif|svg)(\?.*)?$/)
         if (IS_PRODUCTION) {
             config
                 .plugin('analyzer')
@@ -55,11 +72,7 @@ module.exports = {
                         deleteOriginalAssets: false //是否删除源文件
                     }]
                 )
-            config.externals({
-                'vue': 'Vue',
-                'vue-router': 'VueRouter',
-                'element-ui': 'ELEMENT',
-            })
+            config.externals(externals)
         }
     },
     configureWebpack: config => {
@@ -93,7 +106,7 @@ module.exports = {
     devServer: {
         host: '0.0.0.0',
         overlay: false,
-        port: 8000,
+        port: 8080,
         open: true
     }
 }

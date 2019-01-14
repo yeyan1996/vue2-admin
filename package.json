@@ -10,6 +10,8 @@
   "dependencies": {
     "compression-webpack-plugin": "^2.0.0",
     "element-ui": "^2.4.9",
+    "js-cookie": "^2.2.0",
+    "nprogress": "^0.2.0",
     "uglifyjs-webpack-plugin": "^2.1.1",
     "viewport-units-buggyfill": "^0.6.2",
     "vue": "^2.5.17",
