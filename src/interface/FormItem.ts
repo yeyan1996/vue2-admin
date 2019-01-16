@@ -1,18 +1,23 @@
 interface BASIC_ITEM {
-    component: string,
-    attrs?: object,
-    value?: string | boolean | object[] | string[] | number[],
-    rules?: object[],
+    component: string
+    attrs?: object
+    value?: string | boolean | object[] | string[] | number[]
+    rules?: object[]
+}
+
+interface Listeners{
+    [propName: string]: Function
 }
 
 export interface FormItem {
-    tag?: string,
+    tag?: string
     slot?: string
-    label?: string,
-    key?: string,
-    value?: string | boolean | object[] | string[] | number[],
-    attrs?: object,
-    rules?: object[],
+    label?: string
+    key?: string
+    value?: string | boolean | object[] | string[] | number[]
+    attrs?: object
+    rules?: object[]
+    listeners?:Listeners //复杂的listeners建议使用插槽使得事件和事件处理程序解耦
     getAttrs?(form:any): object
     ifRender?(form:any): boolean
 }

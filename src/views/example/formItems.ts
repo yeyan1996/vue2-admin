@@ -14,7 +14,10 @@ export const formItems: Array<FormItem> = [
         },
     },
     {
-      "slot":"icon"
+        "slot": "icon"
+    },
+    {
+        slot: "testFormItem"
     },
     {
         "tag": "input",
@@ -22,6 +25,12 @@ export const formItems: Array<FormItem> = [
         "key": "age",
         "attrs": {
             placeholder: "请输入姓名",
+        },
+        listeners: {
+            //Todo 如何获取form?
+            change(val) {
+                console.log(val)
+            }
         },
         "rules": [
             {required: true, message: '年龄不能为空', trigger: 'click'}
@@ -89,7 +98,7 @@ export const formItems: Array<FormItem> = [
         "tag": "cascader",
         "label": "级联选择器",
         "key": "cascader",
-        "value":[],
+        "value": [],
         "attrs": {
             "options": []
         }
@@ -98,9 +107,9 @@ export const formItems: Array<FormItem> = [
         "tag": "checkbox",
         "label": "复选框",
         "key": "checkbox",
-        "value":true,
-        "attrs":{
-            label:"复选框"
+        "value": true,
+        "attrs": {
+            label: "复选框"
         }
     },
     {

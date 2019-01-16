@@ -3,11 +3,13 @@
             v-bind="$attrs"
             :model="Model"
             :ref="_ref"
+            :api="api"
+            :show-message="$attrs['show-message'] !== false"
+            :status-icon="$attrs['status-icon'] !== false"
             :inline="$attrs.inline !== false">
         <template v-for="(item,index) in FormItems">
 
-            <slot   v-if="item.slot"
-                    :name="item.slot"/>
+            <slot v-if="item.slot" :name="item.slot"/>
 
             <el-form-item
                     :key="index"
@@ -18,13 +20,14 @@
                 <component
                         :is="item.tag"
                         v-model="Model[item.key]"
+                        v-on="item.listeners || {}"
                         v-bind="item.attrs || {}"
                 />
             </el-form-item>
         </template>
 
         <el-form-item v-if="submit || reset">
-            <el-button @click="handleSubmit(_ref)" v-if="submit">搜索</el-button>
+            <el-button @click="handleSubmit(_ref)" v-if="submit">{{$attrs.searchContext || "搜索"}}</el-button>
             <el-button @click="handleReset(_ref)" v-if="reset">重置</el-button>
         </el-form-item>
 
@@ -53,16 +56,15 @@
                 type: Boolean,
                 default: true
             },
-            //接口地址
-            action: {
-                type: Array,
+            //接口函数
+            api: {
+                type: Function,
                 required: true
             },
             //传入mergeModel允许父组件修改内部Model对象
             mergeModel: {
                 type: Object,
-                default: () => {
-                }
+                default: () => {}
             }
         },
         data() {
@@ -71,9 +73,6 @@
             }
         },
         methods: {
-            isFunction(expectFunction) {
-                return typeof expectFunction === 'function'
-            },
             computeFormItem(formItem, Model) {
                 const item = {...formItem};
                 // 表单控件的类型
@@ -81,8 +80,8 @@
                 // 对应到组件映射表
                 let basicItem = basic[tag]
                 item.tag = basicItem.component;
+                //继承基类的属性
                 item.attrs = Object.assign({}, basicItem.attrs, item.attrs)
-                // item.listeners = Object.assign({}, basicItem.listeners, item.listeners)
                 // 获取动态 Attributes
                 if (item.getAttrs) item.attrs = Object.assign(item.attrs, item.getAttrs(Model))
                 // 条件渲染
@@ -98,20 +97,11 @@
                 Object.assign(this.Model, this.mergeModel)
             },
             handleSubmit(formName) {
-                this.$refs[formName].validate(async (valid) => {
+                this.$refs[formName].validate(async valid => {
                     if (valid) {
                         try {
-                            console.log(this.Model)
-                            //动态引入api接口,也可以将后续操作抛给父组件完成
-
-                            // let module = await import(`@/api/${this.action[0]}`)
-                            // let apiFunc = module[this.action[1]]
-                            // if (this.isFunction(apiFunc)) {
-                            //     let res = await apiFunc(this.Model)
-                                this.$emit('afterSubmit', this.Model)
-                            // } else {
-                            //     throw new TypeError('action格式不对')
-                            // }
+                            let res = await this.api(this.Model)
+                            this.$emit('afterSubmit', res)
                         } catch (e) {
                             console.log(e)
                         }
@@ -125,9 +115,8 @@
         computed: {
             //根据formItem计算出实际需要让页面渲染的真正的FormItem数据
             FormItems() {
-                // console.log('computed')   //this.Model中的值改变触发computed
+                  //this.Model中的值改变触发computed
                 let FormItems = []
-                console.log(this.formItems)
                 FormItems = this.formItems.map(item => this.computeFormItem(item, this.Model))
                 return FormItems
             },
@@ -140,13 +129,17 @@
                     this.$set(this.Model, formItem.key, (formItem.value ? formItem.value : ""))
                 })
             },
-            mergeModel() {
-                console.log('merge')
-                this.handleMerge()
+            mergeModel: {
+               handler(now) {
+                   console.log(now)
+                   this.handleMerge()
+               },
+                deep:true,
+                immediate:true
             },
         },
         mounted() {
-             //mounted钩子中formItems是空数组,所以不在mounted里面操作
+            //mounted钩子中formItems是空数组,所以不在mounted里面操作
         },
     }
 </script>

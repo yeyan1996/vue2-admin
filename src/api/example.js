@@ -1,16 +1,16 @@
 import axios from 'util/axios'
 
-export function fetchList(query) {
+export function testApi(query) {
     return axios({
-        url: '/article/list',
+        url: 'http://localhost:8070/table.json',
         method: 'get',
         params: query
     })
 }
 
-export function createArticle(query) {
+export function postForm(query) {
     return axios({
-        url: '/article/create',
+        url: 'http://localhost:8070/table.json',
         method: 'post',
         data:query
     })

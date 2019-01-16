@@ -15,11 +15,20 @@ export var formItems = [
         "slot": "icon"
     },
     {
+        slot: "testFormItem"
+    },
+    {
         "tag": "input",
         "label": "年龄",
         "key": "age",
         "attrs": {
             placeholder: "请输入姓名",
+        },
+        listeners: {
+            //Todo 如何获取form?
+            change: function (val) {
+                console.log(val);
+            }
         },
         "rules": [
             { required: true, message: '年龄不能为空', trigger: 'click' }

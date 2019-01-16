@@ -1,14 +1,24 @@
 <template>
     <article id="example">
         <z-form
-                :action="['home','login']"
                 :form-items="formItems"
                 :mergeModel="mergeModel"
+                :api="testApi"
                 _ref="homeForm"
-                :inline="false"
                 @afterSubmit="linkBack">
             <template slot="icon">
-                <svg-icon name="chart" @click.native="handleClick"></svg-icon>
+                <svg-icon name="chart" @click.native="handleClick" />
+            </template>
+
+            <template slot="testFormItem">
+                <el-form-item label="测试插槽:" >
+                    <el-checkbox
+                            true-label="1"
+                            false-label=""
+                            v-model="mergeModel.zhonganAccessFlag">
+                        接入对象
+                    </el-checkbox>
+                </el-form-item>
             </template>
         </z-form>
 
@@ -23,19 +33,22 @@
     import {columns} from "./columns";
     import {formItems} from "./formItems";
     import axios from 'util/axios'
+    import {testApi} from "../../api/example";
 
     export default {
         name: "index",
         data() {
             return {
-                mergeModel: {},
+                mergeModel: {
+                    zhonganAccessFlag:""
+                },
                 tableData: [],
                 formItems:[]
             }
         },
         methods: {
-            linkBack() {
-                console.log('linkBack')
+            linkBack(res) {
+                this.tableData = res.data.result.tableData
             },
             handleClick() {
                 this.mergeModel.name = 'yeyan1996'
@@ -47,9 +60,9 @@
             async getInfo() {
                 //生产环境无法使用webpack提供的静态资源服务器
                 let [res1, res2, res3] = await Promise.all([
-                    axios.get('http://localhost:8080/mock.json'),
-                    axios.get('http://localhost:8080/mock2.json'),
-                    axios.get('http://localhost:8080/table.json'),
+                    axios.get('http://localhost:8070/mock.json'),
+                    axios.get('http://localhost:8070/mock2.json'),
+                    axios.get('http://localhost:8070/table.json'),
                 ])
                 this.findItem('asyncRadio').attrs.options = res1.data.result.options
                 this.findItem('cascader').attrs.options = res2.data.result.options
@@ -60,6 +73,9 @@
             columns() {
                 return columns
             },
+            testApi() {
+                return testApi
+            }
             // formItems() {
             //     return formItems
             // }
