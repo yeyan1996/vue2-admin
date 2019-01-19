@@ -3,7 +3,7 @@ const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
 const path = require('path')
 const IS_PRODUCTION = process.env.NODE_ENV === 'production'
-const IS_DEVELOPMENT = process.env.NODE_ENV === 'development'
+
 const cdn = [
     "https://cdn.bootcss.com/vue/2.5.21/vue.min.js",
     "https://cdn.bootcss.com/vue-router/3.0.2/vue-router.min.js",
@@ -31,8 +31,9 @@ module.exports = {
     assetsDir: './static',
     chainWebpack: config => {
         config.resolve.alias
-            .set('@', resolve('src'))
+            .set('@', resolve('src/'))
             .set('util', resolve('src/util'))
+            .set('mixins', resolve('src/mixins'))
         const svgRule = config.module.rule('svg')
         svgRule.uses.clear()
         config.module

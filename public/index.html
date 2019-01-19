@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <link rel="stylesheet" href="https://cdn.bootcss.com/element-ui/2.4.11/theme-chalk/index.css">
+    <%  htmlWebpackPlugin.options.cdn && htmlWebpackPlugin.options.cdn.forEach(cdn=>{ %>
+    <link href="<%= cdn %>" rel="preload" as="script">
+    <% }) %>
     <title>Vue</title>
 </head>
 <body>

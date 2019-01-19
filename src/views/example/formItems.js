@@ -7,8 +7,8 @@ export var formItems = [
         "attrs": {
             placeholder: "请输入姓名",
         },
-        getAttrs: function (form) {
-            return form.age === "22" ? { disabled: true } : null;
+        getAttrs: function (Model) {
+            return Model.age === "22" ? { disabled: true } : null;
         },
     },
     {
@@ -24,17 +24,11 @@ export var formItems = [
         "attrs": {
             placeholder: "请输入姓名",
         },
-        listeners: {
-            //Todo 如何获取form?
-            change: function (val) {
-                console.log(val);
-            }
-        },
         "rules": [
             { required: true, message: '年龄不能为空', trigger: 'click' }
         ],
-        ifRender: function (form) {
-            return form.hobby === "2";
+        ifRender: function (Model) {
+            return Model.hobby === "2";
         },
     },
     {
@@ -114,6 +108,12 @@ export var formItems = [
         "tag": "textarea",
         "label": "文本框",
         "key": "textarea",
+    },
+    {
+        "tag": "input",
+        "label": "2个form-items计算生成的值",
+        "key": "computedInput",
+        value: 'xxx'
     }
 ];
 //# sourceMappingURL=formItems.js.map

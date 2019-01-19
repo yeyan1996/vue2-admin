@@ -9,8 +9,8 @@ export const formItems: Array<FormItem> = [
         "attrs": {
             placeholder: "请输入姓名",
         },
-        getAttrs(form) {    //返回一个被合并到当前attrs属性里的对象
-            return form.age === "22" ? {disabled: true} : null
+        getAttrs(Model) {    //返回一个被合并到当前attrs属性里的对象
+            return Model.age === "22" ? {disabled: true} : null
         },
     },
     {
@@ -26,17 +26,11 @@ export const formItems: Array<FormItem> = [
         "attrs": {
             placeholder: "请输入姓名",
         },
-        listeners: {
-            //Todo 如何获取form?
-            change(val) {
-                console.log(val)
-            }
-        },
         "rules": [
             {required: true, message: '年龄不能为空', trigger: 'click'}
         ],
-        ifRender(form) {    //form为ZFrom的:model对象
-            return form.hobby === "2";
+        ifRender(Model) {    //form为ZFrom的:model对象
+            return Model.hobby === "2";
         },
     },
     {
@@ -116,5 +110,11 @@ export const formItems: Array<FormItem> = [
         "tag": "textarea",
         "label": "文本框",
         "key": "textarea",
+    },
+    {
+        "tag": "input",
+        "label": "2个form-items计算生成的值",
+        "key": "computedInput",
+        value:'xxx'
     }
 ]

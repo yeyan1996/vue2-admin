@@ -2,7 +2,7 @@
     <el-form
             v-bind="$attrs"
             :model="Model"
-            :ref="_ref"
+            :ref="name"
             :api="api"
             :show-message="$attrs['show-message'] !== false"
             :status-icon="$attrs['status-icon'] !== false"
@@ -20,15 +20,15 @@
                 <component
                         :is="item.tag"
                         v-model="Model[item.key]"
-                        v-on="item.listeners || {}"
                         v-bind="item.attrs || {}"
+                        v-on="item.listeners || {}"
                 />
             </el-form-item>
         </template>
 
         <el-form-item v-if="submit || reset">
-            <el-button @click="handleSubmit(_ref)" v-if="submit">{{$attrs.searchContext || "搜索"}}</el-button>
-            <el-button @click="handleReset(_ref)" v-if="reset">重置</el-button>
+            <el-button @click="handleSubmit(name)" v-if="submit">{{$attrs.searchContext || "搜索"}}</el-button>
+            <el-button @click="handleReset(name)" v-if="reset">{{$attrs.resetContext || "重置"}}</el-button>
         </el-form-item>
 
     </el-form>
@@ -43,8 +43,8 @@
                 type: Array,
                 required: true,
             },
-            //表单验证和重置需要ref属性
-            _ref: {
+            //作为表单验证和重置需要ref属性
+            name: {
                 type: String,
                 required: true
             },
@@ -64,7 +64,8 @@
             //传入mergeModel允许父组件修改内部Model对象
             mergeModel: {
                 type: Object,
-                default: () => {}
+                default: () => {
+                }
             }
         },
         data() {
@@ -110,12 +111,12 @@
             },
             handleReset(formName) {
                 this.$refs[formName].resetFields();
-            },
+            }
         },
         computed: {
             //根据formItem计算出实际需要让页面渲染的真正的FormItem数据
             FormItems() {
-                  //this.Model中的值改变触发computed
+                //this.Model中的值改变触发computed
                 let FormItems = []
                 FormItems = this.formItems.map(item => this.computeFormItem(item, this.Model))
                 return FormItems
@@ -123,23 +124,26 @@
         },
         watch: {
             //使用watch观察父组件传入的formItems,初始化Model对象(只调用一次)
-            formItems() {
-                this.formItems.forEach(formItem => {
-                    if (!formItem.key) return //跳过没有key的属性(插槽)
-                    this.$set(this.Model, formItem.key, (formItem.value ? formItem.value : ""))
-                })
+            formItems: {
+                handler() {
+                    this.formItems.forEach(formItem => {
+                        if (!formItem.key) return //跳过没有key的属性(插槽)
+                        this.$set(this.Model, formItem.key, (formItem.value ? formItem.value : ""))
+                    })
+                },
+                deep: true,
+                immediate: true
             },
             mergeModel: {
-               handler(now) {
-                   console.log(now)
-                   this.handleMerge()
-               },
-                deep:true,
-                immediate:true
+                handler() {
+                    this.handleMerge()
+                },
+                deep: true,
+                immediate: true
             },
         },
         mounted() {
             //mounted钩子中formItems是空数组,所以不在mounted里面操作
-        },
+        }
     }
 </script>

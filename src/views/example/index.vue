@@ -4,7 +4,7 @@
                 :form-items="formItems"
                 :mergeModel="mergeModel"
                 :api="testApi"
-                _ref="homeForm"
+                name="homeForm"
                 @afterSubmit="linkBack">
             <template slot="icon">
                 <svg-icon name="chart" @click.native="handleClick" />
@@ -43,7 +43,9 @@
                     zhonganAccessFlag:""
                 },
                 tableData: [],
-                formItems:[]
+                testApi,
+                columns,
+                formItems
             }
         },
         methods: {
@@ -69,20 +71,8 @@
                 this.tableData = res3.data.result.tableData
             },
         },
-        computed:{
-            columns() {
-                return columns
-            },
-            testApi() {
-                return testApi
-            }
-            // formItems() {
-            //     return formItems
-            // }
-        },
         mounted() {
             this.getInfo()
-            this.formItems = formItems
         }
    }
 </script>
