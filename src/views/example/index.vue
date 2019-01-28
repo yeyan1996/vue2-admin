@@ -7,7 +7,7 @@
                 name="homeForm"
                 @afterSubmit="linkBack">
             <template slot="icon">
-                <svg-icon name="chart" @click.native="handleClick" />
+                <svg-icon name="chart" @click.native="handleClick"></svg-icon>
             </template>
 
             <template slot="testFormItem">
@@ -26,6 +26,7 @@
                 :data="tableData"
                 :columns="columns">
         </z-table>
+
     </article>
 </template>
 

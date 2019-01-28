@@ -49,7 +49,9 @@ module.exports = {
             })
         // 修改images loader 添加svg处理
         const imagesRule = config.module.rule('images')
-        imagesRule.exclude.add(resolve('src/icons'))
+        imagesRule
+            .exclude
+            .add(resolve('src/icons'))
         config.module
             .rule('images')
             .test(/\.(png|jpe?g|gif|svg)(\?.*)?$/)

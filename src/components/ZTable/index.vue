@@ -77,7 +77,7 @@
 <script>
 
     export default {
-        name: "index",
+        name: "z-table",
         props: {
             columns: {
                 type: Array,

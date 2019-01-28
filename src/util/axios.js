@@ -3,7 +3,7 @@ import {BASE_URL} from '../config'
 import store from '../store'
 import {showFullScreenLoading} from "./loading";
 import {tryHideFullScreenLoading} from "./loading";
-import {Message} from "../components/Message";
+import {Message} from "./message";
 
 
 const service = axios.create({

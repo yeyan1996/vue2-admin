@@ -14,7 +14,7 @@
 </template>
 <script>
     export default {
-        name: 'ZSelect',
+        name: 'z-select',
         props: {
             value:{
                 default:''

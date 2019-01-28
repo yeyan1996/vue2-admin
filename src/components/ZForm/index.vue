@@ -38,6 +38,7 @@
     import {basic} from "./BASIC";
 
     export default {
+        name:'z-form',
         props: {
             formItems: {
                 type: Array,

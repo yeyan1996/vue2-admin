@@ -25,7 +25,7 @@
     import {mapState,mapMutations} from 'vuex'
 
     export default {
-        name: "index",
+        name: "pagination",
         props:{
             total:{
                 type:Number,

@@ -15,7 +15,7 @@
 </template>
 <script>
     export default {
-        name: 'Z-checkbox-group',
+        name: 'z-checkbox-group',
         data() {
             return {
             };

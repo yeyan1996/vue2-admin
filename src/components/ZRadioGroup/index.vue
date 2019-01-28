@@ -14,7 +14,7 @@
 </template>
 <script>
     export default {
-        name: 'Z-radio-group',
+        name: 'z-radio-group',
         data() {
             return {
             };

@@ -1,4 +1,4 @@
-import {Basic} from "../../../interface/FormItem";
+import {Basic} from "../../interface/FormItem";
 
 //所以组件继承自BASIC
 export const basic:Basic = {
