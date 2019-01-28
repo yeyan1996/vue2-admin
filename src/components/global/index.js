@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-const ctx = require.context('@/components', true, /\.vue$/)
+const ctx = require.context('.', true, /\.vue$/)
 
 ctx.keys().forEach(path => {
     //加载svg图片
