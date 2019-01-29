@@ -3,9 +3,12 @@ import {FormItem} from "../../interface/FormItem"
 export const formItems: Array<FormItem> = [
     {
         "tag": "input",
-        "label": "姓名",
         "key": "name",
         "value": "1123",
+        itemAttrs: {
+            "label": "姓名",
+            class:"aaa"
+        },
         "attrs": {
             placeholder: "请输入姓名",
         },
@@ -14,30 +17,34 @@ export const formItems: Array<FormItem> = [
         },
     },
     {
-        "slot": "icon"
+        slot: "icon"
     },
     {
         slot: "testFormItem"
     },
     {
         "tag": "input",
-        "label": "年龄",
         "key": "age",
+        itemAttrs: {
+            "label": "年龄",
+            "rules": [
+                {required: true, message: '年龄不能为空', trigger: 'click'}
+            ],
+        },
         "attrs": {
             placeholder: "请输入姓名",
         },
-        "rules": [
-            {required: true, message: '年龄不能为空', trigger: 'click'}
-        ],
         ifRender(Model) {    //form为ZFrom的:model对象
             return Model.hobby === "2";
         },
     },
     {
         "tag": "select",
-        "label": "兴趣",
         "key": "hobby",
         "value": "2",
+        itemAttrs: {
+            "label": "兴趣",
+        },
         "attrs": {
             placeholder: "请输入兴趣",
             options: [
@@ -45,20 +52,23 @@ export const formItems: Array<FormItem> = [
                 {value: "2", label: "睡觉"},
                 {value: "3", label: "打豆豆"},
             ]
-        },
-        "rules": [],
+        }
     },
     {
         "tag": "date",
-        "label": "日期",
         "key": "date",
         "value": "2018/11/12",
+        itemAttrs: {
+            "label": "日期",
+        },
     },
     {
         "tag": "radio",
-        "label": "单选框",
         "value": "1",
         "key": "radio",
+        itemAttrs: {
+            "label": "单选框",
+        },
         "attrs": {
             "options": [
                 {value: "1", label: "男"},
@@ -68,18 +78,22 @@ export const formItems: Array<FormItem> = [
     },
     {
         "tag": "radio",
-        "label": "调用后端接口-单选框",
         "value": "1",
         "key": "asyncRadio",
+        itemAttrs: {
+            "label": "调用后端接口-单选框",
+        },
         "attrs": {
             "options": []
         }
     },
     {
         "tag": "checkbox-group",
-        "label": "复选框组",
         "value": ["1"],
         "key": "checkboxGroup",
+        itemAttrs: {
+            "label": "复选框组",
+        },
         "attrs": {
             "options": [
                 {value: "1", label: "复选框1"},
@@ -90,31 +104,31 @@ export const formItems: Array<FormItem> = [
     },
     {
         "tag": "cascader",
-        "label": "级联选择器",
         "key": "cascader",
         "value": [],
+        itemAttrs: {
+            "label": "级联选择器",
+        },
         "attrs": {
             "options": []
         }
     },
     {
         "tag": "checkbox",
-        "label": "复选框",
         "key": "checkbox",
         "value": true,
+        itemAttrs: {
+            "label": "复选框",
+        },
         "attrs": {
             label: "复选框"
         }
     },
     {
         "tag": "textarea",
-        "label": "文本框",
         "key": "textarea",
-    },
-    {
-        "tag": "input",
-        "label": "2个form-items计算生成的值",
-        "key": "computedInput",
-        value:'xxx'
+        itemAttrs: {
+            "label": "文本框",
+        },
     }
 ]

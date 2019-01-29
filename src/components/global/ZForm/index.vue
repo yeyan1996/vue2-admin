@@ -13,9 +13,8 @@
 
             <el-form-item
                     :key="index"
-                    :label="item.label"
-                    :rules="item.rules"
                     v-else-if="item._ifRender"
+                    v-bind="item.itemAttrs || {}"
                     :prop="item.key">
                 <component
                         :is="item.tag"
@@ -65,8 +64,7 @@
             //传入mergeModel允许父组件修改内部Model对象
             mergeModel: {
                 type: Object,
-                default: () => {
-                }
+                default: () => {}
             }
         },
         data() {
