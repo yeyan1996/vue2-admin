@@ -4,9 +4,9 @@
             :model="Model"
             :ref="name"
             :api="api"
-            :show-message="$attrs['show-message'] !== false"
-            :status-icon="$attrs['status-icon'] !== false"
-            :inline="$attrs.inline !== false">
+            :show-message="showMessage"
+            :status-icon="statusIcon"
+            :inline="inline">
         <template v-for="(item,index) in FormItems">
 
             <slot v-if="item.slot" :name="item.slot"/>
@@ -120,6 +120,15 @@
                 FormItems = this.formItems.map(item => this.computeFormItem(item, this.Model))
                 return FormItems
             },
+            showMessage() {
+                return this.$attrs['show-message'] !== false
+            },
+            statusIcon() {
+                return this.$attrs['status-icon'] !== false
+            },
+            inline() {
+                return this.$attrs.inline !== false
+            }
         },
         watch: {
             //使用watch观察父组件传入的formItems,初始化Model对象(只调用一次)

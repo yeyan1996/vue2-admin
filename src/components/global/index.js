@@ -6,7 +6,7 @@ ctx.keys().forEach(path => {
     //加载svg图片
     if(path.includes('Svg')){
         const ctx = require.context('@/icons', false, /\.svg$/)
-        const requireAll = requireContext => requireContext.keys().map(requireContext)
+        const requireAll = ctx => ctx.keys().map(ctx)
         requireAll(ctx)
     }
     const module = ctx(path)

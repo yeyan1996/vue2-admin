@@ -75,7 +75,8 @@ module.exports = {
                         deleteOriginalAssets: false //是否删除源文件
                     }]
                 )
-            config.externals(externals)
+            config
+                .externals(externals)
         }
     },
     configureWebpack: config => {
