@@ -102,5 +102,8 @@ export const columns: Columns[] = [
                 "name": "未拉取"
             }
         ]
+    },
+    {
+        slot:'testSlot'
     }
 ]

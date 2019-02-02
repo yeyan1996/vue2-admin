@@ -97,6 +97,9 @@ export var columns = [
                 "name": "未拉取"
             }
         ]
+    },
+    {
+        slot: 'testSlot'
     }
 ];
 //# sourceMappingURL=columns.js.map

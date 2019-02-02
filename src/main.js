@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router/router'
 import store from './store'
 import * as filters from './filters' // global filters
-import "@/components/global" //导入全局组件
+import "@/components/globalComponents" //导入全局组件
 import '@/element/element'
 import "normalize.css"
 
