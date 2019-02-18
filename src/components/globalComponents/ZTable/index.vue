@@ -127,14 +127,15 @@
                 let option;
                 let defaultOption;
                 option = column.options.find(option => value === option.key)
-                // 是否在没有找到name的时候使用默认name
                 defaultOption = column.options.find(option => option.key === 'default')
-                return option ? option.name : (defaultOption && defaultOption.name)
+                // 是否在没有找到name的时候使用默认name
+                return option ? option.name : (defaultOption ? defaultOption.name : "")
             },
             // 需要对tableData的字段进行预处理的情况
             processValue(value, column) {
-                return column.options.find(option => value == null || column.process(value) === option.key)
+                return column.process(value)
             },
+            //点击操作按钮触发的事件
             handleOperation(event, row) {
                 this.$emit(event, row)
             },
@@ -154,5 +155,4 @@
         }
     }
 </script>
-
 

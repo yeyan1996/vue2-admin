@@ -3,7 +3,6 @@
 @prop {Number} pageSize -每页显示多少数据,默认50
 @prop {Number} currentPage -当前页数
 @prop {String} [tableName] -表名，用于同一组件多张表格分页
-@prop {Boolean} [useEvent = false] -是否使用事件形式触发换页事件,false为自动换页
 @event {Function} currentChange -向父组件触发currentChange事件,参数为起止页数,表名
 @event {Function} handleSizeChange -用户自定义每页显示多少数据
 -->
@@ -34,10 +33,6 @@
             },
             tableName:{
                 type:String
-            },
-            useEvent:{
-                type:Boolean,
-                default: false
             }
         },
         data() {
@@ -50,7 +45,8 @@
                 this.currentPage = currentPage
                 let startPage = (this.currentPage-1) * this.pageSize
                 let endPage = this.currentPage * this.pageSize
-                if(this.useEvent){
+                let listeners = Object.keys(this.$listeners)
+                if(listeners.includes('current-change')){
                     this.$emit('current-change',startPage,endPage,this.tableName)
                 }else{
                     //减少在父组件监听currentChange事件的步骤,或者觉得与父组件耦合可以选择显式在父组件传入useEvent调用事件形式解耦
