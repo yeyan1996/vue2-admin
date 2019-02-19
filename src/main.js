@@ -6,14 +6,13 @@ import * as filters from './filters' // global filters
 import "@/components/globalComponents" //导入全局组件
 import '@/element/element'
 import "normalize.css"
-
+import {Message} from "./util/message";
 
 Vue.config.productionTip = false
+Vue.prototype.$message = Message
 
 const hacks = require('viewport-units-buggyfill/viewport-units-buggyfill.hacks');
-require('viewport-units-buggyfill').init({
-    hacks: hacks
-});
+require('viewport-units-buggyfill').init({hacks});
 
 Object.keys(filters).forEach(key => {
     Vue.filter(key, filters[key])

@@ -17,9 +17,6 @@ const service = axios.create({
 
 service.interceptors.request.use(
     config => {
-        if (config.data && config.data.constructor === Object) {
-            config.data = JSON.stringify(config.data)
-        }
         // 在发送请求之前做些什么
         showFullScreenLoading()
         return config;
