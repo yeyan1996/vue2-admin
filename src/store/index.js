@@ -1,30 +1,18 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import global from './modules/global'
 
 Vue.use(Vuex)
 
-const store = new Vuex.Store({
-    modules: {
-        global
-    },
+const files = require.context('./modules', false, /\.js$/)
+const modules = {}
+
+files.keys().forEach(key => {
+    modules[key.replace(/(\.\/|\.js)/g, '')] = files(key).default
 })
 
-if (module.hot) {
+const store = new Vuex.Store({
+    modules
+})
 
-    module.hot.accept([
-        './modules/global',
-    ], () => {
-
-        const global = require('./modules/global').default
-
-        // 加载新模块
-        store.hotUpdate({
-            modules: {
-                global,
-            }
-        })
-    })
-}
 
 export default store

@@ -12,6 +12,7 @@
 
         <template v-for="(column,index) in columns" v-if="!column.hidden">
 
+            <!--正常表头(不需要处理)-->
             <el-table-column
                     v-if="isCommonTableColumn(column)"
                     :key="index"
@@ -28,7 +29,8 @@
                         <span>{{calculateValue(scope.row[column.attrs.prop],column)}}</span>
                     </div>
 
-
+                    <!--插槽/作用域插槽(作用域插槽外部使用slot-scope={scope}访问)-->
+                    <!--必须在<template slot-scope="scope">里,否则访问不到scope属性-->
                     <span v-else-if="column.slot">
                         <slot :name="column.slot" :scope="scope"/>
                     </span>
@@ -46,6 +48,7 @@
                         </div>
                     </div>
 
+                    <!--操作图标-->
                     <div v-else-if="column.operations">
                         <template v-for="operation in column.operations">
                             <el-tooltip

@@ -1,3 +1,4 @@
+var _a;
 //所以组件继承自BASIC
 export var basic = {
     input: {
@@ -53,5 +54,4 @@ export var basic = {
         }
     }
 };
-var _a;
 //# sourceMappingURL=BASIC.js.map

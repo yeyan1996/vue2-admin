@@ -30,6 +30,12 @@ module.exports = {
     baseUrl: '',
     assetsDir: './static',
     chainWebpack: config => {
+        /**
+         * 删除懒加载模块的 prefetch preload，降低带宽压力(使用在移动端)
+         */
+        // config.plugins
+        //     .delete('prefetch')
+        //     .delete('preload')
         config.resolve.alias
             .set('@', resolve('src/'))
             .set('util', resolve('src/util'))
@@ -77,24 +83,19 @@ module.exports = {
                 )
             config
                 .externals(externals)
-        }
-    },
-    configureWebpack: config => {
-        if (IS_PRODUCTION) {
-            config.optimization = {
-                minimizer: [
+            config.optimization
+                .minimizer([
                     new UglifyjsWebpackPlugin({
                         uglifyOptions: {
                             compress: {
                                 warnings: false,
-                                drop_console: true,//console
-                                drop_debugger: false,
-                                pure_funcs: ['console.log']//移除console
+                                drop_console: true,
+                                drop_debugger: true,
+                                pure_funcs: ['console.log']
                             }
                         }
                     })
-                ]
-            }
+                ])
         }
     },
     css: {
