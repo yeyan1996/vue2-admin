@@ -136,7 +136,7 @@
             },
             // 需要对tableData的字段进行预处理的情况
             processValue(value, column) {
-                return column.process(value)
+                return value ? column.process(value) : ""
             },
             //点击操作按钮触发的事件
             handleOperation(event, row) {

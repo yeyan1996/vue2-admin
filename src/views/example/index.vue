@@ -67,9 +67,9 @@
                     axios.get('http://localhost:8070/mock2.json'),
                     axios.get('http://localhost:8070/table.json'),
                 ])
-                this.findItem('asyncRadio').attrs.options = res1.data.result.options
-                this.findItem('cascader').attrs.options = res2.data.result.options
-                this.tableData = res3.data.result.tableData
+                this.findItem('asyncRadio').attrs.options = res1.options
+                this.findItem('cascader').attrs.options = res2.options
+                this.tableData = res3.tableData
             },
         },
         mounted() {

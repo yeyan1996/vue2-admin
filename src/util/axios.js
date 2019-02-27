@@ -55,7 +55,7 @@ service.interceptors.response.use(
                 return Promise.reject(response)
             }
             case "1": {
-                return response;
+                return response.data.result;
             }
             default:
                 Message({
