@@ -2,8 +2,7 @@
     <el-radio-group
             v-bind="$attrs"
             :value="value"
-            v-on="$listeners"
-            @change="change">
+            v-on="$listeners">
         <el-radio
                 v-for="item in $attrs.options"
                 :key="item.value"
@@ -23,11 +22,6 @@
             value:{
                 default:''
             }
-        },
-        methods: {
-            change(val) {
-                this.$emit('input', val);
-            }
-        },
+        }
     };
 </script>

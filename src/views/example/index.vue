@@ -58,7 +58,7 @@
                 this.mergeForm = {...this.mergeForm} //使vue组件刷新视图
             },
             findItem(key) {
-                return this.formItems.find(formItem => formItem.key === key)
+                return this.formItems.find(formItem => formItem.attrs && formItem.attrs.key === key )
             },
             async getInfo() {
                 //生产环境无法使用webpack提供的静态资源服务器
