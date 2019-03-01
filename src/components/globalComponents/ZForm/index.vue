@@ -60,11 +60,6 @@
             api: {
                 type: Function,
                 required: true
-            },
-            //传入mergeForm允许父组件修改内部Model对象
-            mergeForm: {
-                type: Object,
-                default: () => {}
             }
         },
         data() {

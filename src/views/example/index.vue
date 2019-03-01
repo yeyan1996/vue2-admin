@@ -2,7 +2,6 @@
     <article id="example">
         <z-form
                 :form-items="formItems"
-                :mergeForm="mergeForm"
                 :api="testApi"
                 name="homeForm"
                 @after-submit="linkBack">
@@ -35,10 +34,6 @@
         methods: {
             linkBack(res) {
                 this.tableData = res.data.result.tableData
-            },
-            handleClick() {
-                this.mergeForm.name = 'yeyan1996'
-                this.mergeForm = {...this.mergeForm} //使vue组件刷新视图
             },
             findItem(key) {
                 return this.formItems.find(formItem => formItem.attrs && formItem.attrs.key === key )
