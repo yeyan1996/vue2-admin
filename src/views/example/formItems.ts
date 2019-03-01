@@ -17,12 +17,6 @@ export const formItems: Array<FormItem> = [
         },
     },
     {
-        slot: "icon"
-    },
-    {
-        slot: "testFormItem"
-    },
-    {
         tag: "input",
         itemAttrs: {
             label: "年龄",

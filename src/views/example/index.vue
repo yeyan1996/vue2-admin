@@ -6,20 +6,6 @@
                 :api="testApi"
                 name="homeForm"
                 @after-submit="linkBack">
-            <template slot="icon">
-                <svg-icon name="chart" @click.native="handleClick"></svg-icon>
-            </template>
-
-            <template slot="testFormItem">
-                <el-form-item label="测试插槽:" >
-                    <el-checkbox
-                            true-label="1"
-                            false-label=""
-                            v-model="mergeForm.zhonganAccessFlag">
-                        接入对象
-                    </el-checkbox>
-                </el-form-item>
-            </template>
         </z-form>
 
         <z-table
@@ -40,9 +26,6 @@
         name: "index",
         data() {
             return {
-                mergeForm: {
-                    zhonganAccessFlag:""
-                },
                 tableData: [],
                 testApi,
                 columns,
