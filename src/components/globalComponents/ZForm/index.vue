@@ -27,7 +27,7 @@
 
         <el-form-item v-if="submit || reset">
             <el-button @click="handleSubmit(name)" v-if="submit">{{$attrs.searchContext || "搜索"}}</el-button>
-            <el-button @click="handleReset(name)" v-if="reset">{{$attrs.resetContext || "重置"}}</el-button>
+            <el-button @click="handleReset" v-if="reset">{{$attrs.resetContext || "重置"}}</el-button>
         </el-form-item>
 
     </el-form>
@@ -70,6 +70,7 @@
         data() {
             return {
                 Model: {},
+                originModel:{}
             }
         },
         methods: {
@@ -109,8 +110,8 @@
                     }
                 });
             },
-            handleReset(formName) {
-                this.$refs[formName].resetFields();
+            handleReset() {
+                this.Model = JSON.parse(JSON.stringify(this.originModel))
             }
         },
         computed: {
@@ -139,6 +140,7 @@
                         if (!formItem.attrs || !formItem.attrs.key) return //跳过没有key的属性(插槽)
                         this.$set(this.Model, formItem.attrs.key, (formItem.attrs.value ? formItem.attrs.value : ""))
                     })
+                    this.originModel = JSON.parse(JSON.stringify(this.Model))
                 },
                 deep: true,
                 immediate: true
