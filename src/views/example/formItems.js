@@ -15,12 +15,6 @@ export var formItems = [
         },
     },
     {
-        slot: "icon"
-    },
-    {
-        slot: "testFormItem"
-    },
-    {
         tag: "input",
         itemAttrs: {
             label: "年龄",
