@@ -34,20 +34,20 @@ export const basic:Basic = {
             clearable:true,
         }
     },
-    "checkbox":{
+    checkbox:{
         component:'el-checkbox',
     },
     "checkbox-group":{
         component:'z-checkbox-group', //同上
     },
-    "cascader":{
+    cascader:{
         component:'el-cascader',
         attrs:{
             placeholder:"请选择",
             clearable:true,
         }
     },
-    "textarea":{
+    textarea:{
         component:'el-input',
         attrs:{
             type:'textarea'

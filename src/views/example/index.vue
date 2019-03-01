@@ -2,10 +2,10 @@
     <article id="example">
         <z-form
                 :form-items="formItems"
-                :mergeModel="mergeModel"
+                :mergeForm="mergeForm"
                 :api="testApi"
                 name="homeForm"
-                @afterSubmit="linkBack">
+                @after-submit="linkBack">
             <template slot="icon">
                 <svg-icon name="chart" @click.native="handleClick"></svg-icon>
             </template>
@@ -15,7 +15,7 @@
                     <el-checkbox
                             true-label="1"
                             false-label=""
-                            v-model="mergeModel.zhonganAccessFlag">
+                            v-model="mergeForm.zhonganAccessFlag">
                         接入对象
                     </el-checkbox>
                 </el-form-item>
@@ -40,7 +40,7 @@
         name: "index",
         data() {
             return {
-                mergeModel: {
+                mergeForm: {
                     zhonganAccessFlag:""
                 },
                 tableData: [],
@@ -54,8 +54,8 @@
                 this.tableData = res.data.result.tableData
             },
             handleClick() {
-                this.mergeModel.name = 'yeyan1996'
-                this.mergeModel = {...this.mergeModel} //使vue组件刷新视图
+                this.mergeForm.name = 'yeyan1996'
+                this.mergeForm = {...this.mergeForm} //使vue组件刷新视图
             },
             findItem(key) {
                 return this.formItems.find(formItem => formItem.key === key)

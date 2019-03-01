@@ -1,4 +1,3 @@
-var _a;
 //所以组件继承自BASIC
 export var basic = {
     input: {
@@ -34,24 +33,25 @@ export var basic = {
             clearable: true,
         }
     },
-    "checkbox": {
+    checkbox: {
         component: 'el-checkbox',
     },
     "checkbox-group": {
         component: 'z-checkbox-group',
     },
-    "cascader": {
+    cascader: {
         component: 'el-cascader',
         attrs: {
             placeholder: "请选择",
             clearable: true,
         }
     },
-    "textarea": {
+    textarea: {
         component: 'el-input',
         attrs: {
             type: 'textarea'
         }
     }
 };
+var _a;
 //# sourceMappingURL=BASIC.js.map

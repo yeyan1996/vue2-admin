@@ -1,13 +1,13 @@
 export var formItems = [
     {
-        "tag": "input",
-        "key": "name",
-        "value": "1123",
+        tag: "input",
         itemAttrs: {
-            "label": "姓名",
+            label: "姓名",
             class: "aaa"
         },
-        "attrs": {
+        attrs: {
+            key: "name",
+            value: "1123",
             placeholder: "请输入姓名",
         },
         getAttrs: function (Model) {
@@ -21,29 +21,29 @@ export var formItems = [
         slot: "testFormItem"
     },
     {
-        "tag": "input",
-        "key": "age",
+        tag: "input",
         itemAttrs: {
-            "label": "年龄",
-            "rules": [
+            label: "年龄",
+            rules: [
                 { required: true, message: '年龄不能为空', trigger: 'click' }
             ],
         },
-        "attrs": {
-            placeholder: "请输入姓名",
+        attrs: {
+            key: "age",
+            placeholder: "请输入年龄",
         },
         ifRender: function (Model) {
             return Model.hobby === "2";
         },
     },
     {
-        "tag": "select",
-        "key": "hobby",
-        "value": "2",
+        tag: "select",
         itemAttrs: {
-            "label": "兴趣",
+            label: "兴趣",
         },
-        "attrs": {
+        attrs: {
+            key: "hobby",
+            value: "2",
             placeholder: "请输入兴趣",
             options: [
                 { value: "1", label: "吃饭" },
@@ -53,47 +53,49 @@ export var formItems = [
         }
     },
     {
-        "tag": "date",
-        "key": "date",
-        "value": "2018/11/12",
+        tag: "date",
         itemAttrs: {
-            "label": "日期",
+            label: "日期",
         },
+        attrs: {
+            key: "date",
+            value: "2018/11/12",
+        }
     },
     {
-        "tag": "radio",
-        "value": "1",
-        "key": "radio",
+        tag: "radio",
         itemAttrs: {
-            "label": "单选框",
+            label: "单选框",
         },
-        "attrs": {
-            "options": [
+        attrs: {
+            value: "1",
+            key: "radio",
+            options: [
                 { value: "1", label: "男" },
                 { value: "2", label: "女" },
             ]
         }
     },
     {
-        "tag": "radio",
-        "value": "1",
-        "key": "asyncRadio",
+        tag: "radio",
         itemAttrs: {
-            "label": "调用后端接口-单选框",
+            label: "调用后端接口-单选框",
         },
-        "attrs": {
-            "options": []
+        attrs: {
+            value: "1",
+            key: "asyncRadio",
+            options: []
         }
     },
     {
-        "tag": "checkbox-group",
-        "value": ["1"],
-        "key": "checkboxGroup",
+        tag: "checkbox-group",
         itemAttrs: {
-            "label": "复选框组",
+            label: "复选框组",
         },
-        "attrs": {
-            "options": [
+        attrs: {
+            value: ["1"],
+            key: "checkboxGroup",
+            options: [
                 { value: "1", label: "复选框1" },
                 { value: "2", label: "复选框2" },
                 { value: "3", label: "复选框3" },
@@ -101,33 +103,35 @@ export var formItems = [
         }
     },
     {
-        "tag": "cascader",
-        "key": "cascader",
-        "value": [],
+        tag: "cascader",
         itemAttrs: {
-            "label": "级联选择器",
+            label: "级联选择器",
         },
-        "attrs": {
-            "options": []
+        attrs: {
+            key: "cascader",
+            value: [],
+            options: []
         }
     },
     {
-        "tag": "checkbox",
-        "key": "checkbox",
-        "value": true,
+        tag: "checkbox",
         itemAttrs: {
-            "label": "复选框",
+            label: "复选框",
         },
-        "attrs": {
+        attrs: {
+            key: "checkbox",
+            value: true,
             label: "复选框"
         }
     },
     {
-        "tag": "textarea",
-        "key": "textarea",
+        tag: "textarea",
         itemAttrs: {
-            "label": "文本框",
+            label: "文本框",
         },
+        attrs: {
+            key: "textarea",
+        }
     }
 ];
 //# sourceMappingURL=formItems.js.map

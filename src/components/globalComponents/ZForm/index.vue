@@ -7,7 +7,7 @@
             :show-message="showMessage"
             :status-icon="statusIcon"
             :inline="inline">
-        <template v-for="(item,index) in FormItems">
+        <template v-for="(item,index) in _formItems">
 
             <slot v-if="item.slot" :name="item.slot"/>
 
@@ -18,7 +18,7 @@
                     :prop="item.key">
                 <component
                         :is="item.tag"
-                        v-model="Model[item.key]"
+                        v-model="Model[item.attrs.key]"
                         v-bind="item.attrs || {}"
                         v-on="item.listeners || {}"
                 />
@@ -61,8 +61,8 @@
                 type: Function,
                 required: true
             },
-            //传入mergeModel允许父组件修改内部Model对象
-            mergeModel: {
+            //传入mergeForm允许父组件修改内部Model对象
+            mergeForm: {
                 type: Object,
                 default: () => {}
             }
@@ -88,20 +88,21 @@
                 item._ifRender = item.ifRender ? item.ifRender(Model) : true
                 // 防止表单提交时存在多余 key
                 if (!item._ifRender) {
-                    delete Model[item.key]
+                    delete Model[item.attrs.key]
                 }
                 // form-item 配置
                 return item;
             },
             handleMerge() {
-                Object.assign(this.Model, this.mergeModel)
+                Object.assign(this.Model, this.mergeForm)
             },
+            //提交按钮
             handleSubmit(formName) {
                 this.$refs[formName].validate(async valid => {
                     if (valid) {
                         try {
                             let res = await this.api(this.Model)
-                            this.$emit('afterSubmit', res)
+                            this.$emit('after-submit', res)
                         } catch (e) {
                             console.log(e)
                         }
@@ -113,12 +114,12 @@
             }
         },
         computed: {
-            //根据formItem计算出实际需要让页面渲染的真正的FormItem数据
-            FormItems() {
+            //根据formItem计算出实际需要让页面渲染的真正的_formItem数据
+            _formItems() {
                 //this.Model中的值改变触发computed
-                let FormItems = []
-                FormItems = this.formItems.map(item => this.computeFormItem(item, this.Model))
-                return FormItems
+                let _formItems = []
+                _formItems = this.formItems.map(item => this.computeFormItem(item, this.Model))
+                return _formItems
             },
             showMessage() {
                 return this.$attrs['show-message'] !== false
@@ -135,14 +136,14 @@
             formItems: {
                 handler() {
                     this.formItems.forEach(formItem => {
-                        if (!formItem.key) return //跳过没有key的属性(插槽)
-                        this.$set(this.Model, formItem.key, (formItem.value ? formItem.value : ""))
+                        if (!formItem.attrs || !formItem.attrs.key) return //跳过没有key的属性(插槽)
+                        this.$set(this.Model, formItem.attrs.key, (formItem.attrs.value ? formItem.attrs.value : ""))
                     })
                 },
                 deep: true,
                 immediate: true
             },
-            mergeModel: {
+            mergeForm: {
                 handler() {
                     this.handleMerge()
                 },
