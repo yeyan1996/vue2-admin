@@ -3,7 +3,7 @@
         <z-form
                 :form-items="formItems"
                 :mergeForm="mergeForm"
-                :api="testApi"
+                :api="formApi"
                 name="homeForm"
                 @after-submit="linkBack">
             <template slot="icon">
@@ -26,15 +26,13 @@
                 :data="tableData"
                 :columns="columns">
         </z-table>
-
     </article>
 </template>
 
 <script>
     import {columns} from "./columns";
     import {formItems} from "./formItems";
-    import axios from 'util/axios'
-    import {testApi} from "../../api/example";
+    import {formApi,table,radioGroup,cascader} from "@/api/example";
 
     export default {
         name: "index",
@@ -44,7 +42,7 @@
                     zhonganAccessFlag:""
                 },
                 tableData: [],
-                testApi,
+                formApi,
                 columns,
                 formItems
             }
@@ -63,9 +61,9 @@
             async getInfo() {
                 //生产环境无法使用webpack提供的静态资源服务器
                 let [res1, res2, res3] = await Promise.all([
-                    axios.get('http://localhost:8070/mock.json'),
-                    axios.get('http://localhost:8070/mock2.json'),
-                    axios.get('http://localhost:8070/table.json'),
+                    radioGroup(),
+                    cascader(),
+                    table()
                 ])
                 this.findItem('asyncRadio').attrs.options = res1.options
                 this.findItem('cascader').attrs.options = res2.options

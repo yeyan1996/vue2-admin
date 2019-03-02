@@ -72,7 +72,7 @@ module.exports = {
                     return args;
                 })
                 .end()
-                //gzip需要nginx进行配合否则无法使用
+                //gzip需要nginx进行配合
                 .plugin('compression')
                 .use(CompressionWebpackPlugin)
                 .tap(() => [{
@@ -90,8 +90,7 @@ module.exports = {
                             compress: {
                                 warnings: false,
                                 drop_console: true,
-                                drop_debugger: true,
-                                pure_funcs: ['console.log']
+                                drop_debugger: true
                             }
                         }
                     })

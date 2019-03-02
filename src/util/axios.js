@@ -1,27 +1,25 @@
 import axios from 'axios'
-import {BASE_URL} from '../config'
-import store from '../store'
+// import store from '../store'
 import {showFullScreenLoading} from "./loading";
 import {tryHideFullScreenLoading} from "./loading";
 import {Message} from "./message";
-
+import {TIME_OUT} from "@/config";
 
 const service = axios.create({
-    baseURL: BASE_URL,            //api请求的baseURL
-    timeout: 1000 * 60 * 3,
+    baseURL: process.env.VUE_APP_BASE_API,            //api请求的baseURL
+    timeout: TIME_OUT,
     headers: {
         'X-Requested-With': 'XMLHttpRequest',
     },
 })
-
 
 service.interceptors.request.use(
     config => {
         // 在发送请求之前做些什么
         showFullScreenLoading()
         return config;
-        //请求失败的操作
     },
+    //请求失败的操作
     error => {
         tryHideFullScreenLoading()
         console.log('axios请求失败', error)
@@ -39,7 +37,7 @@ service.interceptors.response.use(
         tryHideFullScreenLoading()
         switch (response.data.status) {
             //响应成功，但是服务器返回找不到数据
-            case '0': {
+            case '1': {
                 Message({
                     message: response.data.message,
                     type: 'error'
@@ -54,7 +52,7 @@ service.interceptors.response.use(
                 });
                 return Promise.reject(response)
             }
-            case "1": {
+            case "0": {
                 return response.data.result;
             }
             default:
@@ -79,7 +77,10 @@ service.interceptors.response.use(
                     error.message = '拒绝访问';
                     break
                 case 404:
-                    error.message = `请求地址出错: ${error.response.config.url}`;
+                    error.message = `请求地址出错:地址${error.response.config.url}`;
+                    break
+                case 405:
+                    error.message = `不允许的请求方法`;
                     break
                 case 408:
                     error.message = '请求超时';

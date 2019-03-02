@@ -11,8 +11,9 @@ import {Message} from "./util/message";
 Vue.config.productionTip = false
 Vue.prototype.$message = Message
 
-const hacks = require('viewport-units-buggyfill/viewport-units-buggyfill.hacks');
-require('viewport-units-buggyfill').init({hacks});
+//兼容一些老版本浏览器
+// const hacks = require('viewport-units-buggyfill/viewport-units-buggyfill.hacks');
+// require('viewport-units-buggyfill').init({hacks});
 
 Object.keys(filters).forEach(key => {
     Vue.filter(key, filters[key])
