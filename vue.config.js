@@ -56,11 +56,10 @@ module.exports = {
         // 修改images loader 添加svg处理
         const imagesRule = config.module.rule('images')
         imagesRule
+            .test(/\.(png|jpe?g|gif|webp|svg)(\?.*)?$/)
             .exclude
-            .add(resolve('src/icons'))
-        config.module
-            .rule('images')
-            .test(/\.(png|jpe?g|gif|svg)(\?.*)?$/)
+            .add(resolve('@/icons'))
+            .end()
         if (IS_PRODUCTION) {
             config
                 .plugin('analyzer')
