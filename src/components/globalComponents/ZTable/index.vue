@@ -10,17 +10,17 @@
 
         <slot name="font"/>
 
-        <template v-for="(column,index) in columns" v-if="!column.hidden">
+        <template v-for="(column,index) in columns" >
 
             <!--正常表头(不需要处理)-->
             <el-table-column
-                    v-if="isCommonTableColumn(column)"
+                    v-if="isCommonTableColumn(column) && !column.attrs.hidden"
                     :key="index"
                     v-bind="column.attrs || {}">
             </el-table-column>
 
             <el-table-column
-                    v-else
+                    v-else-if="!column.attrs.hidden"
                     :key="index"
                     v-bind="column.attrs || {}">
                 <template slot-scope="scope">
@@ -74,9 +74,6 @@
                             </svg-icon>
                         </template>
                     </div>
-
-
-                    <div v-else>未知数据</div>
 
                 </template>
 

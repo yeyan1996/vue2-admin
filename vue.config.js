@@ -33,16 +33,23 @@ module.exports = {
         /**
          * 删除懒加载模块的 prefetch preload，降低带宽压力(使用在移动端)
          */
-        // config.plugins
-        //     .delete('prefetch')
-        //     .delete('preload')
-        config.resolve.alias
+        // config
+        // .plugins
+        // .delete('prefetch')
+        // .delete('preload')
+        config
+            .resolve
+            .alias
             .set('@', resolve('src/'))
             .set('util', resolve('src/util'))
             .set('mixins', resolve('src/mixins'))
-        const svgRule = config.module.rule('svg')
-        svgRule.uses.clear()
-        config.module
+        config
+            .module
+            .rule('svg')
+            .uses
+            .clear()
+        config
+            .module
             .rule('svg')
             .test(/\.svg$/)
             .include
@@ -54,47 +61,49 @@ module.exports = {
                 symbolId: 'icon-[name]'
             })
         // 修改images loader 添加svg处理
-        const imagesRule = config.module.rule('images')
-        imagesRule
+        config
+            .module
+            .rule('images')
             .test(/\.(png|jpe?g|gif|webp|svg)(\?.*)?$/)
             .exclude
             .add(resolve('@/icons'))
             .end()
-        if (IS_PRODUCTION) {
-            config
-                .plugin('analyzer')
-                .use(BundleAnalyzerPlugin)
-                .end()
-                .plugin('html')
-                .tap(args => {
-                    args[0].cdn = cdn;
-                    return args;
-                })
-                .end()
-                //gzip需要nginx进行配合
-                .plugin('compression')
-                .use(CompressionWebpackPlugin)
-                .tap(() => [{
-                        test: /\.js$|\.html$|\.css/, //匹配文件名
-                        threshold: 10240, //超过10k进行压缩
-                        deleteOriginalAssets: false //是否删除源文件
-                    }]
-                )
-            config
-                .externals(externals)
-            config.optimization
-                .minimizer([
-                    new UglifyjsWebpackPlugin({
-                        uglifyOptions: {
-                            compress: {
-                                warnings: false,
-                                drop_console: true,
-                                drop_debugger: true
-                            }
-                        }
+            .when(IS_PRODUCTION, config => {
+                config
+                    .plugin('analyzer')
+                    .use(BundleAnalyzerPlugin)
+                    .end()
+                    .plugin('html')
+                    .tap(args => {
+                        args[0].cdn = cdn;
+                        return args;
                     })
-                ])
-        }
+                    .end()
+                    //gzip需要nginx进行配合
+                    .plugin('compression')
+                    .use(CompressionWebpackPlugin)
+                    .tap(() => [{
+                            test: /\.js$|\.html$|\.css/, //匹配文件名
+                            threshold: 10240, //超过10k进行压缩
+                            deleteOriginalAssets: false //是否删除源文件
+                        }]
+                    )
+                config
+                    .externals(externals)
+                config
+                    .optimization
+                    .minimizer([
+                        new UglifyjsWebpackPlugin({
+                            uglifyOptions: {
+                                compress: {
+                                    warnings: false,
+                                    drop_console: true,
+                                    drop_debugger: true
+                                }
+                            }
+                        })
+                    ])
+            })
     },
     css: {
         loaderOptions: {
