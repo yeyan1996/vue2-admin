@@ -3,15 +3,19 @@ const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
 const path = require('path')
 const IS_PRODUCTION = process.env.NODE_ENV === 'production'
+const USE_CDN = true
+const USE_ANALYZER = true
 
 const cdn = [
-    "https://cdn.bootcss.com/vue/2.5.21/vue.min.js",
-    "https://cdn.bootcss.com/vue-router/3.0.2/vue-router.min.js",
-    'https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js',
-    "https://cdn.bootcss.com/element-ui/2.4.11/index.js",
-    'https://cdn.bootcss.com/axios/0.18.0/axios.min.js',
-    'https://cdn.bootcss.com/js-cookie/2.2.0/js.cookie.min.js',
+    "https://unpkg.com/vue@2.6.9/dist/vue.min.js",
+    "https://unpkg.com/vue-router@3.0.2/dist/vue-router.min.js",
+    'https://unpkg.com/vuex@3.1.0/dist/vuex.min.js',
+    "https://unpkg.com/element-ui@2.6.1/lib/index.js",
+    'https://unpkg.com/axios@0.18.0/dist/axios.min.js',
+    'https://unpkg.com/js-cookie@2.2.0/src/js.cookie.js',
 ]
+
+
 const externals = {
     'vue': 'Vue',
     'vue-router': 'VueRouter',
@@ -68,42 +72,46 @@ module.exports = {
             .exclude
             .add(resolve('@/icons'))
             .end()
-            .when(IS_PRODUCTION, config => {
+        if (IS_PRODUCTION) {
+            if (USE_ANALYZER) {
                 config
                     .plugin('analyzer')
                     .use(BundleAnalyzerPlugin)
-                    .end()
+            }
+            if (USE_CDN) {
+                config
                     .plugin('html')
                     .tap(args => {
                         args[0].cdn = cdn;
                         return args;
                     })
-                    .end()
-                    //gzip需要nginx进行配合
-                    .plugin('compression')
-                    .use(CompressionWebpackPlugin)
-                    .tap(() => [{
-                            test: /\.js$|\.html$|\.css/, //匹配文件名
-                            threshold: 10240, //超过10k进行压缩
-                            deleteOriginalAssets: false //是否删除源文件
-                        }]
-                    )
                 config
                     .externals(externals)
-                config
-                    .optimization
-                    .minimizer([
-                        new UglifyjsWebpackPlugin({
-                            uglifyOptions: {
-                                compress: {
-                                    warnings: false,
-                                    drop_console: true,
-                                    drop_debugger: true
-                                }
+            }
+            //gzip需要nginx进行配合
+            config
+                .plugin('compression')
+                .use(CompressionWebpackPlugin)
+                .tap(() => [{
+                        test: /\.js$|\.html$|\.css/, //匹配文件名
+                        threshold: 10240, //超过10k进行压缩
+                        deleteOriginalAssets: false //是否删除源文件
+                    }]
+                )
+            config
+                .optimization
+                .minimizer([
+                    new UglifyjsWebpackPlugin({
+                        uglifyOptions: {
+                            compress: {
+                                warnings: false,
+                                drop_console: true,
+                                drop_debugger: true
                             }
-                        })
-                    ])
-            })
+                        }
+                    })
+                ])
+        }
     },
     css: {
         loaderOptions: {
