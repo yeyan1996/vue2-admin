@@ -4,7 +4,6 @@
             :empty-text="emptyText"
             v-bind="$attrs"
             v-on="$listeners"
-            :ref="name"
             :data="data"
             :stripe="stripe">
 
@@ -14,13 +13,13 @@
 
             <!--正常表头(不需要处理)-->
             <el-table-column
-                    v-if="isCommonTableColumn(column) && !column.attrs.hidden"
+                    v-if="isCommonTableColumn(column) && !column.hidden"
                     :key="index"
                     v-bind="column.attrs || {}">
             </el-table-column>
 
             <el-table-column
-                    v-else-if="!column.attrs.hidden"
+                    v-else-if="!column.hidden"
                     :key="index"
                     v-bind="column.attrs || {}">
                 <template slot-scope="scope">
@@ -96,11 +95,8 @@
                 required: true
             },
             data: {
+                type:Array,
                 required: true,
-                default: () => []
-            },
-            name: {
-                type: String
             }
         },
         methods: {
