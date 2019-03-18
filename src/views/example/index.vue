@@ -6,20 +6,6 @@
                 :api="formApi"
                 name="homeForm"
                 @after-submit="showTableData">
-            <template slot="icon">
-                <svg-icon name="chart" @click.native="handleClick"></svg-icon>
-            </template>
-
-            <template slot="testFormItem">
-                <el-form-item label="测试插槽:">
-                    <el-checkbox
-                            true-label="1"
-                            false-label=""
-                            v-model="mergeForm.zhonganAccessFlag">
-                        接入对象
-                    </el-checkbox>
-                </el-form-item>
-            </template>
         </z-form>
 
         <z-table
@@ -54,15 +40,10 @@
             showTableData(res) {
                 this.tableData = res.tableData
             },
-            handleClick() {
-                this.mergeForm.name = 'yeyan1996'
-                this.mergeForm = {...this.mergeForm} //使vue组件刷新视图
-            },
             findItem(key) {
                 return this.formItems.find(formItem => formItem.attrs && formItem.attrs.key === key)
             },
             async getInfo() {
-                //生产环境无法使用webpack提供的静态资源服务器
                 let [res1, res2] = await Promise.all([
                     radioGroup(),
                     cascader(),

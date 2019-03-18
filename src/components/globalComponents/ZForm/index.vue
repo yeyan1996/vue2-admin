@@ -9,11 +9,10 @@
             :inline="inline">
         <template v-for="(item,index) in _formItems">
 
-            <slot v-if="item.slot" :name="item.slot"/>
 
             <el-form-item
                     :key="index"
-                    v-else-if="item._ifRender"
+                    v-if="item._ifRender"
                     v-bind="item.itemAttrs || {}"
                     :prop="item.key">
                 <component
@@ -61,11 +60,6 @@
                 type: Function,
                 required: true
             },
-            //传入mergeForm允许父组件修改内部Model对象
-            mergeForm: {
-                type: Object,
-                default: () => {}
-            }
         },
         data() {
             return {
@@ -93,9 +87,6 @@
                 }
                 // form-item 配置
                 return item;
-            },
-            handleMerge() {
-                Object.assign(this.Model, this.mergeForm)
             },
             //提交按钮
             handleSubmit(formName) {
@@ -144,14 +135,7 @@
                 },
                 deep: true,
                 immediate: true
-            },
-            mergeForm: {
-                handler() {
-                    this.handleMerge()
-                },
-                deep: true,
-                immediate: true
-            },
+            }
         },
         mounted() {
             //mounted钩子中formItems是空数组,所以不在mounted里面操作
