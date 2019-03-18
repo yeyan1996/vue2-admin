@@ -1,13 +1,5 @@
 import axios from 'util/axios'
 
-export function table(query) {
-    return axios({
-        url: '/table',
-        method: 'get',
-        params: query
-    })
-}
-
 export function radioGroup(query) {
     return axios({
         url: '/radioGroup',

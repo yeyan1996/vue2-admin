@@ -5,7 +5,6 @@ export interface Columns {
     options?: Options[] , //用于key2name的对象
     operations?:Operations[],  //用于控制图标功能的对象
     compose?:Compose //字段组合
-    process?(tableDataValue:string):string //预处理表格字段的函数
 }
 
 interface Attrs {
@@ -20,13 +19,8 @@ interface Options {
 }
 
 interface Compose{
-    data: (string | Data)[][] | string[][] //二维数组标记字段位置(eg:第一行第二个)
+    data: (string | Columns)[][] | string[][] //二维数组标记字段位置(eg:第一行第二个)
     separator?:string //分隔符
-}
-
-interface Data{
-    prop:string
-    options:Options[]
 }
 
 

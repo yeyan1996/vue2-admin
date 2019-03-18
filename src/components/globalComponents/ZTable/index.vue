@@ -9,7 +9,7 @@
 
         <slot name="font"/>
 
-        <template v-for="(column,index) in columns" >
+        <template v-for="(column,index) in columns">
 
             <!--正常表头(不需要处理)-->
             <el-table-column
@@ -28,20 +28,20 @@
                         <span>{{calculateValue(scope.row[column.attrs.prop],column)}}</span>
                     </div>
 
-                    <!--插槽/作用域插槽(作用域插槽外部使用slot-scope={scope}访问)-->
-                    <!--必须在<template slot-scope="scope">里,否则访问不到scope属性-->
+                    <!--插槽/作用域插槽-->
+                    <!--eg.   <template slot-scope="{scope}" slot="testSlot">-->
                     <span v-else-if="column.slot">
                         <slot :name="column.slot" :scope="scope"/>
                     </span>
 
 
-                    <!--字段组合,换行显示-->
+                    <!--字段组合,拆分成多行显示-->
                     <div v-else-if="column.compose">
                         <div v-for="(row,rowIndex) in column.compose.data" :key="rowIndex">
                             <template v-for="(col,colIndex) in row">
-                                <span :key="col+colIndex" v-if="colIndex !== 0">{{column.compose.separator}}</span>
-                                <span :key="scope.row[column.compose.data[rowIndex][colIndex]]+colIndex">
-                                    {{calculateValue(scope.row[column.compose.data[rowIndex][colIndex]],column)}}
+                                <span :key="col + colIndex" v-if="colIndex !== 0">{{column.compose.separator}}</span>
+                                <span :key="calculateKey(column.compose.data[rowIndex][colIndex]) + colIndex">
+                                    {{calculateValue(scope.row[calculateKey(column.compose.data[rowIndex][colIndex])],column.compose.data[rowIndex][colIndex])}}
                                 </span>
                             </template>
                         </div>
@@ -95,26 +95,28 @@
                 required: true
             },
             data: {
-                type:Array,
+                type: Array,
                 required: true,
             }
         },
         methods: {
+            calculateKey(columnOrStr) {
+                if (typeof columnOrStr === 'string') return columnOrStr
+                return columnOrStr.attrs && columnOrStr.attrs.prop
+            },
             // 是否是一个常规的table-column(有以下标签就不是常规table-column)
             isCommonTableColumn(column) {
                 const specialColumnList = [
                     'options',
                     'operations',
                     'slot',
-                    'process',
                     'compose'
                 ]
                 return !specialColumnList.some(option => column[option])
             },
             needTransformData(column) {
                 const transformList = [
-                    'options',
-                    'process',
+                    'options'
                 ]
                 return !!transformList.some(option => column[option])
             },
@@ -127,17 +129,14 @@
                 // 是否在没有找到name的时候使用默认name
                 return option ? option.name : (defaultOption ? defaultOption.name : "")
             },
-            // 需要对tableData的字段进行预处理的情况
-            processValue(value, column) {
-                return value ? column.process(value) : ""
-            },
             //点击操作按钮触发的事件
             handleOperation(event, row) {
                 this.$emit(event, row)
             },
             calculateValue(value, column) {
-                column.process && (value = this.processValue(value, column))
-                column.options && (value = this.value2name(value, column))
+                if (typeof column === 'object') {
+                    column.options && (value = this.value2name(value, column))
+                }
                 return value
             }
         },

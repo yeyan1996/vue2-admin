@@ -1,11 +1,11 @@
+const USE_CDN = true
+const USE_ANALYZER = true
+
 const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
 const path = require('path')
 const IS_PRODUCTION = process.env.NODE_ENV === 'production'
-const USE_CDN = true
-const USE_ANALYZER = true
-
 const cdn = [
     "https://unpkg.com/vue@2.6.9/dist/vue.min.js",
     "https://unpkg.com/vue-router@3.0.2/dist/vue-router.min.js",

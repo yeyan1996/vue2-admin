@@ -20,14 +20,14 @@ export const columns: Columns[] = [
                 key: "3",
                 name: "医保-医院映射"
             }
-        ],
-        hidden:true
+        ]
     },
     {
         attrs: {
             prop: "infoType",
             label: "测试2",
-            width: "200"
+            width: "200",
+            formatter: row => row.callStatus.trim()
         },
         options: [
             {
@@ -102,6 +102,42 @@ export const columns: Columns[] = [
         ]
     },
     {
-        slot: 'testSlot'
+        slot: 'testSlot',
+        attrs: {
+            label: "测试插槽",
+        }
+    },
+    {
+        attrs: {
+            label: "字段组合",
+            "min-width": "200"
+        },
+        compose: {
+            data: [
+                ["callStatus"],
+                [{
+                attrs: {
+                    prop: "infoType",
+                    label: "测试2",
+                    width: "200",
+                    formatter: row => row.callStatus.trim()
+                },
+                options: [
+                    {
+                        key: "1",
+                        name: "医疗目录"
+                    },
+                    {
+                        key: "2",
+                        name: "疾病目录"
+                    },
+                    {
+                        key: "3",
+                        name: "手术目录"
+                    }
+                ]
+            }]
+            ]
+        },
     }
 ]
