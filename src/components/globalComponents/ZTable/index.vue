@@ -159,8 +159,8 @@
                 return option ? option.name : (defaultOption ? defaultOption.name : "")
             },
             //使用formatter处理value
-            formatterValue(row, column) {
-                return column.formatter(row, column)
+            formatterValue(row, column,cellValue) {
+                return column.formatter(row, column,cellValue)
             }
         },
         computed: {
