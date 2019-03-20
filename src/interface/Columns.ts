@@ -4,7 +4,8 @@ export interface Columns {
     slot?:string, /**插槽,特别复杂的交互通过作用域插槽交给父组件**/
     options?: Options[] , //用于key2name的对象
     operations?:Operations[],  //用于控制图标功能的对象
-    compose?:Compose //字段组合
+    compose?:Compose //字段组合,
+    formatter?(row:any,column:Columns,cellValue:any):string | number | boolean //格式化函数
 }
 
 interface Attrs {

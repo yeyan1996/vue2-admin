@@ -25,8 +25,8 @@ export var columns = [
             prop: "infoType",
             label: "测试2",
             width: "200",
-            formatter: function (row) { return row.callStatus.trim(); }
         },
+        formatter: function (row) { return row.infoType.trim(); },
         options: [
             {
                 key: "1",
@@ -80,6 +80,7 @@ export var columns = [
             label: "测试5",
             "min-width": "200"
         },
+        formatter: function (row) { return row.callStatus.trim(); },
         options: [
             {
                 key: "1",
@@ -118,8 +119,8 @@ export var columns = [
                             prop: "infoType",
                             label: "测试2",
                             width: "200",
-                            formatter: function (row) { return row.callStatus.trim(); }
                         },
+                        formatter: function (row) { return row.infoType.trim(); },
                         options: [
                             {
                                 key: "1",

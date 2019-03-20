@@ -27,8 +27,8 @@ export const columns: Columns[] = [
             prop: "infoType",
             label: "测试2",
             width: "200",
-            formatter: row => row.callStatus.trim()
         },
+        formatter: row => row.infoType.trim(),
         options: [
             {
                 key: "1",
@@ -82,6 +82,7 @@ export const columns: Columns[] = [
             label: "测试5",
             "min-width": "200"
         },
+        formatter: row => row.callStatus.trim(),
         options: [
             {
                 key: "1",
@@ -116,27 +117,27 @@ export const columns: Columns[] = [
             data: [
                 ["callStatus"],
                 [{
-                attrs: {
-                    prop: "infoType",
-                    label: "测试2",
-                    width: "200",
-                    formatter: row => row.callStatus.trim()
-                },
-                options: [
-                    {
-                        key: "1",
-                        name: "医疗目录"
+                    attrs: {
+                        prop: "infoType",
+                        label: "测试2",
+                        width: "200",
                     },
-                    {
-                        key: "2",
-                        name: "疾病目录"
-                    },
-                    {
-                        key: "3",
-                        name: "手术目录"
-                    }
-                ]
-            }]
+                    formatter: row => row.infoType.trim(),
+                    options: [
+                        {
+                            key: "1",
+                            name: "医疗目录"
+                        },
+                        {
+                            key: "2",
+                            name: "疾病目录"
+                        },
+                        {
+                            key: "3",
+                            name: "手术目录"
+                        }
+                    ]
+                }]
             ]
         },
     }

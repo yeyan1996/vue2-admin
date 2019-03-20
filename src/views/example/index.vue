@@ -26,7 +26,7 @@
                 :data="tableData"
                 :columns="columns">
             <template slot-scope="{scope}" slot="testSlot">
-                {{ process( scope.row.testSlot)}}
+                {{ format( scope.row.testSlot)}}
             </template>
         </z-table>
     </article>
@@ -70,7 +70,7 @@
                 this.findItem('asyncRadio').attrs.options = res1.options
                 this.findItem('cascader').attrs.options = res2.options
             },
-            process(str) {
+            format(str) {
                 return `处理后的${str}`
             }
         },
