@@ -29,6 +29,8 @@
                 {{ format( scope.row.testSlot)}}
             </template>
         </z-table>
+
+        <el-button @click="showMessage">弹窗按钮</el-button>
     </article>
 </template>
 
@@ -72,6 +74,12 @@
             },
             format(str) {
                 return `处理后的${str}`
+            },
+            showMessage() {
+                this.$selfMessage({
+                    value:'这是一条消息提示',
+                    duration:2000
+                })
             }
         },
         mounted() {

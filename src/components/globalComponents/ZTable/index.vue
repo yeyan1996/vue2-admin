@@ -1,10 +1,10 @@
 <!--需要使用组件实例ref属性只能在父组件定义ref属性，使用this.$refs.<父组件ref属性名>.$children[0]获取-->
 <template>
     <el-table
-            :empty-text="emptyText"
             v-bind="$attrs"
             v-on="$listeners"
             :data="data"
+            :empty-text="emptyText"
             :stripe="stripe">
 
         <slot name="font"/>

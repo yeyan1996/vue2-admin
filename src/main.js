@@ -7,9 +7,15 @@ import "@/components/globalComponents" //导入全局组件
 import '@/element/element'
 import "normalize.css"
 import {Message} from "./util/message";
+//引入自定义组件
+import '@/components/Message'
 
 Vue.config.productionTip = false
 Vue.prototype.$message = Message
+
+//自定义弹框组件
+
+
 
 //兼容一些老版本浏览器
 // const hacks = require('viewport-units-buggyfill/viewport-units-buggyfill.hacks');
