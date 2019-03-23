@@ -2,7 +2,7 @@ import axios from 'axios'
 // import store from '../store'
 import {showFullScreenLoading} from "./loading";
 import {tryHideFullScreenLoading} from "./loading";
-import {Message} from "./message";
+import {message} from "./message";
 import {TIME_OUT} from "@/config";
 
 const service = axios.create({
@@ -23,7 +23,7 @@ service.interceptors.request.use(
     error => {
         tryHideFullScreenLoading()
         console.log('axios请求失败', error)
-        Message({
+        message({
             message: `服务器请求失败${error.message}`,
             type: 'error'
         });
@@ -38,7 +38,7 @@ service.interceptors.response.use(
         switch (response.data.status) {
             //响应成功，但是服务器返回找不到数据
             case '1': {
-                Message({
+                message({
                     message: response.data.message,
                     type: 'error'
                 });
@@ -46,7 +46,7 @@ service.interceptors.response.use(
             }
             //没有登录权限
             case '-1': {
-                Message({
+                message({
                     message: `登录失效请重新登录`,
                     type: 'error',
                 });
@@ -56,7 +56,7 @@ service.interceptors.response.use(
                 return response.data.result;
             }
             default:
-                Message({
+                message({
                     message: `未知错误`,
                     type: 'error'
                 });
@@ -108,7 +108,7 @@ service.interceptors.response.use(
             }
         }
         tryHideFullScreenLoading()
-        Message({
+        message({
             message: `服务器响应失败,错误信息: ${error.message}`,
             type: 'error'
         });

@@ -18,7 +18,7 @@ Vue.prototype.$selfMessage = function (valueOrObj) {
 
     let time = 0
     if (typeof valueOrObj === 'string') {
-        message.value = value
+        message.value = valueOrObj
         time = DEFAULT_TIME
     } else {
         message.value = valueOrObj.value

@@ -6,15 +6,12 @@ import * as filters from './filters' // global filters
 import "@/components/globalComponents" //导入全局组件
 import '@/element/element'
 import "normalize.css"
-import {Message} from "./util/message";
+import {message} from "./util/message";
 //引入自定义组件
 import '@/components/Message'
 
 Vue.config.productionTip = false
-Vue.prototype.$message = Message
-
-//自定义弹框组件
-
+Vue.prototype.$message = message
 
 
 //兼容一些老版本浏览器
