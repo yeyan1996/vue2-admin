@@ -13,7 +13,7 @@
     "js-cookie": "^2.2.0",
     "uglifyjs-webpack-plugin": "^2.1.1",
     "viewport-units-buggyfill": "^0.6.2",
-    "vue": "^2.5.17",
+    "vue": "^2.6.10",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },
@@ -29,7 +29,7 @@
     "postcss-px-to-viewport": "^0.0.3",
     "sass-loader": "^7.0.1",
     "svg-sprite-loader": "^4.1.2",
-    "vue-template-compiler": "^2.5.17",
+    "vue-template-compiler": "^2.6.10",
     "webpack-bundle-analyzer": "^3.0.3"
   },
   "lint-staged": {

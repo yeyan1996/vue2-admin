@@ -6,26 +6,26 @@
                 :api="formApi"
                 name="homeForm"
                 @after-submit="showTableData">
-            <template slot="icon">
-                <svg-icon name="chart" @click.native="handleClick"></svg-icon>
-            </template>
+            <!--<template v-slot:icon>-->
+            <!--<svg-icon name="chart" @click.native="handleClick"></svg-icon>-->
+            <!--</template>-->
 
-            <template slot="testFormItem">
-                <el-form-item label="测试插槽:">
-                    <el-checkbox
-                            true-label="1"
-                            false-label=""
-                            v-model="mergeForm.zhonganAccessFlag">
-                        接入对象
-                    </el-checkbox>
-                </el-form-item>
-            </template>
+            <!--<template v-slot:testFormItem>-->
+            <!--<el-form-item label="测试插槽:">-->
+            <!--<el-checkbox-->
+            <!--true-label="1"-->
+            <!--false-label=""-->
+            <!--v-model="mergeForm.zhonganAccessFlag">-->
+            <!--接入对象-->
+            <!--</el-checkbox>-->
+            <!--</el-form-item>-->
+            <!--</template>-->
         </z-form>
 
         <z-table
                 :data="tableData"
                 :columns="columns">
-            <template slot-scope="{scope}" slot="testSlot">
+            <template v-slot:testSlot="{scope}">
                 {{ format( scope.row.testSlot)}}
             </template>
         </z-table>
@@ -77,8 +77,8 @@
             },
             showMessage() {
                 this.$selfMessage({
-                    value:'这是一条消息提示',
-                    duration:2000
+                    value: '这是一条消息提示',
+                    duration: 2000
                 })
             }
         },
