@@ -28,8 +28,8 @@
                         <span>{{calculateValue(scope.row,column)}}</span>
                     </div>
 
-                    <!--插槽/作用域插槽-->
-                    <!--eg.   <template slot-scope="{scope}" slot="testSlot">-->
+                    <!--插槽/作用域插槽(Vue2.6+)-->
+                    <!--eg.   <template v-slot:testSlot="{scope}" >-->
                     <span v-else-if="column.slot">
                         <slot :name="column.slot" :scope="scope"/>
                     </span>
@@ -159,8 +159,8 @@
                 return option ? option.name : (defaultOption ? defaultOption.name : "")
             },
             //使用formatter处理value
-            formatterValue(row, column,cellValue) {
-                return column.formatter(row, column,cellValue)
+            formatterValue(row, column, cellValue) {
+                return column.formatter(row, column, cellValue)
             }
         },
         computed: {

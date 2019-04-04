@@ -30,7 +30,9 @@
             </template>
         </z-table>
 
+        <el-button @click="toggleTableHeader">切换表头</el-button>
         <el-button @click="showMessage">弹窗按钮</el-button>
+
     </article>
 </template>
 
@@ -49,7 +51,8 @@
                 tableData: [],
                 formApi,
                 columns,
-                formItems
+                formItems,
+                showTableHeader: true
             }
         },
         methods: {
@@ -58,13 +61,19 @@
             },
             handleClick() {
                 this.mergeForm.name = 'yeyan1996'
-                this.mergeForm = {...this.mergeForm} //使vue组件刷新视图
+                //Vue监听不到属性的动态添加,所以需要刷新视图
+                this.mergeForm = {...this.mergeForm}
+            },
+             toggleTableHeader() {
+                this.showTableHeader = !this.showTableHeader
+                //Vue监听不到属性的动态添加,所以需要刷新视图
+                //或者在配置项中声明hidden:false则不需要手动刷新视图,直接执行函数即可
+                this.columns = [...this.$hideTableHeader(this.columns, "dataType", this.showTableHeader)]
             },
             findItem(key) {
                 return this.formItems.find(formItem => formItem.attrs && formItem.attrs.key === key)
             },
             async getInfo() {
-                //生产环境无法使用webpack提供的静态资源服务器
                 let [res1, res2] = await Promise.all([
                     radioGroup(),
                     cascader(),

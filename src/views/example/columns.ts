@@ -1,6 +1,6 @@
-import {Columns} from "../../interface/Columns";
+import {Column} from "../../interface/Columns";
 
-export const columns: Columns[] = [
+export const columns: Column[] = [
     {
         attrs: {
             prop: "dataType",
@@ -20,7 +20,8 @@ export const columns: Columns[] = [
                 key: "3",
                 name: "医保-医院映射"
             }
-        ]
+        ],
+        // hidden:false
     },
     {
         attrs: {

@@ -1,4 +1,4 @@
-export var columns = [
+export const columns = [
     {
         attrs: {
             prop: "dataType",
@@ -18,7 +18,7 @@ export var columns = [
                 key: "3",
                 name: "医保-医院映射"
             }
-        ]
+        ],
     },
     {
         attrs: {
@@ -26,7 +26,7 @@ export var columns = [
             label: "测试2",
             width: "200",
         },
-        formatter: function (row) { return row.infoType.trim(); },
+        formatter: row => row.infoType.trim(),
         options: [
             {
                 key: "1",
@@ -80,7 +80,7 @@ export var columns = [
             label: "测试5",
             "min-width": "200"
         },
-        formatter: function (row) { return row.callStatus.trim(); },
+        formatter: row => row.callStatus.trim(),
         options: [
             {
                 key: "1",
@@ -120,7 +120,7 @@ export var columns = [
                             label: "测试2",
                             width: "200",
                         },
-                        formatter: function (row) { return row.infoType.trim(); },
+                        formatter: row => row.infoType.trim(),
                         options: [
                             {
                                 key: "1",

@@ -1,12 +1,13 @@
 import Vue from 'vue'
-import App from './App.vue'
-import router from './router/router'
-import store from './store'
+import App from '@/App.vue'
+import router from '@/router/router'
+import store from '@/store'
 import * as filters from './filters' // global filters
 import "@/components/globalComponents" //导入全局组件
 import '@/element/element'
 import "normalize.css"
-import {message} from "./util/message";
+import {message} from "@/util/message";
+import {hideTableHeader} from "@/util/hideTableHeader";
 //引入自定义组件
 import '@/components/Message'
 
@@ -22,8 +23,11 @@ Object.keys(filters).forEach(key => {
     Vue.filter(key, filters[key])
 })
 
+//添加隐藏表头的方法
+Vue.prototype.$hideTableHeader = hideTableHeader
+
 new Vue({
-  router,
-  store,
-  render: h => h(App)
+    router,
+    store,
+    render: h => h(App)
 }).$mount('#app')

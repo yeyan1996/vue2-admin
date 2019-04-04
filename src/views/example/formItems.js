@@ -1,4 +1,4 @@
-export var formItems = [
+export const formItems = [
     {
         tag: "input",
         itemAttrs: {
@@ -10,7 +10,7 @@ export var formItems = [
             value: "1123",
             placeholder: "请输入姓名",
         },
-        getAttrs: function (Model) {
+        getAttrs(Model) {
             return Model.age === "22" ? { disabled: true } : null;
         },
     },
@@ -26,7 +26,7 @@ export var formItems = [
             key: "age",
             placeholder: "请输入年龄",
         },
-        ifRender: function (Model) {
+        ifRender(Model) {
             return Model.hobby === "2";
         },
     },
