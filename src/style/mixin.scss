@@ -17,10 +17,3 @@
     align-items: $align-items;
   }
 }
-
-@mixin btn($background:$bg-color,$width:$md){
-  background: $background;
-  width:$width;
-  color:white;
-  font-weight: bold;
-}

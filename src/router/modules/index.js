@@ -1,3 +1,4 @@
+//自动注册路由
 const files = require.context('.', false, /\.js$/)
 
 let configRoutes = []
