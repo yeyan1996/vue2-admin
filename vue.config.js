@@ -64,6 +64,7 @@ module.exports = {
             .options({
                 symbolId: 'icon-[name]'
             })
+            .end()
         // 修改images loader 添加svg处理
         config
             .module
