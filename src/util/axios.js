@@ -1,7 +1,6 @@
 import axios from 'axios'
 // import store from '../store'
-import {showFullScreenLoading} from "./loading";
-import {tryHideFullScreenLoading} from "./loading";
+import {showFullScreenLoading,tryHideFullScreenLoading} from "./loading";
 import {message} from "./message";
 import {TIME_OUT} from "@/config";
 

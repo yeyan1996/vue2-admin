@@ -58,7 +58,7 @@
                                     placement="top-end">
                                 <svg-icon
                                         :key="operation.svgName"
-                                        :class="[column.attrs.class,operation.class]"
+                                        :class="[column.attrs.className,operation.className]"
                                         :name="operation.svgName"
                                         @click.native="handleOperation(operation.event,scope.row)">
                                 </svg-icon>
@@ -67,7 +67,7 @@
                             <svg-icon
                                     v-else
                                     :key="operation.svgName"
-                                    :class="[column.attrs.class,operation.class]"
+                                    :class="[column.attrs.className,operation.className]"
                                     :name="operation.svgName"
                                     @click.native="handleOperation(operation.event,scope.row)">
                             </svg-icon>

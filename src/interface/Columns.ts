@@ -29,5 +29,5 @@ interface Operations{
     svgName:string,  //svg的图标名
     event?:string, //触发事件名
     name?:string //toolTip显示的中文名
-    class?:string
+    className?:string
 }
