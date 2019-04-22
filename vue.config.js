@@ -1,5 +1,4 @@
-const USE_CDN = true
-const USE_ANALYZER = true
+const {useCDN, useAnalyzer} = require("./src/config")
 
 const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
@@ -74,12 +73,12 @@ module.exports = {
             .add(resolve('@/icons'))
             .end()
         if (IS_PRODUCTION) {
-            if (USE_ANALYZER) {
+            if (useAnalyzer) {
                 config
                     .plugin('analyzer')
                     .use(BundleAnalyzerPlugin)
             }
-            if (USE_CDN) {
+            if (useCDN) {
                 config
                     .plugin('html')
                     .tap(args => {
@@ -126,7 +125,7 @@ module.exports = {
     },
     devServer: {
         host: '0.0.0.0',
-        overlay: false,
+        overlay: true,
         port: 8070,
         open: true
     }

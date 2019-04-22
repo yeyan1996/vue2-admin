@@ -45,11 +45,10 @@
                 this.currentPage = currentPage
                 let startPage = (this.currentPage-1) * this.pageSize
                 let endPage = this.currentPage * this.pageSize
-                let listeners = Object.keys(this.$listeners)
-                if(listeners.includes('current-change')){
+                if(this.$listeners['current-change']){
                     this.$emit('current-change',startPage,endPage,this.tableName)
                 }else{
-                    //减少在父组件监听currentChange事件的步骤,或者觉得与父组件耦合可以选择显式在父组件传入useEvent调用事件形式解耦
+                    //减少在父组件监听currentChange事件的步骤,或者觉得与父组件耦合可以选择显式生命current-change事件
                     this.$parent.currentTableData = this.$parent.tableData.slice(startPage ,endPage)
                 }
             },
