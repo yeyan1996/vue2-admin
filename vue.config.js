@@ -1,4 +1,4 @@
-const {useCDN, useAnalyzer} = require("./src/config")
+const {useCDN, useAnalyzer} = require("./src/config.json")
 
 const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')

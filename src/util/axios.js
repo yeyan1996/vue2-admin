@@ -2,7 +2,7 @@ import axios from 'axios'
 // import store from '../store'
 import {showFullScreenLoading,tryHideFullScreenLoading} from "./loading";
 import {message} from "./message";
-const {timeout} = require("../config")
+const {timeout} = require("../config.json")
 
 const service = axios.create({
     baseURL: process.env.VUE_APP_BASE_API,            //api请求的baseURL
