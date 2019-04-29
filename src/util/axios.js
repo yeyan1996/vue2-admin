@@ -2,11 +2,11 @@ import axios from 'axios'
 // import store from '../store'
 import {showFullScreenLoading,tryHideFullScreenLoading} from "./loading";
 import {message} from "./message";
-import {TIME_OUT} from "@/config";
+const {timeout} = require("../config")
 
 const service = axios.create({
     baseURL: process.env.VUE_APP_BASE_API,            //api请求的baseURL
-    timeout: TIME_OUT,
+    timeout: timeout,
     headers: {
         'X-Requested-With': 'XMLHttpRequest',
     },

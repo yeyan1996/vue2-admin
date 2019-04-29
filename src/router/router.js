@@ -13,7 +13,7 @@ const commonRoutes = [
     },
     {
         path: '/404',
-        component: () => import('@/views/notFound')
+        component: () => import(/* webpackChunkName:"notFound" */'@/views/notFound')
     },
     {
         path: '/example',
@@ -25,8 +25,8 @@ const commonRoutes = [
         children: [
             {
                 path: 'index',
-                component: () => import('@/views/example/index'),
-                name: 'example',
+                component: () => import(/* webpackChunkName:"example-index" */ '@/views/example/index'),
+                name: 'example-index',
                 meta: {title: 'index'}
             },
         ]
