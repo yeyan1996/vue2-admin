@@ -1,13 +1,14 @@
 <template>
     <article id="example">
         <z-form
+                :inline="false"
                 :form-items="formItems"
                 :mergeForm="mergeForm"
                 :api="formApi"
                 name="homeForm"
                 @after-submit="showTableData">
             <!--<template v-slot:icon>-->
-            <!--<svg-icon name="chart" @click.native="handleClick"></svg-icon>-->
+            <!--<base-icon name="chart" @click.native="handleClick"></base-icon>-->
             <!--</template>-->
 
             <!--<template v-slot:testFormItem>-->
@@ -55,6 +56,9 @@
                 showTableHeader: true
             }
         },
+        mounted() {
+            this.getInfo()
+        },
         methods: {
             showTableData(res) {
                 this.tableData = res.tableData
@@ -64,7 +68,7 @@
                 //Vue监听不到属性的动态添加,所以需要刷新视图
                 this.mergeForm = {...this.mergeForm}
             },
-             toggleTableHeader() {
+            toggleTableHeader() {
                 this.showTableHeader = !this.showTableHeader
                 //Vue监听不到属性的动态添加,所以需要刷新视图
                 //或者在配置项中声明hidden:false则不需要手动刷新视图,直接执行函数即可
@@ -91,9 +95,6 @@
                 })
             }
         },
-        mounted() {
-            this.getInfo()
-        }
     }
 </script>
 

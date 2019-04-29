@@ -4,7 +4,7 @@ const ctx = require.context('.', true, /\.vue$/)
 
 ctx.keys().forEach(path => {
     //加载svg图片
-    if(path.includes('Svg')){
+    if(path.includes('BaseIcon')){
         const ctx = require.context('@/icons', false, /\.svg$/)
         const requireAll = ctx => ctx.keys().map(ctx)
         requireAll(ctx)

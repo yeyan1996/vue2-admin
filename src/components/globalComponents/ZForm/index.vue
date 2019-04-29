@@ -73,47 +73,6 @@
                 originModel:{}
             }
         },
-        methods: {
-            computeFormItem(formItem, Model) {
-                const item = {...formItem};
-                // 表单控件的类型
-                let tag = item.tag || 'input'
-                // 对应到组件映射表
-                let basicItem = basic[tag]
-                item.tag = basicItem.component;
-                //继承基类的属性
-                item.attrs = Object.assign({}, basicItem.attrs, item.attrs)
-                // 获取动态 Attributes
-                if (item.getAttrs) item.attrs = Object.assign(item.attrs, item.getAttrs(Model))
-                // 条件渲染
-                item._ifRender = item.ifRender ? item.ifRender(Model) : true
-                // 防止表单提交时存在多余 key
-                if (!item._ifRender) {
-                    delete Model[item.attrs.key]
-                }
-                // form-item 配置
-                return item;
-            },
-            handleMerge() {
-                Object.assign(this.Model, this.mergeForm)
-            },
-            //提交按钮
-            handleSubmit(formName) {
-                this.$refs[formName].validate(async valid => {
-                    if (valid) {
-                        try {
-                            let res = await this.api(this.Model)
-                            this.$emit('after-submit', res)
-                        } catch (e) {
-                            console.log(e)
-                        }
-                    }
-                });
-            },
-            handleReset() {
-                this.Model = JSON.parse(JSON.stringify(this.originModel))
-            }
-        },
         computed: {
             //根据formItem计算出实际需要让页面渲染的真正的_formItem数据
             _formItems() {
@@ -155,6 +114,47 @@
         },
         mounted() {
             //mounted钩子中formItems是空数组,所以不在mounted里面操作
-        }
+        },
+        methods: {
+            computeFormItem(formItem, Model) {
+                const item = {...formItem};
+                // 表单控件的类型
+                let tag = item.tag || 'input'
+                // 对应到组件映射表
+                let basicItem = basic[tag]
+                item.tag = basicItem.component;
+                //继承基类的属性
+                item.attrs = Object.assign({}, basicItem.attrs, item.attrs)
+                // 获取动态 Attributes
+                if (item.getAttrs) item.attrs = Object.assign(item.attrs, item.getAttrs(Model))
+                // 条件渲染
+                item._ifRender = item.ifRender ? item.ifRender(Model) : true
+                // 防止表单提交时存在多余 key
+                if (!item._ifRender) {
+                    delete Model[item.attrs.key]
+                }
+                // form-item 配置
+                return item;
+            },
+            handleMerge() {
+                Object.assign(this.Model, this.mergeForm)
+            },
+            //提交按钮
+            handleSubmit(formName) {
+                this.$refs[formName].validate(async valid => {
+                    if (valid) {
+                        try {
+                            let res = await this.api(this.Model)
+                            this.$emit('after-submit', res)
+                        } catch (e) {
+                            console.log(e)
+                        }
+                    }
+                });
+            },
+            handleReset() {
+                this.Model = JSON.parse(JSON.stringify(this.originModel))
+            }
+        },
     }
 </script>

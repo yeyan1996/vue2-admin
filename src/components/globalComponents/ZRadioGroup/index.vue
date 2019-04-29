@@ -14,14 +14,14 @@
 <script>
     export default {
         name: 'z-radio-group',
-        data() {
-            return {
-            };
-        },
         props: {
             value:{
                 default:''
             }
+        },
+        data() {
+            return {
+            };
         }
     };
 </script>

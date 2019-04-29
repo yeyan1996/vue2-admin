@@ -12,71 +12,76 @@
         <template v-for="(column,index) in columns">
 
             <!--正常表头(不需要处理)-->
-            <el-table-column
-                    v-if="isCommonTableColumn(column) && !column.hidden"
-                    :key="index"
-                    v-bind="column.attrs || {}">
-            </el-table-column>
 
-            <el-table-column
-                    v-else-if="!column.hidden"
-                    :key="index"
-                    v-bind="column.attrs || {}">
-                <template slot-scope="scope">
+                <el-table-column
+                        v-if="isCommonTableColumn(column) && !column.hidden"
+                        :key="index"
+                        v-bind="column.attrs || {}">
+                </el-table-column>
 
-                    <div v-if="needTransformData(column)">
-                        <span>{{calculateValue(scope.row,column)}}</span>
-                    </div>
+                <el-table-column
+                        v-else-if="!column.hidden"
+                        :key="index"
+                        v-bind="column.attrs || {}">
+                    <template v-slot="scope">
 
-                    <!--插槽/作用域插槽(Vue2.6+)-->
-                    <!--eg.   <template v-slot:testSlot="{scope}" >-->
-                    <span v-else-if="column.slot">
+                        <div v-if="needTransformData(column)">
+                            <span>{{calculateValue(scope.row,column)}}</span>
+                        </div>
+
+                        <!--插槽/作用域插槽(Vue2.6+)-->
+                        <!--eg.   <template v-slot:testSlot="{scope}" >-->
+                        <span v-else-if="column.slot">
                         <slot :name="column.slot" :scope="scope"/>
                     </span>
 
 
-                    <!--字段组合,拆分成多行显示-->
-                    <div v-else-if="column.compose">
-                        <div v-for="(row,rowIndex) in column.compose.data" :key="rowIndex">
-                            <template v-for="(col,colIndex) in row">
-                                <span :key="col + colIndex" v-if="colIndex !== 0">{{column.compose.separator}}</span>
-                                <span :key="calculateKey(column) + colIndex">
+                        <!--字段组合,拆分成多行显示-->
+                        <div v-else-if="column.compose">
+                            <div v-for="(row,rowIndex) in column.compose.data" :key="rowIndex">
+                                <template v-for="(col,colIndex) in row">
+                                    <span :key="col + colIndex"
+                                          v-if="colIndex !== 0">
+                                        {{column.compose.separator}}
+                                    </span>
+                                    <span :key="calculateKey(column) + colIndex">
                                     {{calculateValue(scope.row,column,rowIndex,colIndex)}}
                                 </span>
-                            </template>
+                                </template>
+                            </div>
                         </div>
-                    </div>
 
-                    <!--操作图标-->
-                    <div v-else-if="column.operations">
-                        <template v-for="operation in column.operations">
-                            <el-tooltip
-                                    v-if="operation.name"
-                                    effect="light"
-                                    :key="operation.svgName"
-                                    :content="operation.name"
-                                    placement="top-end">
-                                <svg-icon
+                        <!--操作图标-->
+                        <div v-else-if="column.operations">
+                            <template v-for="operation in column.operations">
+                                <el-tooltip
+                                        v-if="operation.name"
+                                        effect="light"
+                                        :key="operation.svgName"
+                                        :content="operation.name"
+                                        placement="top-end">
+                                    <base-icon
+                                            :key="operation.svgName"
+                                            :class="[column.attrs.className,operation.className]"
+                                            :name="operation.svgName"
+                                            @click.native="handleOperation(operation.event,scope.row)">
+                                    </base-icon>
+                                </el-tooltip>
+
+                                <base-icon
+                                        v-else
                                         :key="operation.svgName"
                                         :class="[column.attrs.className,operation.className]"
                                         :name="operation.svgName"
                                         @click.native="handleOperation(operation.event,scope.row)">
-                                </svg-icon>
-                            </el-tooltip>
+                                </base-icon>
+                            </template>
+                        </div>
 
-                            <svg-icon
-                                    v-else
-                                    :key="operation.svgName"
-                                    :class="[column.attrs.className,operation.className]"
-                                    :name="operation.svgName"
-                                    @click.native="handleOperation(operation.event,scope.row)">
-                            </svg-icon>
-                        </template>
-                    </div>
+                    </template>
 
-                </template>
+                </el-table-column>
 
-            </el-table-column>
 
         </template>
 
@@ -97,6 +102,14 @@
             data: {
                 type: Array,
                 required: true,
+            }
+        },
+        computed: {
+            emptyText() {
+                return this.$attrs['empty-text'] || '没有符合条件的数据'
+            },
+            stripe() {
+                return this.$attrs.stripe !== false
             }
         },
         methods: {
@@ -161,14 +174,6 @@
             //使用formatter处理value
             formatterValue(row, column, cellValue) {
                 return column.formatter(row, column, cellValue)
-            }
-        },
-        computed: {
-            emptyText() {
-                return this.$attrs['empty-text'] || '没有符合条件的数据'
-            },
-            stripe() {
-                return this.$attrs.stripe !== false
             }
         }
     }

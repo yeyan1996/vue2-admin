@@ -25,7 +25,7 @@
     import {mapState,mapMutations} from 'vuex'
 
     export default {
-        name: "pagination",
+        name: "base-pagination",
         props:{
             total:{
                 type:Number,
@@ -38,6 +38,23 @@
         data() {
             return {
                 currentPage:1,
+            }
+        },
+        computed: {
+            isShow() {
+                return this.total
+            },
+            ...mapState({
+                pageSize:state=>state.global.pageSize
+            })
+        },
+        watch:{
+            //监听长度变化，初始化分页器
+            total:{
+                handler() {
+                    this.handleCurrentChange(1)
+                },
+                immediate:true
             }
         },
         methods: {
@@ -62,25 +79,6 @@
             ...mapMutations([
                 'SAVE_PAGE_SIZE'
             ])
-        },
-        watch:{
-            //监听长度变化，初始化分页器
-            total:{
-                handler() {
-                    this.handleCurrentChange(1)
-                },
-                immediate:true
-            }
-        },
-        computed: {
-            isShow() {
-                return this.total
-            },
-            ...mapState({
-                pageSize:state=>state.global.pageSize
-            })
-        },
-        mounted() {
         }
     }
 </script>

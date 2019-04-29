@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "testing": "vue-cli-service build --mode testing",
+    "stage": "vue-cli-service build --mode stage",
     "release": "vue-cli-service build --mode release",
     "lint": "vue-cli-service lint"
   },
@@ -12,6 +12,7 @@
     "compression-webpack-plugin": "^2.0.0",
     "element-ui": "^2.4.9",
     "js-cookie": "^2.2.0",
+    "npm-check-updates": "^3.1.8",
     "uglifyjs-webpack-plugin": "^2.1.1",
     "viewport-units-buggyfill": "^0.6.2",
     "vue": "^2.6.10",

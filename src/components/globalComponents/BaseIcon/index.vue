@@ -6,7 +6,7 @@
 
 <script>
     export default {
-        name: 'svg-icon',
+        name: 'base-icon',
         props: {
             name: {
                 type: String,
@@ -21,7 +21,7 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     .svg_icon {
         width: 1em;
         height: 1em;
