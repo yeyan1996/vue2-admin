@@ -13,7 +13,7 @@
 </template>
 <script>
     export default {
-        name: 'z-radio-group',
+        name: 'base-radio-group',
         props: {
             value:{
                 default:''

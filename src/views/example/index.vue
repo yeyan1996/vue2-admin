@@ -1,9 +1,9 @@
 <template>
     <article id="example">
-        <z-form
+        <base-form
                 :inline="false"
                 :form-items="formItems"
-                :mergeForm="mergeForm"
+                :merge-form="mergeForm"
                 :api="formApi"
                 name="homeForm"
                 @after-submit="showTableData">
@@ -21,15 +21,15 @@
             <!--</el-checkbox>-->
             <!--</el-form-item>-->
             <!--</template>-->
-        </z-form>
+        </base-form>
 
-        <z-table
+        <base-table
                 :data="tableData"
                 :columns="columns">
             <template v-slot:testSlot="{scope}">
                 {{ format( scope.row.testSlot)}}
             </template>
-        </z-table>
+        </base-table>
 
         <el-button @click="toggleTableHeader">切换表头</el-button>
         <el-button @click="showMessage">弹窗按钮</el-button>

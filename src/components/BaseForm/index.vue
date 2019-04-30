@@ -15,7 +15,7 @@
                     :key="index"
                     v-else-if="item._ifRender"
                     v-bind="item.itemAttrs || {}"
-                    :prop="item.key">
+                    :prop="item.attrs.key">
                 <component
                         :is="item.tag"
                         v-model="Model[item.attrs.key]"
@@ -37,7 +37,7 @@
     import {basic} from "./BASIC";
 
     export default {
-        name:'z-form',
+        name:'base-form',
         props: {
             formItems: {
                 type: Array,
@@ -141,7 +141,8 @@
             },
             //提交按钮
             handleSubmit(formName) {
-                this.$refs[formName].validate(async valid => {
+                this.$refs[formName].validate(async (valid,invalidFields) => {
+                    console.log(invalidFields)
                     if (valid) {
                         try {
                             let res = await this.api(this.Model)

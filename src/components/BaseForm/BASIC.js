@@ -8,7 +8,7 @@ export const basic = {
         }
     },
     select: {
-        component: 'z-select',
+        component: 'base-select',
         attrs: {
             placeholder: "请选择",
             clearable: true
@@ -25,7 +25,7 @@ export const basic = {
         }
     },
     radio: {
-        component: 'z-radio-group',
+        component: 'base-radio-group',
         value: [],
         attrs: {
             placeholder: "选择",
@@ -36,7 +36,7 @@ export const basic = {
         component: 'el-checkbox',
     },
     "checkbox-group": {
-        component: 'z-checkbox-group',
+        component: 'base-checkbox-group',
     },
     cascader: {
         component: 'el-cascader',

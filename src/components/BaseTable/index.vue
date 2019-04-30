@@ -93,7 +93,7 @@
 <script>
 
     export default {
-        name: "z-table",
+        name: "base-table",
         props: {
             columns: {
                 type: Array,

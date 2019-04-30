@@ -1,7 +1,7 @@
+import Vue from 'vue'
 import axios from 'axios'
 // import store from '../store'
 import {showFullScreenLoading,tryHideFullScreenLoading} from "./loading";
-import {message} from "./message";
 const {timeout} = require("../config.json")
 
 const service = axios.create({
@@ -22,7 +22,7 @@ service.interceptors.request.use(
     error => {
         tryHideFullScreenLoading()
         console.log('axios请求失败', error)
-        message({
+        Vue.prototype.$message({
             message: `服务器请求失败${error.message}`,
             type: 'error'
         });
@@ -34,28 +34,29 @@ service.interceptors.request.use(
 service.interceptors.response.use(
     response => {
         tryHideFullScreenLoading()
+        //以下状态可根据业务自定义
         switch (response.data.status) {
-            //响应成功，但是服务器返回找不到数据
+            //响应成功，但是服务器返回失败的状态码
             case '1': {
-                message({
-                    message: response.data.message,
+                Vue.prototype.$message({
+                    message: response.data.message || '未知错误',
                     type: 'error'
                 });
                 return Promise.reject(response)
             }
             //没有登录权限
             case '-1': {
-                message({
+                Vue.prototype.$message({
                     message: `登录失效请重新登录`,
                     type: 'error',
                 });
                 return Promise.reject(response)
             }
             case "0": {
-                return response.data.result;
+                return response.data.result
             }
             default:
-                message({
+                Vue.prototype.$message({
                     message: `未知错误`,
                     type: 'error'
                 });
@@ -107,7 +108,7 @@ service.interceptors.response.use(
             }
         }
         tryHideFullScreenLoading()
-        message({
+        Vue.prototype.$message({
             message: `服务器响应失败,错误信息: ${error.message}`,
             type: 'error'
         });
