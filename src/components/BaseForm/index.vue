@@ -2,7 +2,7 @@
     <el-form
             v-bind="$attrs"
             :model="Model"
-            :ref="name"
+            :ref="symbol"
             :api="api"
             :show-message="showMessage"
             :status-icon="statusIcon"
@@ -26,7 +26,7 @@
         </template>
 
         <el-form-item v-if="submit || reset">
-            <el-button @click="handleSubmit(name)" v-if="submit">{{$attrs.searchContext || "搜索"}}</el-button>
+            <el-button @click="handleSubmit" v-if="submit">{{$attrs.searchContext || "搜索"}}</el-button>
             <el-button @click="handleReset" v-if="reset">{{$attrs.resetContext || "重置"}}</el-button>
         </el-form-item>
 
@@ -36,6 +36,8 @@
 <script>
     import {basic} from "./BASIC";
 
+    const symbol = Symbol("form") //保证每个实例有独一无二的标志位
+
     export default {
         name:'base-form',
         props: {
@@ -44,10 +46,10 @@
                 required: true,
             },
             //作为表单验证和重置需要ref属性
-            name: {
-                type: String,
-                required: true
-            },
+            // name: {
+            //     type: String,
+            //     required: true
+            // },
             submit: {
                 type: Boolean,
                 default: true
@@ -70,7 +72,8 @@
         data() {
             return {
                 Model: {},
-                originModel:{}
+                originModel:{},
+                symbol
             }
         },
         computed: {
@@ -140,8 +143,8 @@
                 Object.assign(this.Model, this.mergeForm)
             },
             //提交按钮
-            handleSubmit(formName) {
-                this.$refs[formName].validate(async (valid,invalidFields) => {
+            handleSubmit() {
+                this.$refs[symbol].validate(async (valid,invalidFields) => {
                     console.log(invalidFields)
                     if (valid) {
                         try {

@@ -5,7 +5,6 @@
                 :form-items="formItems"
                 :merge-form="mergeForm"
                 :api="formApi"
-                name="homeForm"
                 @after-submit="showTableData">
             <!--<template v-slot:icon>-->
             <!--<base-icon name="chart" @click.native="handleClick"></base-icon>-->
@@ -58,6 +57,7 @@
         },
         mounted() {
             this.getInfo()
+            console.log(this.$refs.homeForm)
         },
         methods: {
             showTableData(res) {
