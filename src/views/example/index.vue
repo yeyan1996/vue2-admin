@@ -1,25 +1,11 @@
 <template>
-    <article id="example">
+    <div id="example">
         <base-form
                 :inline="false"
                 :form-items="formItems"
                 :merge-form="mergeForm"
                 :api="formApi"
                 @after-submit="showTableData">
-            <!--<template v-slot:icon>-->
-            <!--<base-icon name="chart" @click.native="handleClick"></base-icon>-->
-            <!--</template>-->
-
-            <!--<template v-slot:testFormItem>-->
-            <!--<el-form-item label="测试插槽:">-->
-            <!--<el-checkbox-->
-            <!--true-label="1"-->
-            <!--false-label=""-->
-            <!--v-model="mergeForm.zhonganAccessFlag">-->
-            <!--接入对象-->
-            <!--</el-checkbox>-->
-            <!--</el-form-item>-->
-            <!--</template>-->
         </base-form>
 
         <base-table
@@ -33,7 +19,7 @@
         <el-button @click="toggleTableHeader">切换表头</el-button>
         <el-button @click="showMessage">弹窗按钮</el-button>
 
-    </article>
+    </div>
 </template>
 
 <script>
@@ -42,7 +28,7 @@
     import {formApi, radioGroup, cascader} from "@/api/example";
 
     export default {
-        name: "index",
+        name: "example",
         data() {
             return {
                 mergeForm: {
@@ -57,33 +43,34 @@
         },
         mounted() {
             this.getInfo()
-            console.log(this.$refs.homeForm)
         },
         methods: {
             showTableData(res) {
                 this.tableData = res.tableData
             },
             handleClick() {
+                //mergeForm使用了Proxy拦截所以不需要手动刷新视图
                 this.mergeForm.name = 'yeyan1996'
-                //Vue监听不到属性的动态添加,所以需要刷新视图
-                this.mergeForm = {...this.mergeForm}
             },
             toggleTableHeader() {
                 this.showTableHeader = !this.showTableHeader
-                //Vue监听不到属性的动态添加,所以需要刷新视图
-                //或者在配置项中声明hidden:false则不需要手动刷新视图,直接执行函数即可
-                this.columns = [...this.$hideTableHeader(this.columns, "dataType", this.showTableHeader)]
+                //columns属性使用了Proxy拦截同样不需要手动刷新视图
+                this.$hideTableHeader(this.columns, "dataType", this.showTableHeader)
             },
             findItem(key) {
                 return this.formItems.find(formItem => formItem.attrs && formItem.attrs.key === key)
             },
             async getInfo() {
-                let [res1, res2] = await Promise.all([
-                    radioGroup(),
-                    cascader(),
-                ])
-                this.findItem('asyncRadio').attrs.options = res1.options
-                this.findItem('cascader').attrs.options = res2.options
+                try {
+                    let [res1, res2] = await Promise.all([
+                        radioGroup(),
+                        cascader(),
+                    ])
+                    this.findItem('asyncRadio').attrs.options = res1.options
+                    this.findItem('cascader').attrs.options = res2.options
+                } catch (e) {
+                    console.log(e)
+                }
             },
             format(str) {
                 return `处理后的${str}`
@@ -99,7 +86,7 @@
 </script>
 
 <style lang="scss" scoped>
-    article {
+    #example {
         padding: 40px;
     }
 </style>

@@ -13,74 +13,74 @@
 
             <!--正常表头(不需要处理)-->
 
-                <el-table-column
-                        v-if="isCommonTableColumn(column) && !column.hidden"
-                        :key="index"
-                        v-bind="column.attrs || {}">
-                </el-table-column>
+            <el-table-column
+                    v-if="isCommonTableColumn(column) && !column.hidden"
+                    :key="index"
+                    v-bind="column.attrs || {}">
+            </el-table-column>
 
-                <el-table-column
-                        v-else-if="!column.hidden"
-                        :key="index"
-                        v-bind="column.attrs || {}">
-                    <template v-slot="scope">
+            <el-table-column
+                    v-else-if="!column.hidden"
+                    :key="index"
+                    v-bind="column.attrs || {}">
+                <template v-slot="scope">
 
-                        <div v-if="needTransformData(column)">
-                            <span>{{calculateValue(scope.row,column)}}</span>
-                        </div>
+                    <div v-if="needTransformData(column)">
+                        <span>{{calculateValue(scope.row,column)}}</span>
+                    </div>
 
-                        <!--插槽/作用域插槽(Vue2.6+)-->
-                        <!--eg.   <template v-slot:testSlot="{scope}" >-->
-                        <span v-else-if="column.slot">
+                    <!--插槽/作用域插槽(Vue2.6+)-->
+                    <!--eg.   <template v-slot:testSlot="{scope}" >-->
+                    <span v-else-if="column.slot">
                         <slot :name="column.slot" :scope="scope"/>
                     </span>
 
 
-                        <!--字段组合,拆分成多行显示-->
-                        <div v-else-if="column.compose">
-                            <div v-for="(row,rowIndex) in column.compose.data" :key="rowIndex">
-                                <template v-for="(col,colIndex) in row">
+                    <!--字段组合,拆分成多行显示-->
+                    <div v-else-if="column.compose">
+                        <div v-for="(row,rowIndex) in column.compose.data" :key="rowIndex">
+                            <template v-for="(col,colIndex) in row">
                                     <span :key="col + colIndex"
                                           v-if="colIndex !== 0">
                                         {{column.compose.separator}}
                                     </span>
-                                    <span :key="calculateKey(column) + colIndex">
+                                <span :key="calculateKey(column) + colIndex">
                                     {{calculateValue(scope.row,column,rowIndex,colIndex)}}
                                 </span>
-                                </template>
-                            </div>
+                            </template>
                         </div>
+                    </div>
 
-                        <!--操作图标-->
-                        <div v-else-if="column.operations">
-                            <template v-for="operation in column.operations">
-                                <el-tooltip
-                                        v-if="operation.name"
-                                        effect="light"
-                                        :key="operation.svgName"
-                                        :content="operation.name"
-                                        placement="top-end">
-                                    <base-icon
-                                            :key="operation.svgName"
-                                            :class="[column.attrs.className,operation.className]"
-                                            :name="operation.svgName"
-                                            @click.native="handleOperation(operation.event,scope.row)">
-                                    </base-icon>
-                                </el-tooltip>
-
+                    <!--操作图标-->
+                    <div v-else-if="column.operations">
+                        <template v-for="operation in column.operations">
+                            <el-tooltip
+                                    v-if="operation.name"
+                                    effect="light"
+                                    :key="operation.svgName"
+                                    :content="operation.name"
+                                    placement="top-end">
                                 <base-icon
-                                        v-else
                                         :key="operation.svgName"
                                         :class="[column.attrs.className,operation.className]"
                                         :name="operation.svgName"
                                         @click.native="handleOperation(operation.event,scope.row)">
                                 </base-icon>
-                            </template>
-                        </div>
+                            </el-tooltip>
 
-                    </template>
+                            <base-icon
+                                    v-else
+                                    :key="operation.svgName"
+                                    :class="[column.attrs.className,operation.className]"
+                                    :name="operation.svgName"
+                                    @click.native="handleOperation(operation.event,scope.row)">
+                            </base-icon>
+                        </template>
+                    </div>
 
-                </el-table-column>
+                </template>
+
+            </el-table-column>
 
 
         </template>
@@ -91,6 +91,7 @@
 </template>
 
 <script>
+    import {findComponentUpwardByProp} from "util/findComponents";
 
     export default {
         name: "base-table",
@@ -111,6 +112,10 @@
             stripe() {
                 return this.$attrs.stripe !== false
             }
+        },
+        mounted() {
+            //代理父组件的columns属性
+            this.proxyProp("columns")
         },
         methods: {
             // 是否是一个常规的table-column(有以下标签就不是常规table-column)
@@ -174,6 +179,18 @@
             //使用formatter处理value
             formatterValue(row, column, cellValue) {
                 return column.formatter(row, column, cellValue)
+            },
+            proxyProp(prop) {
+                let parent = findComponentUpwardByProp(this, prop)
+                if (!parent) throw new Error(`找不到含有${prop}属性的父组件`)
+                //使用Proxy可以拦截对象的动态生成的属性
+                parent[prop] = parent[prop].map(column => new Proxy(column, {
+                        set(column, key, value) {
+                            parent.$set(column, key, value)
+                            return Reflect.set(column, key, value)
+                        }
+                    })
+                )
             }
         }
     }

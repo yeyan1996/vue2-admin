@@ -3,7 +3,6 @@ export const formItems = [
         tag: "input",
         itemAttrs: {
             label: "姓名",
-            className: "aaa"
         },
         attrs: {
             key: "name",

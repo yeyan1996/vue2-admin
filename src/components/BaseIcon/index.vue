@@ -1,5 +1,5 @@
 <template>
-    <svg class="svg_icon" aria-hidden="true">
+    <svg class="svg-icon" aria-hidden="true" @click="handleClick">
         <use :xlink:href="iconName"/>
     </svg>
 </template>
@@ -17,12 +17,17 @@
             iconName() {
                 return `#icon-${this.name}`
             }
+        },
+        methods:{
+            handleClick(e) {
+                this.$emit('click',e)
+            }
         }
     }
 </script>
 
 <style lang="scss" scoped>
-    .svg_icon {
+    .svg-icon {
         width: 1em;
         height: 1em;
         vertical-align: -0.15em;

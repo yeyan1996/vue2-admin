@@ -2,7 +2,7 @@
     <el-form
             v-bind="$attrs"
             :model="Model"
-            :ref="symbol"
+            :ref="form"
             :api="api"
             :show-message="showMessage"
             :status-icon="statusIcon"
@@ -12,12 +12,14 @@
             <slot v-if="item.slot" :name="item.slot"/>
 
             <el-form-item
-                    :key="index"
+                    :key="index + item.attrs.key"
                     v-else-if="item._ifRender"
+                    :class="item.itemAttrs.className"
                     v-bind="item.itemAttrs || {}"
                     :prop="item.attrs.key">
                 <component
                         :is="item.tag"
+                        :class="item.itemAttrs.className"
                         v-model="Model[item.attrs.key]"
                         v-bind="item.attrs || {}"
                         v-on="item.listeners || {}"
@@ -35,21 +37,17 @@
 
 <script>
     import {basic} from "./BASIC";
+    import {findComponentUpwardByProp} from "util/findComponents";
 
-    const symbol = Symbol("form") //保证每个实例有独一无二的标志位
+    const form = Symbol("form") //保证每个实例有独一无二的标志位
 
     export default {
-        name:'base-form',
+        name: 'base-form',
         props: {
             formItems: {
                 type: Array,
                 required: true,
             },
-            //作为表单验证和重置需要ref属性
-            // name: {
-            //     type: String,
-            //     required: true
-            // },
             submit: {
                 type: Boolean,
                 default: true
@@ -66,14 +64,15 @@
             //传入mergeForm允许父组件修改内部Model对象
             mergeForm: {
                 type: Object,
-                default: () => {}
+                default: () => {
+                }
             }
         },
         data() {
             return {
                 Model: {},
-                originModel:{},
-                symbol
+                originModel: {},
+                form
             }
         },
         computed: {
@@ -109,14 +108,16 @@
             },
             mergeForm: {
                 handler() {
-                    this.handleMerge()
+                    this.mergeModel()
                 },
                 deep: true,
                 immediate: true
             },
         },
         mounted() {
-            //mounted钩子中formItems是空数组,所以不在mounted里面操作
+            //代理父组件的mergeForm属性
+            this.proxyProp("mergeForm")
+            //mounted钩子中formItems是空数组,所以不在mounted里面操作formItems
         },
         methods: {
             computeFormItem(formItem, Model) {
@@ -139,12 +140,23 @@
                 // form-item 配置
                 return item;
             },
-            handleMerge() {
+            mergeModel() {
                 Object.assign(this.Model, this.mergeForm)
+            },
+            proxyProp(prop) {
+                let parent = findComponentUpwardByProp(this, prop)
+                if (!parent) throw new Error(`找不到含有${prop}属性的父组件`)
+                //使用Proxy可以拦截对象的动态生成的属性
+                parent[prop] = new Proxy(parent[prop], {
+                    set(target, key, value) {
+                        parent.$set(parent[prop], key, value)
+                        return Reflect.set(target, key, value)
+                    }
+                })
             },
             //提交按钮
             handleSubmit() {
-                this.$refs[symbol].validate(async (valid,invalidFields) => {
+                this.$refs[form].validate(async (valid, invalidFields) => {
                     console.log(invalidFields)
                     if (valid) {
                         try {
@@ -159,6 +171,6 @@
             handleReset() {
                 this.Model = JSON.parse(JSON.stringify(this.originModel))
             }
-        },
+        }
     }
 </script>

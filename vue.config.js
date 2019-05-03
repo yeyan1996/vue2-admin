@@ -40,20 +40,14 @@ module.exports = {
         // .plugins
         // .delete('prefetch')
         // .delete('preload')
-        config
-            .resolve
-            .alias
+        config.resolve.alias
             .set('@', resolve('src/'))
             .set('util', resolve('src/util'))
             .set('mixins', resolve('src/mixins'))
-        config
-            .module
-            .rule('svg')
+        config.module.rule('svg')
             .uses
             .clear()
-        config
-            .module
-            .rule('svg')
+        config.module.rule('svg')
             .test(/\.svg$/)
             .include
             .add(resolve('src/icons')) //处理svg目录
@@ -65,32 +59,26 @@ module.exports = {
             })
             .end()
         // 修改images loader 添加svg处理
-        config
-            .module
-            .rule('images')
+        config.module.rule('images')
             .test(/\.(png|jpe?g|gif|webp|svg)(\?.*)?$/)
             .exclude
-            .add(resolve('@/icons'))
+            .add(resolve('src/icons'))
             .end()
         if (IS_PRODUCTION) {
             if (useAnalyzer) {
-                config
-                    .plugin('analyzer')
+                config.plugin('analyzer')
                     .use(BundleAnalyzerPlugin)
             }
             if (useCDN) {
-                config
-                    .plugin('html')
+                config.plugin('html')
                     .tap(args => {
                         args[0].cdn = cdn;
                         return args;
                     })
-                config
-                    .externals(externals)
+                config.externals(externals)
             }
             //gzip需要nginx进行配合
-            config
-                .plugin('compression')
+            config.plugin('compression')
                 .use(CompressionWebpackPlugin)
                 .tap(() => [{
                         test: /\.js$|\.html$|\.css/, //匹配文件名
@@ -98,8 +86,7 @@ module.exports = {
                         deleteOriginalAssets: false //是否删除源文件
                     }]
                 )
-            config
-                .optimization
+            config.optimization
                 .minimizer([
                     new UglifyjsWebpackPlugin({
                         uglifyOptions: {
