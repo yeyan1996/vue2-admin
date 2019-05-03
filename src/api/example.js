@@ -1,16 +1,24 @@
 import axios from 'util/axios'
 
-export function testApi(query) {
+export function radioGroup(query) {
     return axios({
-        url: 'http://localhost:8070/table.json',
+        url: '/radioGroup',
         method: 'get',
-        params: query
+        params:query
     })
 }
 
-export function postForm(query) {
+export function cascader(query) {
     return axios({
-        url: 'http://localhost:8070/table.json',
+        url: '/cascader',
+        method: 'get',
+        params:query
+    })
+}
+
+export function formApi(query) {
+    return axios({
+        url: '/form',
         method: 'post',
         data:query
     })

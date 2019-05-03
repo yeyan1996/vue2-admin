@@ -1,12 +1,12 @@
 <template>
-    <svg class="svg_icon" aria-hidden="true">
+    <svg class="svg-icon" aria-hidden="true" @click="handleClick">
         <use :xlink:href="iconName"/>
     </svg>
 </template>
 
 <script>
     export default {
-        name: 'svg-icon',
+        name: 'base-icon',
         props: {
             name: {
                 type: String,
@@ -17,12 +17,17 @@
             iconName() {
                 return `#icon-${this.name}`
             }
+        },
+        methods:{
+            handleClick(e) {
+                this.$emit('click',e)
+            }
         }
     }
 </script>
 
-<style scoped>
-    .svg_icon {
+<style lang="scss" scoped>
+    .svg-icon {
         width: 1em;
         height: 1em;
         vertical-align: -0.15em;

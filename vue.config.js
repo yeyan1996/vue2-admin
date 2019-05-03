@@ -1,17 +1,20 @@
+const {useCDN, useAnalyzer} = require("./src/config.json")
+
 const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
 const path = require('path')
 const IS_PRODUCTION = process.env.NODE_ENV === 'production'
-
 const cdn = [
-    "https://cdn.bootcss.com/vue/2.5.21/vue.min.js",
-    "https://cdn.bootcss.com/vue-router/3.0.2/vue-router.min.js",
-    'https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js',
-    "https://cdn.bootcss.com/element-ui/2.4.11/index.js",
-    'https://cdn.bootcss.com/axios/0.18.0/axios.min.js',
-    'https://cdn.bootcss.com/js-cookie/2.2.0/js.cookie.min.js',
+    "https://unpkg.com/vue@2.6.9/dist/vue.min.js",
+    "https://unpkg.com/vue-router@3.0.2/dist/vue-router.min.js",
+    'https://unpkg.com/vuex@3.1.0/dist/vuex.min.js',
+    "https://unpkg.com/element-ui@2.6.1/lib/index.js",
+    'https://unpkg.com/axios@0.18.0/dist/axios.min.js',
+    'https://unpkg.com/js-cookie@2.2.0/src/js.cookie.js',
 ]
+
+
 const externals = {
     'vue': 'Vue',
     'vue-router': 'VueRouter',
@@ -33,17 +36,18 @@ module.exports = {
         /**
          * 删除懒加载模块的 prefetch preload，降低带宽压力(使用在移动端)
          */
-        // config.plugins
-        //     .delete('prefetch')
-        //     .delete('preload')
+        // config
+        // .plugins
+        // .delete('prefetch')
+        // .delete('preload')
         config.resolve.alias
             .set('@', resolve('src/'))
             .set('util', resolve('src/util'))
             .set('mixins', resolve('src/mixins'))
-        const svgRule = config.module.rule('svg')
-        svgRule.uses.clear()
-        config.module
-            .rule('svg')
+        config.module.rule('svg')
+            .uses
+            .clear()
+        config.module.rule('svg')
             .test(/\.svg$/)
             .include
             .add(resolve('src/icons')) //处理svg目录
@@ -53,27 +57,28 @@ module.exports = {
             .options({
                 symbolId: 'icon-[name]'
             })
+            .end()
         // 修改images loader 添加svg处理
-        const imagesRule = config.module.rule('images')
-        imagesRule
+        config.module.rule('images')
+            .test(/\.(png|jpe?g|gif|webp|svg)(\?.*)?$/)
             .exclude
             .add(resolve('src/icons'))
-        config.module
-            .rule('images')
-            .test(/\.(png|jpe?g|gif|svg)(\?.*)?$/)
+            .end()
         if (IS_PRODUCTION) {
-            config
-                .plugin('analyzer')
-                .use(BundleAnalyzerPlugin)
-                .end()
-                .plugin('html')
-                .tap(args => {
-                    args[0].cdn = cdn;
-                    return args;
-                })
-                .end()
-                //gzip需要nginx进行配合否则无法使用
-                .plugin('compression')
+            if (useAnalyzer) {
+                config.plugin('analyzer')
+                    .use(BundleAnalyzerPlugin)
+            }
+            if (useCDN) {
+                config.plugin('html')
+                    .tap(args => {
+                        args[0].cdn = cdn;
+                        return args;
+                    })
+                config.externals(externals)
+            }
+            //gzip需要nginx进行配合
+            config.plugin('compression')
                 .use(CompressionWebpackPlugin)
                 .tap(() => [{
                         test: /\.js$|\.html$|\.css/, //匹配文件名
@@ -81,8 +86,6 @@ module.exports = {
                         deleteOriginalAssets: false //是否删除源文件
                     }]
                 )
-            config
-                .externals(externals)
             config.optimization
                 .minimizer([
                     new UglifyjsWebpackPlugin({
@@ -90,8 +93,7 @@ module.exports = {
                             compress: {
                                 warnings: false,
                                 drop_console: true,
-                                drop_debugger: true,
-                                pure_funcs: ['console.log']
+                                drop_debugger: true
                             }
                         }
                     })
@@ -110,7 +112,7 @@ module.exports = {
     },
     devServer: {
         host: '0.0.0.0',
-        overlay: false,
+        overlay: true,
         port: 8070,
         open: true
     }

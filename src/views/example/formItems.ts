@@ -5,7 +5,6 @@ export const formItems: Array<FormItem> = [
         tag: "input",
         itemAttrs: {
             label: "姓名",
-            class:"aaa"
         },
         attrs: {
             key: "name",

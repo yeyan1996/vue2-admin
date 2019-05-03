@@ -1,4 +1,4 @@
-import {Basic} from "../../../interface/FormItem";
+import {Basic} from "../../interface/FormItem";
 
 //所以组件继承自BASIC
 export const basic:Basic = {
@@ -10,7 +10,7 @@ export const basic:Basic = {
         }
     },
     select:{
-        component: 'z-select',  //自定义组件,为了在el-select添加options能够生成el-options节点
+        component: 'base-select',  //自定义组件,为了在el-select添加options能够生成el-options节点
         attrs:{
             placeholder: "请选择",
             clearable:true
@@ -27,7 +27,7 @@ export const basic:Basic = {
         }
     },
     radio:{
-        component:'z-radio-group', //自定义组件,为了在el-radio-group添加options能够生成el-radio节点
+        component:'base-radio-group', //自定义组件,为了在el-radio-group添加options能够生成el-radio节点
         value:[],
         attrs:{
             placeholder:"选择",
@@ -38,7 +38,7 @@ export const basic:Basic = {
         component:'el-checkbox',
     },
     "checkbox-group":{
-        component:'z-checkbox-group', //同上
+        component:'base-checkbox-group', //同上
     },
     cascader:{
         component:'el-cascader',

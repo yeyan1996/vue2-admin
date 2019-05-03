@@ -1,63 +1,92 @@
 <template>
-    <article id="example">
-        <z-form
+    <div id="example">
+        <base-form
+                :inline="false"
                 :form-items="formItems"
-                :api="testApi"
-                name="homeForm"
-                @after-submit="linkBack">
-        </z-form>
+                :merge-form="mergeForm"
+                :api="formApi"
+                @after-submit="showTableData">
+        </base-form>
 
-        <z-table
+        <base-table
                 :data="tableData"
                 :columns="columns">
-        </z-table>
+            <template v-slot:testSlot="{scope}">
+                {{ format( scope.row.testSlot)}}
+            </template>
+        </base-table>
 
-    </article>
+        <el-button @click="toggleTableHeader">切换表头</el-button>
+        <el-button @click="showMessage">弹窗按钮</el-button>
+
+    </div>
 </template>
 
 <script>
     import {columns} from "./columns";
     import {formItems} from "./formItems";
-    import axios from 'util/axios'
-    import {testApi} from "../../api/example";
+    import {formApi, radioGroup, cascader} from "@/api/example";
 
     export default {
-        name: "index",
+        name: "example",
         data() {
             return {
+                mergeForm: {
+                    zhonganAccessFlag: ""
+                },
                 tableData: [],
-                testApi,
+                formApi,
                 columns,
-                formItems
+                formItems,
+                showTableHeader: true
             }
-        },
-        methods: {
-            linkBack(res) {
-                this.tableData = res.data.result.tableData
-            },
-            findItem(key) {
-                return this.formItems.find(formItem => formItem.attrs && formItem.attrs.key === key )
-            },
-            async getInfo() {
-                //生产环境无法使用webpack提供的静态资源服务器
-                let [res1, res2, res3] = await Promise.all([
-                    axios.get('http://localhost:8070/mock.json'),
-                    axios.get('http://localhost:8070/mock2.json'),
-                    axios.get('http://localhost:8070/table.json'),
-                ])
-                this.findItem('asyncRadio').attrs.options = res1.options
-                this.findItem('cascader').attrs.options = res2.options
-                this.tableData = res3.tableData
-            },
         },
         mounted() {
             this.getInfo()
-        }
-   }
+        },
+        methods: {
+            showTableData(res) {
+                this.tableData = res.tableData
+            },
+            handleClick() {
+                //mergeForm使用了Proxy拦截所以不需要手动刷新视图
+                this.mergeForm.name = 'yeyan1996'
+            },
+            toggleTableHeader() {
+                this.showTableHeader = !this.showTableHeader
+                //columns属性使用了Proxy拦截同样不需要手动刷新视图
+                this.$hideTableHeader(this.columns, "dataType", this.showTableHeader)
+            },
+            findItem(key) {
+                return this.formItems.find(formItem => formItem.attrs && formItem.attrs.key === key)
+            },
+            async getInfo() {
+                try {
+                    let [res1, res2] = await Promise.all([
+                        radioGroup(),
+                        cascader(),
+                    ])
+                    this.findItem('asyncRadio').attrs.options = res1.options
+                    this.findItem('cascader').attrs.options = res2.options
+                } catch (e) {
+                    console.log(e)
+                }
+            },
+            format(str) {
+                return `处理后的${str}`
+            },
+            showMessage() {
+                this.$selfMessage({
+                    value: '这是一条消息提示',
+                    duration: 2000
+                })
+            }
+        },
+    }
 </script>
 
 <style lang="scss" scoped>
-    article {
+    #example {
         padding: 40px;
     }
 </style>

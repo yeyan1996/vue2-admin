@@ -25,7 +25,7 @@
     import {mapState,mapMutations} from 'vuex'
 
     export default {
-        name: "pagination",
+        name: "base-pagination",
         props:{
             total:{
                 type:Number,
@@ -40,16 +40,32 @@
                 currentPage:1,
             }
         },
+        computed: {
+            isShow() {
+                return this.total
+            },
+            ...mapState({
+                pageSize:state=>state.global.pageSize
+            })
+        },
+        watch:{
+            //监听长度变化，初始化分页器
+            total:{
+                handler() {
+                    this.handleCurrentChange(1)
+                },
+                immediate:true
+            }
+        },
         methods: {
             handleCurrentChange(currentPage) {
                 this.currentPage = currentPage
                 let startPage = (this.currentPage-1) * this.pageSize
                 let endPage = this.currentPage * this.pageSize
-                let listeners = Object.keys(this.$listeners)
-                if(listeners.includes('current-change')){
+                if(this.$listeners['current-change']){
                     this.$emit('current-change',startPage,endPage,this.tableName)
                 }else{
-                    //减少在父组件监听currentChange事件的步骤,或者觉得与父组件耦合可以选择显式在父组件传入useEvent调用事件形式解耦
+                    //减少在父组件监听currentChange事件的步骤,或者觉得与父组件耦合可以选择显式生命current-change事件
                     this.$parent.currentTableData = this.$parent.tableData.slice(startPage ,endPage)
                 }
             },
@@ -62,25 +78,6 @@
             ...mapMutations([
                 'SAVE_PAGE_SIZE'
             ])
-        },
-        watch:{
-            //监听长度变化，初始化分页器
-            total:{
-                handler() {
-                    this.handleCurrentChange(1)
-                },
-                immediate:true
-            }
-        },
-        computed: {
-            isShow() {
-                return this.total
-            },
-            ...mapState({
-                pageSize:state=>state.global.pageSize
-            })
-        },
-        mounted() {
         }
     }
 </script>

@@ -1,5 +1,5 @@
 //所以组件继承自BASIC
-export var basic = {
+export const basic = {
     input: {
         component: 'el-input',
         attrs: {
@@ -8,7 +8,7 @@ export var basic = {
         }
     },
     select: {
-        component: 'z-select',
+        component: 'base-select',
         attrs: {
             placeholder: "请选择",
             clearable: true
@@ -16,17 +16,16 @@ export var basic = {
     },
     date: {
         component: 'el-date-picker',
-        attrs: (_a = {
-                placeholder: "选择日期",
-                clearable: true,
-                type: "date",
-                format: "yyyy/MM/dd"
-            },
-            _a["value-format"] = "yyyy/MM/dd",
-            _a)
+        attrs: {
+            placeholder: "选择日期",
+            clearable: true,
+            type: "date",
+            format: "yyyy/MM/dd",
+            ["value-format"]: "yyyy/MM/dd"
+        }
     },
     radio: {
-        component: 'z-radio-group',
+        component: 'base-radio-group',
         value: [],
         attrs: {
             placeholder: "选择",
@@ -37,7 +36,7 @@ export var basic = {
         component: 'el-checkbox',
     },
     "checkbox-group": {
-        component: 'z-checkbox-group',
+        component: 'base-checkbox-group',
     },
     cascader: {
         component: 'el-cascader',
@@ -53,5 +52,4 @@ export var basic = {
         }
     }
 };
-var _a;
 //# sourceMappingURL=BASIC.js.map

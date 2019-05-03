@@ -1,23 +1,19 @@
 <template>
-    <el-radio-group
+    <el-select
             v-bind="$attrs"
             :value="value"
             v-on="$listeners">
-        <el-radio
+        <el-option
                 v-for="item in $attrs.options"
                 :key="item.value"
-                :label="item.value">
-            {{item.label}}
-        </el-radio>
-    </el-radio-group>
+                :label="item.label"
+                :value="item.value">
+        </el-option>
+    </el-select>
 </template>
 <script>
     export default {
-        name: 'z-radio-group',
-        data() {
-            return {
-            };
-        },
+        name: 'base-select',
         props: {
             value:{
                 default:''

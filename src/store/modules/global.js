@@ -1,10 +1,10 @@
 //全局的公共数据
 
 import * as type from '../mutations-type'
-import {PAGE_SIZE} from "../../config";
+const pageSize = require("../../config.json")
 
 const state = {
-    pageSize: PAGE_SIZE
+    pageSize: pageSize
 }
 
 const actions = {}
