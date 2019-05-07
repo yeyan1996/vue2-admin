@@ -186,20 +186,6 @@ export default {
     //使用formatter处理value
     formatterValue(row, column, cellValue) {
       return column.formatter(row, column, cellValue);
-    },
-    proxyProp(prop) {
-      let parent = findComponentUpwardByProp(this, prop);
-      if (!parent) throw new Error(`找不到含有${prop}属性的父组件`);
-      //使用Proxy可以拦截对象的动态生成的属性
-      parent[prop] = parent[prop].map(
-        column =>
-          new Proxy(column, {
-            set(column, key, value) {
-              parent.$set(column, key, value);
-              return Reflect.set(column, key, value);
-            }
-          })
-      );
     }
   }
 };

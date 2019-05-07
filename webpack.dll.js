@@ -6,6 +6,7 @@ module.exports = {
   entry: {
     vue: ["vue"],
     vuex: ["vuex"],
+    ELEMENT: ["element-ui"],
     vueRouter: ["vue-router"],
     axios: ["axios"]
   },
