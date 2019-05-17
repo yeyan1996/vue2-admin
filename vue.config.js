@@ -104,8 +104,8 @@ module.exports = {
       config.optimization.minimizer([
         new UglifyjsWebpackPlugin({
           uglifyOptions: {
+            warnings: false,
             compress: {
-              warnings: false,
               drop_console: true,
               drop_debugger: true
             }
