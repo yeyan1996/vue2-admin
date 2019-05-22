@@ -41,7 +41,7 @@
 
 <script>
 import { basic } from "./BASIC";
-import { proxyProp } from "util/proxyProp";
+import { proxyProp } from "../../util/proxyProp";
 import { findComponentUpwardByProp } from "../../util/findComponents";
 
 const form = Symbol("form"); //保证每个实例有独一无二的标志位

@@ -87,7 +87,7 @@
 </template>
 
 <script>
-import { proxyProp } from "util/proxyProp";
+import { proxyProp } from "../../util/proxyProp";
 import { findComponentUpwardByProp } from "../../util/findComponents";
 
 export default {
