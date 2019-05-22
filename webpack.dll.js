@@ -1,5 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
+const UglifyjsWebpackPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = {
   mode: "production",
@@ -21,6 +22,16 @@ module.exports = {
       //必须和全局变量即library名字相同，否则DllPlugin插件找不到第三方库
       name: "[name]",
       path: path.resolve(__dirname, "./dll/[name].manifest.json")
+    }),
+    // 删除类库文件中的log
+    new UglifyjsWebpackPlugin({
+      uglifyOptions: {
+        warnings: false,
+        compress: {
+          drop_console: true,
+          drop_debugger: true
+        }
+      }
     })
   ]
 };

@@ -73,6 +73,14 @@ module.exports = {
         symbolId: "icon-[name]"
       })
       .end();
+    config.module // typescript
+      .rule("ts")
+      .test(/\.ts$/)
+      .exclude.add(resolve("./node_modules"))
+      .end()
+      .use("babel-loader")
+      .loader("babel-loader")
+      .end();
     // 修改images loader 添加svg处理
     config.module
       .rule("images")
@@ -115,7 +123,11 @@ module.exports = {
     }
   },
   configureWebpack: {
-    plugins
+    plugins,
+    // 添加 ts 的后缀
+    resolve: {
+      extensions: [".vue", ".js", ".ts"]
+    }
   },
 
   css: {

@@ -1,5 +1,6 @@
+var _a;
 //所以组件继承自BASIC
-export const basic = {
+export var basic = {
   input: {
     component: "el-input",
     attrs: {
@@ -16,13 +17,14 @@ export const basic = {
   },
   date: {
     component: "el-date-picker",
-    attrs: {
+    attrs: ((_a = {
       placeholder: "选择日期",
       clearable: true,
       type: "date",
-      format: "yyyy/MM/dd",
-      ["value-format"]: "yyyy/MM/dd"
-    }
+      format: "yyyy/MM/dd"
+    }),
+    (_a["value-format"] = "yyyy/MM/dd"),
+    _a)
   },
   radio: {
     component: "base-radio-group",
@@ -52,4 +54,3 @@ export const basic = {
     }
   }
 };
-//# sourceMappingURL=BASIC.js.map
