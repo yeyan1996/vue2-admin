@@ -1,4 +1,5 @@
 import Vue from "vue";
+
 export function proxyProp(prop) {
   //使用Proxy可以拦截对象的动态生成的属性
   return new Proxy(prop, {

@@ -1,16 +1,16 @@
 import Vue from "vue";
-import axios from "axios";
-// import store from '../store'
+import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import { showFullScreenLoading, tryHideFullScreenLoading } from "./loading";
 const { timeout } = require("../config.json");
 
-const service = axios.create({
+const axiosRequestConfig: AxiosRequestConfig = {
   baseURL: process.env.VUE_APP_BASE_API, //api请求的baseURL
   timeout: timeout,
   headers: {
     "X-Requested-With": "XMLHttpRequest"
   }
-});
+};
+const service: AxiosInstance = axios.create(axiosRequestConfig);
 
 service.interceptors.request.use(
   config => {

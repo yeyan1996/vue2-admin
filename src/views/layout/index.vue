@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import TheHead from "../../components/TheHead";
+import TheHead from "@/components/TheHead";
 
 export default {
   name: "layout",

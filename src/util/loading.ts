@@ -1,13 +1,14 @@
 import { Loading } from "element-ui";
-let needLoadingRequestCount = 0;
-let loading;
-
+import { ElLoadingComponent } from "element-ui/types/loading";
+let needLoadingRequestCount: number = 0;
+let loading: ElLoadingComponent;
 function startLoading() {
   loading = Loading.service({
     lock: true,
-    text: "Loading",
+    text: "拼命加载中",
     spinner: "el-icon-loading",
-    background: "rgba(0, 0, 0, 0.7)"
+    background: "rgba(0, 0, 0, 0.2)",
+    customClass: "custom_loading_class"
   });
 }
 function endLoading() {

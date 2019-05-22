@@ -17,8 +17,8 @@
       </template>
     </base-table>
 
-    <el-button @click="toggleTableHeader">切换表头</el-button>
-    <el-button @click="showMessage">弹窗按钮</el-button>
+    <el-button @click="handleToggleTableHeader">切换表头</el-button>
+    <el-button @click="handleShowMessage">弹窗按钮</el-button>
   </div>
 </template>
 
@@ -52,10 +52,16 @@ export default {
       //mergeForm使用了Proxy拦截所以不需要手动刷新视图
       this.mergeForm.name = "yeyan1996";
     },
-    toggleTableHeader() {
+    handleToggleTableHeader() {
       this.showTableHeader = !this.showTableHeader;
       //columns属性使用了Proxy拦截同样不需要手动刷新视图
       this.$hideTableHeader(this.columns, "dataType", this.showTableHeader);
+    },
+    handleShowMessage() {
+      this.$selfMessage({
+        value: "这是一条消息提示",
+        duration: 2000
+      });
     },
     findItem(key) {
       return this.formItems.find(
@@ -73,12 +79,6 @@ export default {
     },
     format(str) {
       return `处理后的${str}`;
-    },
-    showMessage() {
-      this.$selfMessage({
-        value: "这是一条消息提示",
-        duration: 2000
-      });
     }
   }
 };
