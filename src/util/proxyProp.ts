@@ -1,5 +1,5 @@
 import Vue from "vue";
-
+/* eslint-disable */
 export function proxyProp(prop: object) {
   //使用Proxy可以拦截对象的动态生成的属性
   return new Proxy(prop, {

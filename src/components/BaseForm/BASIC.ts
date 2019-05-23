@@ -1,6 +1,6 @@
 import { Basic } from "@/interface/FormItem";
 
-//所以组件继承自BASIC
+//所以组件继承自BASIC，建立映射关系
 export const basic: Basic = {
   input: {
     component: "el-input",

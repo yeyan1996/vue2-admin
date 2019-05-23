@@ -1,11 +1,11 @@
+const { useCDN, useAnalyzer } = require("./src/config.json");
 const webpack = require("webpack");
 const fs = require("fs");
-const { useCDN, useAnalyzer } = require("./src/config.json");
+const path = require("path");
 const AddAssetHtmlWebpackPlugin = require("add-asset-html-webpack-plugin"); //注入dll的链接库
 const UglifyjsWebpackPlugin = require("uglifyjs-webpack-plugin");
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
-const path = require("path");
 const IS_PRODUCTION = process.env.NODE_ENV === "production";
 const cdn = [
   "https://unpkg.com/vue@2.6.9/dist/vue.min.js",
@@ -31,24 +31,27 @@ function resolve(dir) {
 
 const plugins = [];
 //通过readdirSync分析dll目录读取文件名动态注册AddAssetHtmlWebpackPlugin和webpack.DllReferencePlugin
-fs.readdirSync("./dll").forEach(file => {
-  if (/.*\.dll.js/.test(file)) {
-    plugins.push(
-      new AddAssetHtmlWebpackPlugin({
-        filepath: path.resolve(__dirname, `./dll/${file}`),
-        outputPath: "dll",
-        publicPath: "dll"
-      })
-    );
-  }
-  if (/.*\.manifest.json/.test(file)) {
-    plugins.push(
-      new webpack.DllReferencePlugin({
-        manifest: path.resolve(__dirname, `./dll/${file}`)
-      })
-    );
-  }
-});
+if (IS_PRODUCTION) {
+  //开发环境会导致调试困难所以只在生产使用
+  fs.readdirSync("./dll").forEach(file => {
+    if (/.*\.dll.js/.test(file)) {
+      plugins.push(
+        new AddAssetHtmlWebpackPlugin({
+          filepath: path.resolve(__dirname, `./dll/${file}`),
+          outputPath: "dll",
+          publicPath: "dll"
+        })
+      );
+    }
+    if (/.*\.manifest.json/.test(file)) {
+      plugins.push(
+        new webpack.DllReferencePlugin({
+          manifest: path.resolve(__dirname, `./dll/${file}`)
+        })
+      );
+    }
+  });
+}
 
 module.exports = {
   publicPath: "",
@@ -98,6 +101,10 @@ module.exports = {
         });
         config.externals(externals);
       }
+      config.plugin("html").tap(args => {
+        args[0].minify.minifyCSS = true; //压缩html中的css
+        return args;
+      });
       //gzip需要nginx进行配合
       config
         .plugin("compression")

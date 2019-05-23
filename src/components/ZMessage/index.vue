@@ -1,5 +1,5 @@
 <template>
-  <transition name="fadeDown">
+  <transition name="fadeDown" @after-leave="handleAfterLeave">
     <p class="message" v-if="value">{{ value }}</p>
   </transition>
 </template>
@@ -9,12 +9,23 @@ export default {
   name: "z-message",
   data() {
     return {
-      value: ""
+      value: "",
+      duration: 3000,
+      timer: null //后续可以取消定时器
     };
   },
   methods: {
     close() {
       this.value = "";
+    },
+    startTimer() {
+      this.timer = setTimeout(() => {
+        this.close();
+      }, Number(this.duration));
+    },
+    handleAfterLeave() {
+      // 监听动画结束事件，删除空注释节点
+      this.$el.parentNode.removeChild(this.$el);
     }
   }
 };

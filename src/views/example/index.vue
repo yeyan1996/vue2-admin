@@ -17,7 +17,9 @@
       </template>
     </base-table>
 
-    <el-button @click="handleToggleTableHeader">切换表头</el-button>
+    <base-debounce :duration="1000">
+      <el-button @click="handleToggleTableHeader">切换表头</el-button>
+    </base-debounce>
     <el-button @click="handleShowMessage">弹窗按钮</el-button>
   </div>
 </template>
