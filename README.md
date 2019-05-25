@@ -1,7 +1,7 @@
 # Vue-template
 Vue项目模版
 
-[博客地址](https://juejin.im/post/5c7b4761f265da2db2795036)
+[博客地址](https://juejin.im/post/5c76843af265da2ddd4a6dd0)
 
 * [x] 清晰的项目结构
 * [x] webpack配置+性能优化
