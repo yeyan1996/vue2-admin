@@ -106,6 +106,7 @@ export const columns: Column[] = [
   {
     slot: "testSlot",
     attrs: {
+      prop: "testSlot",
       label: "测试插槽"
     }
   },
