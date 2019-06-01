@@ -2,7 +2,7 @@ import { Loading } from "element-ui";
 import { ElLoadingComponent } from "element-ui/types/loading";
 let needLoadingRequestCount: number = 0;
 let loading: ElLoadingComponent;
-function startLoading() {
+export function startLoading() {
   loading = Loading.service({
     lock: true,
     text: "拼命加载中",
@@ -11,7 +11,7 @@ function startLoading() {
     customClass: "custom_loading_class"
   });
 }
-function endLoading() {
+export function endLoading() {
   loading.close();
 }
 

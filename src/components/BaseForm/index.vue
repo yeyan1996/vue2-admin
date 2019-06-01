@@ -9,16 +9,17 @@
     :inline="inline"
   >
     <template v-for="(item, index) in _formItems">
-      <slot v-if="item.slot" :name="item.slot" />
-
       <el-form-item
         :key="index + item.attrs.key"
-        v-else-if="item._ifRender"
+        v-if="item._ifRender"
         :class="item.itemAttrs.className"
         v-bind="item.itemAttrs || {}"
         :prop="item.attrs.key"
       >
+        <!--将表单内部的数据通过作用域插槽传给外部-->
+        <slot v-if="item.slot" :name="item.slot" :scope="Model" />
         <component
+          v-else
           :is="item.tag"
           :class="item.itemAttrs.className"
           v-model="Model[item.attrs.key]"
@@ -30,7 +31,7 @@
 
     <el-form-item v-if="submit || reset">
       <el-button @click="handleSubmit" v-if="submit">{{
-        $attrs.searchContext || "搜索"
+        $attrs.submitContext || "搜索"
       }}</el-button>
       <el-button @click="handleReset" v-if="reset">{{
         $attrs.resetContext || "重置"

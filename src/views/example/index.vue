@@ -9,6 +9,9 @@
       :api="formApi"
       @after-submit="showTableData"
     >
+      <template v-slot:zhonganAccessFlag>
+        <el-checkbox v-model="mergeForm.slotCheckBox">插槽复选框1</el-checkbox>
+      </template>
     </base-form>
 
     <base-table :data="tableData" :columns="columns">
@@ -18,8 +21,11 @@
     </base-table>
 
     <base-debounce :duration="1000">
-      <el-button @click="handleToggleTableHeader">切换表头</el-button>
+      <el-button @click="handleToggleTableHeader"
+        >切换表头(延迟1秒生效)</el-button
+      >
     </base-debounce>
+
     <el-button @click="handleShowMessage">弹窗按钮</el-button>
   </div>
 </template>
@@ -33,14 +39,14 @@ export default {
   name: "example",
   data() {
     return {
-      mergeForm: {
-        zhonganAccessFlag: ""
-      },
-      tableData: [],
       formApi,
       columns,
       formItems,
-      showTableHeader: true
+      mergeForm: {
+        slotCheckBox: ""
+      },
+      tableData: [],
+      showTableHeader: false
     };
   },
   mounted() {

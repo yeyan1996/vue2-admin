@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "z-message",
+  name: "v-message",
   data() {
     return {
       value: "",
