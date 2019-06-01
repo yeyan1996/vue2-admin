@@ -163,8 +163,7 @@ export default {
 
     //提交按钮
     handleSubmit() {
-      this.$refs[form].validate(async (valid, invalidFields) => {
-        console.log(invalidFields);
+      this.$refs[form].validate(async valid => {
         if (valid) {
           try {
             let res = await this.api(this.Model);
