@@ -9,7 +9,7 @@
       :api="formApi"
       @after-submit="showTableData"
     >
-      <template v-slot:zhonganAccessFlag>
+      <template v-slot:slotCheckBox>
         <el-checkbox v-model="mergeForm.slotCheckBox">插槽复选框1</el-checkbox>
       </template>
     </base-form>
@@ -20,13 +20,15 @@
       </template>
     </base-table>
 
-    <base-debounce :duration="1000">
-      <el-button @click="handleToggleTableHeader"
-        >切换表头(延迟1秒生效)</el-button
-      >
-    </base-debounce>
+    <el-button v-debounce:click.1000="handleToggleTableHeader"
+      >切换表头(自定义指令防抖)</el-button
+    >
 
-    <el-button @click="handleShowMessage">弹窗按钮</el-button>
+    <!--函数式组件和自定义指令的区别在于-->
+    <!--函数式组件可以包裹多个节点-->
+    <base-throttle :duration="1000">
+      <el-button @click="handleShowMessage">弹窗按钮(函数式组件节流)</el-button>
+    </base-throttle>
   </div>
 </template>
 

@@ -4,6 +4,7 @@ import router from "@/router/router";
 import store from "@/store";
 import message from "./plugins/message";
 import * as filters from "./filters"; // global filters
+import * as directives from "./directives"; // global directives
 import { hideTableHeader } from "util/hideTableHeader";
 import "@/components"; //导入全局组件
 import "@/element/element";
@@ -19,6 +20,10 @@ Vue.use(message); //安装自定义弹框插件
 
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key]);
+});
+
+Object.keys(directives).forEach(key => {
+  Vue.directive(key, directives[key]);
 });
 
 new Vue({

@@ -1,9 +1,9 @@
-<!--函数式防抖组件-->
+<!--函数式节流组件-->
 <script>
-import debounce from "lodash/debounce"; //按需引入
+import throttle from "lodash/throttle"; //按需引入
 
 export default {
-  name: "base-debounce",
+  name: "base-throttle",
   functional: true,
   props: {
     duration: {
@@ -17,7 +17,7 @@ export default {
       let listeners = vnode.componentOptions.listeners;
       if (listeners) {
         Object.keys(listeners).forEach(event => {
-          listeners[event] = debounce(listeners[event], context.props.duration);
+          listeners[event] = throttle(listeners[event], context.props.duration);
         });
       }
     });
