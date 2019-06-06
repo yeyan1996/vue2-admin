@@ -79,13 +79,9 @@ export default {
       );
     },
     async getInfo() {
-      try {
-        let [res1, res2] = await Promise.all([radioGroup(), cascader()]);
-        this.findItem("asyncRadio").attrs.options = res1.options;
-        this.findItem("cascader").attrs.options = res2.options;
-      } catch (e) {
-        console.log(e);
-      }
+      let [res1, res2] = await Promise.all([radioGroup(), cascader()]);
+      this.findItem("asyncRadio").attrs.options = res1.options;
+      this.findItem("cascader").attrs.options = res2.options;
     },
     format(str) {
       return `处理后的${str}`;

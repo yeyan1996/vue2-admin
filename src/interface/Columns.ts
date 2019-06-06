@@ -11,7 +11,6 @@ interface Attrs {
   [propName: string]: any;
 }
 
-
 interface Operations {
   svgName: string; //svg的图标名
   event?: string; //触发事件名

@@ -116,12 +116,12 @@ export const formItems: Array<FormItem> = [
       label: "复选框"
     }
   },
-    {
-        slot:"slotCheckBox",
-        itemAttrs: {
-            label: "插槽复选框"
-        }
-    },
+  {
+    slot: "slotCheckBox",
+    itemAttrs: {
+      label: "插槽复选框"
+    }
+  },
   {
     tag: "textarea",
     itemAttrs: {

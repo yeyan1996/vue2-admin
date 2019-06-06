@@ -165,12 +165,8 @@ export default {
     handleSubmit() {
       this.$refs[form].validate(async valid => {
         if (valid) {
-          try {
-            let res = await this.api(this.Model);
-            this.$emit("after-submit", res);
-          } catch (e) {
-            console.log(e);
-          }
+          let res = await this.api(this.Model);
+          this.$emit("after-submit", res);
         }
       });
     },
