@@ -1,12 +1,12 @@
 import { Column } from "@/interface/Columns";
-import {startLoading,endLoading} from "util/loading";
+import { startLoading, endLoading } from "util/loading";
 
 export function hideTableHeader(
   columns: Column[],
   propOrPropArr: string | string[],
   isHidden: boolean
 ): Column[] {
-    startLoading()
+  startLoading();
   if (Array.isArray(propOrPropArr)) {
     propOrPropArr.forEach(prop => {
       let column: Column | undefined = columns.find(
@@ -20,6 +20,6 @@ export function hideTableHeader(
     );
     column && (column.hidden = isHidden);
   }
-    endLoading()
+  endLoading();
   return columns;
 }

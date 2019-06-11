@@ -150,7 +150,7 @@ module.exports = {
   devServer: {
     host: "0.0.0.0",
     overlay: true,
-    port: 8070,
+    port: 8088,
     open: true
   }
 };
