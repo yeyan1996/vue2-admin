@@ -17,3 +17,4 @@ Vue项目模版
 * [x] 通过JavaScript调用的弹框组件
 * [x] 全局组件/路由/状态管理自动注册
 * [x] 自定义指令
+* [x] 让你无需 try/catch 的 async/await 自动错误捕获插件
