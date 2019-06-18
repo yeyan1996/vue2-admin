@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { basic } from "./BASIC";
+import { basic } from "./basic";
 import { proxyProp } from "../../util/proxyProp";
 import { findComponentUpwardByProp } from "../../util/findComponents";
 

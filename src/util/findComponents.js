@@ -1,7 +1,5 @@
-import Vue from "vue";
-
 //寻找某个符合条件的父组件
-export function findComponentUpwardByProp(vm: Vue, prop: string): Vue | null {
+export function findComponentUpwardByProp(vm, prop) {
   let res = null;
   let parent = vm.$parent;
   while (parent) {

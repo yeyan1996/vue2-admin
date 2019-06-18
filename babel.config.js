@@ -1,3 +1,3 @@
 module.exports = {
-  presets: ["@babel/preset-typescript", "@vue/app"]
+  presets: ["@vue/app"]
 };

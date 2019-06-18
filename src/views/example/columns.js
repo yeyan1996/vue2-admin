@@ -1,6 +1,4 @@
-import { Column } from "@/interface/Columns";
-
-export const columns: Column[] = [
+export const columns = [
   {
     attrs: {
       prop: "dataType",

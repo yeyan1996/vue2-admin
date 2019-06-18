@@ -1,6 +1,9 @@
 <template>
   <div id="example">
-    <base-icon name="chart" @click="handleClick"></base-icon>
+    <div>
+      <span class="svg-icon__label">svg图标</span>
+      <base-icon name="chart" @click="handleClick"></base-icon>
+    </div>
 
     <base-form
       :inline="false"
@@ -23,7 +26,6 @@
     <el-button v-debounce:click.1000="handleToggleTableHeader"
       >切换表头(自定义指令防抖)</el-button
     >
-
     <!--函数式组件和自定义指令的区别在于-->
     <!--函数式组件可以包裹多个节点-->
     <base-throttle :duration="1000">
@@ -93,5 +95,8 @@ export default {
 <style lang="scss" scoped>
 #example {
   padding: 40px;
+}
+.svg-icon__label {
+  margin-right: 15px;
 }
 </style>

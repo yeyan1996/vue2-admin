@@ -17,10 +17,6 @@ Vue.prototype.$hideTableHeader = hideTableHeader; //添加隐藏表头的方法
 Vue.use(Message); //安装自定义弹框插件
 Vue.use(ErrorHandler); //安装错误捕获插件
 
-//兼容一些老版本浏览器
-// const hacks = require('viewport-units-buggyfill/viewport-units-buggyfill.hacks');
-// require('viewport-units-buggyfill').init({hacks});
-
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key]);
 });

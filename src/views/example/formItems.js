@@ -1,6 +1,4 @@
-import { FormItem } from "@/interface/FormItem";
-
-export const formItems: Array<FormItem> = [
+export const formItems = [
   {
     tag: "input",
     itemAttrs: {

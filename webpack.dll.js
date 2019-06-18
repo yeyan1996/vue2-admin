@@ -1,5 +1,5 @@
 const path = require("path");
-const webpack = require("webpack");
+const webpack = require("webpack"); // 由于 vue-cli 内置了 webpack 所以不需要在 package.json 中声明
 const UglifyjsWebpackPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = {

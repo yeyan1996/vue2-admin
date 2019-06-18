@@ -7,6 +7,7 @@ const UglifyjsWebpackPlugin = require("uglifyjs-webpack-plugin");
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 const IS_PRODUCTION = process.env.NODE_ENV === "production";
+// 由于公有 cdn 不稳定，这里提供 cdn 的配置项但是用 dllPlugin 做替代
 const cdn = [
   "https://unpkg.com/vue@2.6.9/dist/vue.min.js",
   "https://unpkg.com/vue-router@3.0.2/dist/vue-router.min.js",
@@ -30,9 +31,9 @@ function resolve(dir) {
 }
 
 const plugins = [];
-//通过readdirSync分析dll目录读取文件名动态注册AddAssetHtmlWebpackPlugin和webpack.DllReferencePlugin
+// 通过 readdirSync 分析 dll 目录读取文件名
+// 动态注册 AddAssetHtmlWebpackPlugin 和webpack.DllReferencePlugin
 if (IS_PRODUCTION) {
-  //开发环境会导致调试困难所以只在生产使用
   fs.readdirSync("./dll").forEach(file => {
     if (/.*\.dll.js/.test(file)) {
       plugins.push(
@@ -75,14 +76,6 @@ module.exports = {
       .options({
         symbolId: "icon-[name]"
       })
-      .end();
-    config.module // typescript
-      .rule("ts")
-      .test(/\.ts$/)
-      .exclude.add(resolve("./node_modules"))
-      .end()
-      .use("babel-loader")
-      .loader("babel-loader")
       .end();
     // 修改images loader 添加svg处理
     config.module
@@ -130,11 +123,7 @@ module.exports = {
     }
   },
   configureWebpack: {
-    plugins,
-    // 添加 ts 的后缀
-    resolve: {
-      extensions: [".vue", ".js", ".ts"]
-    }
+    plugins
   },
 
   css: {
@@ -150,7 +139,6 @@ module.exports = {
   devServer: {
     host: "0.0.0.0",
     overlay: true,
-    port: 8088,
-    open: true
+    port: 8088
   }
 };

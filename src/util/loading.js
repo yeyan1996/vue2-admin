@@ -1,7 +1,7 @@
 import { Loading } from "element-ui";
-import { ElLoadingComponent } from "element-ui/types/loading";
-let needLoadingRequestCount: number = 0;
-let loading: ElLoadingComponent;
+
+let needLoadingRequestCount = 0;
+let loading;
 export function startLoading() {
   loading = Loading.service({
     lock: true,

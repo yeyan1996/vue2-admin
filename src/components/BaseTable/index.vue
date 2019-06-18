@@ -11,7 +11,6 @@
 
     <template v-for="(column, index) in columns">
       <!--正常表头(不需要处理)-->
-
       <el-table-column
         v-if="isCommonTableColumn(column) && !column.hidden"
         :key="index"

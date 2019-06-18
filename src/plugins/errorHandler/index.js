@@ -11,6 +11,7 @@ const isPromise = promise =>
 let isRegistered = false;
 
 const registerVue = vm => {
+  if (isRegistered) return;
   let methods = vm.$options.methods || {};
   Object.keys(methods).forEach(key => {
     let method = methods[key];
@@ -46,8 +47,6 @@ const registerVuex = vm => {
         : res;
     });
   });
-  // 防止多次注册导致性能问题
-  isRegistered = true;
 };
 
 // 捕获 methods 中 async 函数的错误，省去 try/catch
@@ -59,6 +58,8 @@ export default {
       beforeCreate() {
         registerVuex(this);
         registerVue(this);
+        // 防止多次注册导致性能问题
+        isRegistered = true;
       }
     });
   }
