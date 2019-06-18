@@ -8,7 +8,7 @@ Vue项目模版
 * [x] 清晰的项目结构
 * [x] webpack配置+性能优化
 * [x] axios封装
-* [x] util辅助函数（TypeScript支持）
+* [x] util辅助函数
 * [x] 表单组件(有待改进)
 * [x] 表格组件
 * [x] svg图标组件
