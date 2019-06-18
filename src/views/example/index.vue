@@ -2,7 +2,7 @@
   <div id="example">
     <div>
       <span class="svg-icon__label">svg图标</span>
-      <base-icon name="chart" @click="handleClick"></base-icon>
+      <base-icon name="chart" @click="handleChangeName"></base-icon>
     </div>
 
     <base-form
@@ -60,7 +60,7 @@ export default {
     showTableData(res) {
       this.tableData = res.tableData;
     },
-    handleClick() {
+    handleChangeName() {
       //mergeForm使用了Proxy拦截所以不需要手动刷新视图
       this.mergeForm.name = "yeyan1996";
     },
