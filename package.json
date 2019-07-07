@@ -1,6 +1,6 @@
 {
   "name": "vue-template",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -36,6 +36,7 @@
     "svg-sprite-loader": "^4.1.6",
     "uglifyjs-webpack-plugin": "^2.1.3",
     "vue-template-compiler": "^2.6.10",
-    "webpack-bundle-analyzer": "^3.3.2"
+    "webpack-bundle-analyzer": "^3.3.2",
+    "webpack-cli": "^3.3.5"
   }
 }

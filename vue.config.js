@@ -111,6 +111,9 @@ module.exports = {
         ]);
       config.optimization.minimizer([
         new UglifyjsWebpackPlugin({
+          // 生产环境推荐关闭 sourcemap 防止源码泄漏
+          // 服务端通过前端发送的行列，根据 sourcemap 转为源文件位置
+          // sourceMap: true,
           uglifyOptions: {
             warnings: false,
             compress: {

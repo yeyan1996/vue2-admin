@@ -26,9 +26,7 @@ const commonRoutes = [
       {
         path: "index",
         component: () =>
-          import(
-            /* webpackChunkName:"example-index" */ "@/views/example/index"
-          ),
+          import(/* webpackChunkName:"example-index" */ "@/views/example/index"),
         name: "example-index",
         meta: { title: "index" }
       }
