@@ -53,8 +53,8 @@ export default {
       showTableHeader: false
     };
   },
-  mounted() {
-    this.getInfo();
+  async mounted() {
+    await this.getInfo();
   },
   methods: {
     showTableData(res) {
