@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Router from "vue-router";
-import layout from "@/views/layout";
 import configRoutes from "./modules";
 
 Vue.use(Router);
@@ -15,24 +14,6 @@ const commonRoutes = [
     path: "/404",
     component: () =>
       import(/* webpackChunkName:"notFound" */ "@/views/notFound")
-  },
-  {
-    path: "/example",
-    component: layout,
-    meta: {
-      title: "example"
-    },
-    children: [
-      {
-        path: "index",
-        component: () =>
-          import(
-            /* webpackChunkName:"example-index" */ "@/views/example/index"
-          ),
-        name: "example-index",
-        meta: { title: "index" }
-      }
-    ]
   },
   { path: "*", redirect: "/404" }
 ];
