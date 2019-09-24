@@ -14,7 +14,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "./dll"),
     filename: "[name].dll.js",
-    // 库全局变量的名字，如何暴露模块(这里即vendors)
+    // 库全局变量的名字，如何暴露模块
     library: "[name]"
   },
   plugins: [
