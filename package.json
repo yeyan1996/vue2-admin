@@ -1,12 +1,11 @@
 {
   "name": "vue-template",
-  "version": "1.5.2",
-  "private": true,
+  "version": "1.5.3",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "dll": "webpack --config webpack.dll.js",
-    "stage": "vue-cli-service build --mode stage",
-    "release": "vue-cli-service build --mode release",
+    "dll": "rm -rf .dll && webpack --config webpack.dll.js",
+    "stage": "vue-cli-service build --mode stage --report",
+    "release": "vue-cli-service build --mode release  && rm -rf dist/**/*.map",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -36,7 +35,6 @@
     "svg-sprite-loader": "^4.1.6",
     "uglifyjs-webpack-plugin": "^2.1.3",
     "vue-template-compiler": "^2.6.10",
-    "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.3.5"
   }
 }

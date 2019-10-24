@@ -1,13 +1,16 @@
-const { useCDN, useAnalyzer } = require("./src/config.json");
-const webpack = require("webpack");
 const fs = require("fs");
 const path = require("path");
 const AddAssetHtmlWebpackPlugin = require("add-asset-html-webpack-plugin"); //注入dll的链接库
-const UglifyjsWebpackPlugin = require("uglifyjs-webpack-plugin");
+const UglifyJsWebpackPlugin = require("uglifyjs-webpack-plugin");
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
-const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
-const IS_PRODUCTION = process.env.NODE_ENV === "production";
-// 由于公有 cdn 不稳定，这里提供 cdn 的配置项但是用 dllPlugin 做替代
+const { useCDN } = require("./src/config.json");
+const { DllReferencePlugin } = require("webpack");
+const {
+  DLL_DIR,
+  IS_PRODUCTION,
+  IS_TEST,
+} = require("./webpack.config");
+// 由于公有 cdn 不稳定，这里提供 cdn 的配置项但是用 DllPlugin 做替代
 const cdn = [
   "https://unpkg.com/vue@2.6.9/dist/vue.min.js",
   "https://unpkg.com/vue-router@3.0.2/dist/vue-router.min.js",
@@ -25,35 +28,29 @@ const externals = {
   axios: "axios",
   "js-cookie": "Cookies"
 };
-
-function resolve(dir) {
-  return path.join(__dirname, dir);
-}
-
 const plugins = [];
-// 通过 readdirSync 分析 dll 目录读取文件名
-// 动态注册 AddAssetHtmlWebpackPlugin 和webpack.DllReferencePlugin
-if (IS_PRODUCTION) {
-  fs.readdirSync("./dll").forEach(file => {
-    if (/.*\.dll.js/.test(file)) {
+// 通过 readdirSync 分析 .dll 目录读取文件名
+// 动态注册 AddAssetHtmlWebpackPlugin 和 webpack.DllReferencePlugin
+if (IS_PRODUCTION && fs.existsSync(DLL_DIR)) {
+  fs.readdirSync(DLL_DIR).forEach(file => {
+    if (/.*\.dll\.js$/.test(file)) {
       plugins.push(
         new AddAssetHtmlWebpackPlugin({
-          filepath: path.resolve(__dirname, `./dll/${file}`),
-          outputPath: "dll",
-          publicPath: "dll"
+          filepath: path.resolve(__dirname, DLL_DIR, file),
+          outputPath: "js", // 输出路径，相对于默认的输出路径（dist）
+          publicPath: "js" // 引入文件路径
         })
       );
     }
     if (/.*\.manifest.json/.test(file)) {
       plugins.push(
-        new webpack.DllReferencePlugin({
-          manifest: path.resolve(__dirname, `./dll/${file}`)
+        new DllReferencePlugin({
+          manifest: path.resolve(__dirname, DLL_DIR, file)
         })
       );
     }
   });
 }
-
 module.exports = {
   publicPath: "",
   chainWebpack: config => {
@@ -62,14 +59,14 @@ module.exports = {
      */
     // config.plugins.delete("prefetch").delete("preload");
     config.resolve.alias
-      .set("@", resolve("src/"))
-      .set("util", resolve("src/util"))
-      .set("mixins", resolve("src/mixins"));
+      .set("@", path.join(__dirname, "src/"))
+      .set("util", path.join(__dirname, "src/util"))
+      .set("mixins", path.join(__dirname, "src/mixins"));
     config.module.rule("svg").uses.clear();
     config.module
       .rule("svg")
       .test(/\.svg$/)
-      .include.add(resolve("src/icons")) //处理svg目录
+      .include.add(path.join(__dirname, "src/icons")) //处理svg目录
       .end()
       .use("svg-sprite-loader")
       .loader("svg-sprite-loader")
@@ -81,12 +78,9 @@ module.exports = {
     config.module
       .rule("images")
       .test(/\.(png|jpe?g|gif|webp|svg)(\?.*)?$/)
-      .exclude.add(resolve("src/icons"))
+      .exclude.add(path.join(__dirname, "src/icons"))
       .end();
     if (IS_PRODUCTION) {
-      if (useAnalyzer) {
-        config.plugin("analyzer").use(BundleAnalyzerPlugin);
-      }
       if (useCDN) {
         config.plugin("html").tap(args => {
           args[0].cdn = cdn;
@@ -95,10 +89,10 @@ module.exports = {
         config.externals(externals);
       }
       config.plugin("html").tap(args => {
-        args[0].minify.minifyCSS = true; //压缩html中的css
+        args[0].minify.minifyCSS = true; //压缩 index.html 中的css
         return args;
       });
-      //gzip需要nginx进行配合
+      /** 注意：gzip需要nginx进行配合 */
       config
         .plugin("compression")
         .use(CompressionWebpackPlugin)
@@ -110,10 +104,10 @@ module.exports = {
           }
         ]);
       config.optimization.minimizer([
-        new UglifyjsWebpackPlugin({
+        new UglifyJsWebpackPlugin({
           // 生产环境推荐关闭 sourcemap 防止源码泄漏
           // 服务端通过前端发送的行列，根据 sourcemap 转为源文件位置
-          // sourceMap: true,
+          sourceMap: IS_TEST,
           uglifyOptions: {
             warnings: false,
             compress: {

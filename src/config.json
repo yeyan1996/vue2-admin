@@ -1,6 +1,5 @@
 {
   "pageSize":50,
   "timeout":180000,
-  "useCDN":false,
-  "useAnalyzer":false
+  "useCDN":false
 }

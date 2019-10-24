@@ -1,6 +1,6 @@
 <!--函数式节流组件-->
 <script>
-import throttle from "lodash/throttle"; //按需引入
+import throttle from "lodash/throttle";
 
 export default {
   name: "base-throttle",
