@@ -1,12 +1,11 @@
 # Vue-template
 Vue项目模版
 
-去除了 compose 字段组合功能的分支，代码实现更加简洁清晰
-
 [博客地址](https://juejin.im/post/5c76843af265da2ddd4a6dd0)
 
 * [x] 清晰的项目结构
 * [x] webpack配置+性能优化
+* [x] 自动生成 Dll 的脚本
 * [x] axios封装
 * [x] util辅助函数
 * [x] 表单组件(有待改进)

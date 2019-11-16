@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const AddAssetHtmlWebpackPlugin = require("add-asset-html-webpack-plugin"); //注入dll的链接库
+const AddAssetHtmlWebpackPlugin = require("add-asset-html-webpack-plugin"); // 给 index.html 注入 dll 生成的链接库
 const UglifyJsWebpackPlugin = require("uglifyjs-webpack-plugin");
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
 const { useCDN } = require("./src/config.json");

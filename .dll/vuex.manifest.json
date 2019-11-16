@@ -1,1 +1,0 @@
-{"name":"vuex","content":{"./node_modules/webpack/buildin/global.js":{"id":5,"buildMeta":{"providedExports":true}},"./node_modules/vuex/dist/vuex.esm.js":{"id":106,"buildMeta":{"exportsType":"namespace","providedExports":["default","Store","install","mapState","mapMutations","mapGetters","mapActions","createNamespacedHelpers"]}}}}

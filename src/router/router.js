@@ -19,8 +19,6 @@ const commonRoutes = [
 ];
 
 const router = new Router({
-  // mode: 'history',
-  // base: process.env.BASE_URL,
   routes: [...configRoutes, ...commonRoutes]
 });
 

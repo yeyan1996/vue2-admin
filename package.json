@@ -1,11 +1,11 @@
 {
   "name": "vue-template",
-  "version": "1.5.3",
+  "version": "1.6.0",
   "scripts": {
     "serve": "vue-cli-service serve",
     "dll": "rm -rf .dll && webpack --config webpack.dll.js",
-    "stage": "vue-cli-service build --mode stage --report",
-    "release": "vue-cli-service build --mode release  && rm -rf dist/**/*.map",
+    "stage": "node script/genDll.js && vue-cli-service build --mode stage --report",
+    "release": "node script/genDll.js && vue-cli-service build --mode release && rm -rf dist/**/*.map",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
