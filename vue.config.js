@@ -2,9 +2,13 @@ const fs = require("fs");
 const path = require("path");
 const AddAssetHtmlWebpackPlugin = require("add-asset-html-webpack-plugin"); // 给 index.html 注入 dll 生成的链接库
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
-const { useCDN } = require("./src/config.json");
 const { DllReferencePlugin } = require("webpack");
-const { DLL_DIR, IS_PRODUCTION, IS_TEST } = require("./webpack.config");
+const {
+  DLL_DIR,
+  IS_PRODUCTION,
+  IS_TEST,
+  USE_CDN
+} = require("./webpack.config");
 
 // 由于公有 cdn 不稳定，这里提供 cdn 的配置项但是用 DllPlugin 做替代
 const cdn = [
@@ -77,7 +81,7 @@ module.exports = {
       .exclude.add(path.join(__dirname, "src/icons"))
       .end();
     if (IS_PRODUCTION) {
-      if (useCDN) {
+      if (USE_CDN) {
         config.plugin("html").tap(args => {
           args[0].cdn = cdn;
           return args;
