@@ -2,7 +2,11 @@
   <div id="example">
     <div>
       <span class="svg-icon__label">svg图标</span>
-      <base-icon name="chart" @click="handleChangeName"></base-icon>
+      <base-icon
+        name="chart"
+        class="icon"
+        @click="handleChangeName"
+      ></base-icon>
     </div>
 
     <base-form
@@ -99,7 +103,15 @@ export default {
   padding: 40px;
 }
 
+.icon {
+  cursor: pointer;
+}
+
 .svg-icon__label {
   margin-right: 15px;
+}
+
+.base-table {
+  margin-bottom: 25px;
 }
 </style>

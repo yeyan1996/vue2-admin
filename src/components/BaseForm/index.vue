@@ -1,5 +1,6 @@
 <template>
   <el-form
+    class="base-form"
     v-bind="$attrs"
     :model="Model"
     :ref="form"

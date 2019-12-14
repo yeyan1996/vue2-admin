@@ -6,6 +6,7 @@
     :data="data"
     :empty-text="emptyText"
     :stripe="stripe"
+    class="base-table"
   >
     <slot name="font" />
 
