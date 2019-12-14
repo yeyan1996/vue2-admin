@@ -31,7 +31,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .message {
   position: fixed;
   top: 30px;

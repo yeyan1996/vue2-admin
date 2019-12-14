@@ -5,16 +5,32 @@ const { timeout } = require("../config.json");
 
 const axiosRequestConfig = {
   baseURL: process.env.VUE_APP_BASE_API, //api请求的baseURL
-  timeout: timeout,
-  headers: {
-    "X-Requested-With": "XMLHttpRequest"
-  }
+  timeout: timeout
 };
+
+const CUSTOM_CODE_MAP = {
+  SUCCESS: 0,
+  ERROR: 1
+};
+
+const HTTP_CODE_MAP = {
+  400: "请求错误",
+  401: "未授权，请登录", // clear session
+  403: "拒绝访问",
+  404: "请求地址出错",
+  405: "不允许的请求方法",
+  408: "请求超时",
+  500: "服务未实现",
+  502: "网关错误",
+  503: "服务不可用",
+  504: "网关超时"
+};
+
 const service = axios.create(axiosRequestConfig);
 
 service.interceptors.request.use(
   config => {
-    // 在发送请求之前做些什么
+    // loading
     showFullScreenLoading();
     return config;
   },
@@ -37,23 +53,15 @@ service.interceptors.response.use(
     tryHideFullScreenLoading();
     //以下状态可根据业务自定义
     switch (response.data.status) {
-      //响应成功，但是服务器返回失败的状态码
-      case "1": {
+      // 响应成功，但是服务器返回失败的状态码
+      case CUSTOM_CODE_MAP.ERROR: {
         Vue.prototype.$message({
           message: response.data.message || "未知错误",
           type: "error"
         });
         return Promise.reject(response);
       }
-      //没有登录权限
-      case "-1": {
-        Vue.prototype.$message({
-          message: `登录失效请重新登录`,
-          type: "error"
-        });
-        return Promise.reject(response);
-      }
-      case "0": {
+      case CUSTOM_CODE_MAP.SUCCESS: {
         return response.data.result;
       }
       default:
@@ -67,45 +75,9 @@ service.interceptors.response.use(
   },
   error => {
     if (error && error.response) {
-      switch (error.response.status) {
-        case 400:
-          error.message = "请求错误";
-          break;
-        case 401:
-          error.message = "未授权，请登录";
-          break;
-        case 403:
-          error.message = "拒绝访问";
-          break;
-        case 404:
-          error.message = `请求地址出错:地址${error.response.config.url}`;
-          break;
-        case 405:
-          error.message = `不允许的请求方法`;
-          break;
-        case 408:
-          error.message = "请求超时";
-          break;
-        case 500:
-          error.message = "服务器内部错误";
-          break;
-        case 501:
-          error.message = "服务未实现";
-          break;
-        case 502:
-          error.message = "网关错误";
-          break;
-        case 503:
-          error.message = "服务不可用";
-          break;
-        case 504:
-          error.message = "网关超时";
-          break;
-        case 505:
-          error.message = "HTTP版本不受支持";
-          break;
-        default:
-          break;
+      const message = HTTP_CODE_MAP[error.response.status];
+      if (message) {
+        error.message = message;
       }
     }
     tryHideFullScreenLoading();

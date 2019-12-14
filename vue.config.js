@@ -1,15 +1,11 @@
 const fs = require("fs");
 const path = require("path");
 const AddAssetHtmlWebpackPlugin = require("add-asset-html-webpack-plugin"); // 给 index.html 注入 dll 生成的链接库
-const UglifyJsWebpackPlugin = require("uglifyjs-webpack-plugin");
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
 const { useCDN } = require("./src/config.json");
 const { DllReferencePlugin } = require("webpack");
-const {
-  DLL_DIR,
-  IS_PRODUCTION,
-  IS_TEST,
-} = require("./webpack.config");
+const { DLL_DIR, IS_PRODUCTION, IS_TEST } = require("./webpack.config");
+
 // 由于公有 cdn 不稳定，这里提供 cdn 的配置项但是用 DllPlugin 做替代
 const cdn = [
   "https://unpkg.com/vue@2.6.9/dist/vue.min.js",
@@ -103,20 +99,16 @@ module.exports = {
             deleteOriginalAssets: false //是否删除源文件
           }
         ]);
-      config.optimization.minimizer([
-        new UglifyJsWebpackPlugin({
-          // 生产环境推荐关闭 sourcemap 防止源码泄漏
-          // 服务端通过前端发送的行列，根据 sourcemap 转为源文件位置
-          sourceMap: IS_TEST,
-          uglifyOptions: {
-            warnings: false,
-            compress: {
-              drop_console: true,
-              drop_debugger: true
-            }
-          }
-        })
-      ]);
+
+      config.optimization.minimizer("terser").tap(args => {
+        // 生产环境推荐关闭 sourcemap 防止源码泄漏
+        // 服务端通过前端发送的行列，根据 sourcemap 转为源文件位置
+        args[0].sourceMap = IS_TEST;
+        args[0].terserOptions.warnings = false;
+        args[0].terserOptions.compress.drop_console = true;
+        args[0].terserOptions.compress.drop_debugger = true;
+        return args;
+      });
     }
   },
   configureWebpack: {
@@ -129,7 +121,7 @@ module.exports = {
       sass: {
         // @/ 是 src/ 的别名
         // 所以这里假设你有 `src/variables.scss` 这个文件
-        data: `
+        prependData: `
         @import '~@/style/mixin.scss';
         @import "~@/style/variables.scss";
         `

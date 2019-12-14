@@ -2,21 +2,20 @@
 
 //表头样式
 #app .el-table {
-  th{
-    text-align:center;
+  th {
+    text-align: center;
   }
+
   th.gutter {
-    display: table-cell ;
+    display: table-cell;
   }
+
   td {
-    text-align: center ;
+    text-align: center;
   }
   //修复表格边缘会有突出一点的线
-  th.is-leaf, .el-table td {
+  th.is-leaf,
+  .el-table td {
     border: none;
   }
 }
-
-
-
-

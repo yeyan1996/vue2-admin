@@ -1,5 +1,5 @@
 const path = require("path");
-const UglifyJsWebpackPlugin = require("uglifyjs-webpack-plugin");
+const TerserWebpackPlugin = require("terser-webpack-plugin");
 const { DllPlugin } = require("webpack"); // 由于 vue-cli 内置了 webpack 所以不需要在 package.json 中声明
 const { DLL_DIR } = require("./webpack.config");
 
@@ -22,9 +22,9 @@ module.exports = {
   optimization: {
     minimizer: [
       // 删除类库文件中的log
-      new UglifyJsWebpackPlugin({
+      new TerserWebpackPlugin({
         sourceMap: true,
-        uglifyOptions: {
+        terserOptions: {
           warnings: false,
           compress: {
             drop_debugger: true,

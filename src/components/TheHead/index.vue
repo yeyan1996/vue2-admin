@@ -1,18 +1,12 @@
 <template>
   <header id="the-head">
-    <span>后台管理系统模版</span>
+    <span>这是一个标题</span>
   </header>
 </template>
 
 <script>
 export default {
-  name: "the-head",
-  data() {
-    return {};
-  },
-  computed: {},
-  mounted() {},
-  methods: {}
+  name: "the-head"
 };
 </script>
 

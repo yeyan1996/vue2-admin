@@ -1,6 +1,8 @@
 # Vue-template
 Vue项目模版
 
+easy-mock 的 mock 服务经常挂，如果一直显示加载中，请多尝试几次-。-
+
 [博客地址](https://juejin.im/post/5c76843af265da2ddd4a6dd0)
 
 * [x] 清晰的项目结构

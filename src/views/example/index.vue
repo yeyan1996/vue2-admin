@@ -19,7 +19,7 @@
 
     <base-table :data="tableData" :columns="columns">
       <template v-slot:testSlot="{ scope }">
-        {{ format(scope.row.testSlot) }}
+        {{ scope.row.testSlot | format }}
       </template>
     </base-table>
 
@@ -41,6 +41,11 @@ import { formApi, radioGroup, cascader } from "@/api/example";
 
 export default {
   name: "example",
+  filters: {
+    format(str) {
+      return `处理后的${str}`;
+    }
+  },
   data() {
     return {
       formApi,
@@ -81,12 +86,9 @@ export default {
       );
     },
     async getInfo() {
-      let [res1, res2] = await Promise.all([radioGroup(), cascader()]);
+      const [res1, res2] = await Promise.all([radioGroup(), cascader()]);
       this.findItem("asyncRadio").attrs.options = res1.options;
       this.findItem("cascader").attrs.options = res2.options;
-    },
-    format(str) {
-      return `处理后的${str}`;
     }
   }
 };
@@ -96,6 +98,7 @@ export default {
 #example {
   padding: 40px;
 }
+
 .svg-icon__label {
   margin-right: 15px;
 }

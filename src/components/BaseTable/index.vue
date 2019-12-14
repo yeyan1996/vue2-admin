@@ -24,8 +24,6 @@
         v-bind="column.attrs || {}"
       >
         <template v-slot="scope">
-          <!--插槽/作用域插槽(Vue2.6+)-->
-          <!--eg.   <template v-slot:testSlot="{scope}" >-->
           <span v-if="column.slot">
             <slot :name="column.slot" :scope="scope" />
           </span>

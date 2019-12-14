@@ -1,19 +1,29 @@
-@import './variables';
+@import "./variables";
 
-@mixin ellipsis{
+@mixin ellipsis {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-@mixin flex($flex-direction:row,$justify-content:center,$align-items:center,$align-content:'',$flex-wrap:wrap){
+@mixin flex(
+  $flex-direction: row,
+  $justify-content: center,
+  $align-items: center,
+  $align-content: "",
+  $flex-wrap: wrap
+) {
   display: flex;
-  flex-direction:$flex-direction;
+  margin-right: 0;
+  flex-direction: $flex-direction;
   flex-wrap: $flex-wrap;
   justify-content: $justify-content;
-  @if $align-content != ''{
-    align-content:$align-content
-  }@else{
+
+  @if $align-content != "" {
+    align-content: $align-content;
+  }
+
+  @else {
     align-items: $align-items;
   }
 }

@@ -9,7 +9,7 @@ import * as directives from "./directives"; // global directives
 import { hideTableHeader } from "util/hideTableHeader";
 import "@/components"; //导入全局组件
 import "@/element/element";
-import "@/style/index.scss"
+import "@/style/index.scss";
 import "normalize.css";
 
 Vue.config.productionTip = false;
