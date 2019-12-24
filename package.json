@@ -44,22 +44,19 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged && git add ."
     }
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
-      "npm run lint",
-      "git add"
+      "npm run lint"
     ],
     "*.vue": [
       "npm run lint",
-      "stylelint --custom-syntax postcss-html --fix",
-      "git add"
+      "stylelint --custom-syntax postcss-html --fix"
     ],
     "*.{css,scss}": [
-      "stylelint --fix",
-      "git add"
+      "stylelint --fix"
     ]
   }
 }
