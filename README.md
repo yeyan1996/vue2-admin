@@ -1,21 +1,18 @@
-# Vue-template
-Vue项目模版
+# Some good practice for Vue project(include basic components，advanced skills)
 
-easy-mock 的 mock 服务经常挂，如果一直显示加载中，请多尝试几次-。-
+English | [中文](./README-zh_CN.md)
 
-[博客地址](https://juejin.im/post/5c76843af265da2ddd4a6dd0)
-
-* [x] 清晰的项目结构
-* [x] webpack配置+性能优化
-* [x] 自动生成 Dll 的脚本
-* [x] axios封装
-* [x] util辅助函数
-* [x] 表单组件(有待改进)
-* [x] 表格组件
-* [x] svg图标组件
-* [x] 自定义弹框组件
-* [x] 函数式组件
-* [x] 通过JavaScript调用的弹框组件
-* [x] 全局组件/路由/状态管理自动注册
-* [x] 自定义指令
-* [x] 捕获系统错误的插件
+* [x] Clear project structure
+* [x] Configuration of webpack(including optimization)
+* [x] Script that automatically generates DLL
+* [x] Axios utils
+* [x] Utils function
+* [x] Form component
+* [x] Table component
+* [x] Svg component
+* [x] Custom dialog component
+* [x] Function component
+* [x] Imperative Calling dialog
+* [x] Global components/router/state management
+* [x] Custom directives
+* [x] Plugin for capturing errors
